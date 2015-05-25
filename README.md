@@ -9,7 +9,7 @@ FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:
  * IkonoTV icon is automatically replaced (only in current apps).
  * Lists all user-installed apps including side-loaded apps.
  * Apps can be easily sorted by click-drag-and-drop.
- * No root required!
+ * **No root required!**
 
 Install FireStarter:
 
