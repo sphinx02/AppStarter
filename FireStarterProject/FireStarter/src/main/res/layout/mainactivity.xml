@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center"
+              android:background="#ff242424" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffce55"
+        android:text="@string/AppName"
+        android:id="@+id/textView"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:autoText="true"
+        android:gravity="center_vertical|right"
+        android:focusable="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:focusable="false"  />
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:theme="@style/AppTheme"
+              android:id="@+id/gridview"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_margin="20dp"
+              android:columnWidth="140dp"
+              android:numColumns="auto_fit"
+              android:stretchMode="columnWidth"
+              android:gravity="center"
+              android:layout_weight="1"
+              android:scrollbarStyle="outsideOverlay"
+              tools:context=".gui.MainActivity"
+              android:listSelector="@drawable/appselector"
+              android:horizontalSpacing="15dp"
+              android:verticalSpacing="20dp"/>
+
+</LinearLayout>

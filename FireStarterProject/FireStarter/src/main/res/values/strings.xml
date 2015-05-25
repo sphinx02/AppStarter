@@ -1,0 +1,6 @@
+<resources>
+    <!-- String resources -->
+    <string name="AmazonHome">Amazon Home</string>
+    <string name="AppName">FireStarter</string>
+    <string name="MoveAppAndClickToDrop">Now move app and click again to drop \n(Press RETURN to CANCEL)</string>
+</resources>
