@@ -24,6 +24,11 @@ ToDo List:
  * Add possibility to uninstall apps
  * Perhaps add possiblity to install and keep updated some apps via FireStarter (e.g. Kodi, Es File Explorer, ..)
 
+Screenshots:
+
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_01.png "Screenshot of FireStarter")
+![Screenshot of Amazon Home with FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_02.png "Screenshot of Amazon Home with FireStarter")
+
 ### Credentials:
 
  * [markdown-editor](https://jbt.github.io/markdown-editor/) for markdown creation
