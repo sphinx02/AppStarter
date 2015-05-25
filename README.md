@@ -37,3 +37,6 @@ Screenshots:
 
  * [markdown-editor](https://jbt.github.io/markdown-editor/) for markdown creation
  * [FiredTVLauncher](https://github.com/Redth/FiredTVLauncher) for a lot of brilliant ideas
+ 
+ 
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KKQ6VU34YGKYS" target="_blank">Buy me a beer if you like it!</a>
