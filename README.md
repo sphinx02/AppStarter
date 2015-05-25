@@ -14,7 +14,7 @@ FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:
 Install FireStarter:
 
  * Install IkonoTV from offical FireTV app store
- * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter</a>, unzip app-apk and sideload/install with adb: 
+ * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
  * _adb install FireStarter_v1.0.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
