@@ -1,11 +1,11 @@
 # FireStarter
 
-FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:
+__FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:__
 
 Visit discussion on XDA-Developers: 
  * [[APP] FireStarter | Non-Root Home Launcher Replacement / App-Drawer for FireTV](http://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135)
 
-Features:
+### Features:
  
  * Similar to Redth's <a href="https://github.com/Redth/FiredTVLauncher" target="_blank">FiredTVLauncher</a> with better home-detection and auto start on IkonoTV.
  * Starts itself on FireTV-Startup.
@@ -16,7 +16,7 @@ Features:
  * Apps can be easily sorted by click-drag-and-drop.
  * **No root required!**
 
-Install FireStarter:
+### Install FireStarter:
 
  * Install IkonoTV from offical FireTV app store
  * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://www.howtogeek.com/216386/how-to-sideload-android-apps-onto-your-amazon-fire-tv-and-fire-tv-stick/" target="_blank">this one</a>)
@@ -27,7 +27,7 @@ Install FireStarter:
  * IkonoTV icon is replaced at next startup (hold select + play button for a few seconds)
  * Enjoy :)
 
-ToDo List:
+### ToDo List:
  * Create better replacement / app icon for FireStarter
  * Add better install instructions for users that dont know adb..
  * Select on which app FireStarter starts itself (currently fixed to IkonoTV)
@@ -36,7 +36,7 @@ ToDo List:
  * Add possibility to uninstall apps
  * Perhaps add possiblity to install and keep updated some apps via FireStarter (e.g. Kodi, Es File Explorer, ..)
 
-Screenshots:
+### Screenshots:
 
 ![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_01.png "Screenshot of FireStarter")
 ![Screenshot of Amazon Home with FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_02.png "Screenshot of Amazon Home with FireStarter")
