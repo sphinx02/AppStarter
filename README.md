@@ -24,7 +24,7 @@ Visit discussion on XDA-Developers:
 
 ### Install FireStarter:
 
- * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://www.howtogeek.com/216386/how-to-sideload-android-apps-onto-your-amazon-fire-tv-and-fire-tv-stick/" target="_blank">this one</a>)
+ * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
  * _adb install -r FireStarter-v2.0.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
