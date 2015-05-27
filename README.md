@@ -1,4 +1,7 @@
-# FireStarter
+FireStarter
+=========
+
+[![MPLv2 License](http://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
 
 __FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:__
 
