@@ -12,6 +12,7 @@ Visit discussion on XDA-Developers:
  * Default: Starts itself on FireTV-Startup.
  * Default: Starts automatically when Home-Button is clicked.
  * Default: Starts amazon home when Home-Button is double-clicked. 
+ * You can e.g. start Kodi on double-click and FireStarter on single-click.
  * Lists all user-installed apps including side-loaded apps.
  * Apps can be easily sorted by click-drag-and-drop.
  * Apps can be hidden from app drawer
@@ -21,7 +22,7 @@ Visit discussion on XDA-Developers:
 
  * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://www.howtogeek.com/216386/how-to-sideload-android-apps-onto-your-amazon-fire-tv-and-fire-tv-stick/" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
- * _adb install FireStarter_v2.0.apk_
+ * _adb install -r FireStarter-v2.0.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
  * Enjoy :)
