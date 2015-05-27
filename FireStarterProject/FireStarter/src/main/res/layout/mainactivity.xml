@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:gravity="center"
-              android:background="#ff242424" >
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ffffce55"
-        android:text="@string/AppName"
-        android:id="@+id/textView"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:autoText="true"
-        android:gravity="center_vertical|right"
-        android:focusable="false" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider"
-        android:focusable="false"  />
-
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:theme="@style/AppTheme"
-              android:id="@+id/gridview"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="20dp"
-              android:columnWidth="140dp"
-              android:numColumns="auto_fit"
-              android:stretchMode="columnWidth"
-              android:gravity="center"
-              android:layout_weight="1"
-              android:scrollbarStyle="outsideOverlay"
-              tools:context=".gui.MainActivity"
-              android:listSelector="@drawable/appselector"
-              android:horizontalSpacing="15dp"
-              android:verticalSpacing="20dp"/>
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:baselineAligned="false"
+              android:orientation="horizontal"
+              android:background="@drawable/mainbackground"
+              tools:context=".ItemListActivity" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:paddingRight="20dp"
+                  android:gravity="center">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffce55"
+            android:text="@string/AppName"
+            android:id="@+id/textView"
+            android:paddingTop="30dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="20dp"
+            android:autoText="true"
+            android:gravity="center_vertical|right"
+            android:focusable="false"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:focusable="false"
+            android:layout_marginBottom="50dp" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:dividerHeight="0dp"
+            android:divider="#00000000"
+            android:listSelector="@drawable/itemselector" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/item_detail_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"/>
 
 </LinearLayout>
+

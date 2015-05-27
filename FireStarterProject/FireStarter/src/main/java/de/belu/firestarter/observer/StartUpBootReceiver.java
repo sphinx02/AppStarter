@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
 
 /**
@@ -19,13 +20,25 @@ public class StartUpBootReceiver extends BroadcastReceiver
         {
             Log.d(StartUpBootReceiver.class.getName(), "Received BOOT_COMPLETED intent.");
 
-            // Start foreground service
-            Intent startIntent = new Intent(context, ForeGroundService.class);
-            startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
-            context.startService(startIntent);
+            // Get settings provider
+            SettingsProvider settingsProvider = SettingsProvider.getInstance(context);
 
-            // Start firedTV launcher
-            Tools.startFiredTv(context);
+            // Check if background observer is active
+            if(settingsProvider.getBackgroundObserverEnabled())
+            {
+                // Start foreground service
+                Intent startIntent = new Intent(context, ForeGroundService.class);
+                startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
+                context.startService(startIntent);
+
+                // Start startup-activity
+                String startPackage = settingsProvider.getStartupPackage();
+                Log.d(StartUpBootReceiver.class.getName(), "Startup start package is: " + startPackage);
+                if(startPackage != null && !startPackage.equals(""))
+                {
+                    Tools.startAppByPackageName(context, startPackage);
+                }
+            }
         }
     }
 }

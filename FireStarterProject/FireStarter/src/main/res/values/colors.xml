@@ -2,4 +2,6 @@
 <resources>
     <color name="divider">#ffffce55</color>
     <color name="appselectorhighlight">#ffffce55</color>
+    <color name="prefdivider">#FFFFFF</color>
+    <color name="whitedivider">#FFFFFF</color>
 </resources>

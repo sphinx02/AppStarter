@@ -5,16 +5,19 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import de.belu.firestarter.R;
-import de.belu.firestarter.tools.Tools;
 import de.belu.firestarter.gui.MainActivity;
+import de.belu.firestarter.tools.SettingsProvider;
+import de.belu.firestarter.tools.Tools;
 
 
 /**
@@ -42,8 +45,63 @@ public class ForeGroundService extends Service
     /** Simple binder to interact with the service */
     private final IBinder mBinder = new TestRunnerLocalBinder();
 
-    /** BackgroundObserver to check active TopActivity */
-    private Thread mBackgroundObserverThread = null;
+    /** Handler to call things on uiThread */
+    private Handler mHandler;
+
+    /** Access to settings */
+    private SettingsProvider mSettings;
+
+    /** BackgroundObserver to observe home-button */
+    private BackgroundHomeButtonObserverThread mBackgroundHomeButtonObserverThread = null;
+
+    /** Handler for Home-Button events */
+    BackgroundHomeButtonObserverThread.OnHomeButtonClickedListener mHomeButtonClickedListener = new BackgroundHomeButtonObserverThread.OnHomeButtonClickedListener()
+    {
+        @Override
+        public void onHomeButtonClicked()
+        {
+            Log("Received single home button click.");
+
+            // Start single click package
+            String startPackage = mSettings.getSingleClickApp();
+            Log("Single-click start package is: " + startPackage);
+            if(startPackage != null && !startPackage.equals(""))
+            {
+                Tools.startAppByPackageName(ForeGroundService.this, startPackage);
+            }
+        }
+
+        @Override
+        public void onHomeButtonDoubleClicked()
+        {
+            Log("Received double home button click.");
+
+            // Start single click package
+            String startPackage = mSettings.getDoubleClickApp();
+            Log("Double-click start package is: " + startPackage);
+            if(startPackage != null && !startPackage.equals(""))
+            {
+                Tools.startAppByPackageName(ForeGroundService.this, startPackage);
+            }
+        }
+    };
+
+    /** Handler for error-events */
+    BackgroundHomeButtonObserverThread.OnServiceErrorListener mOnServiceErrorListener = new BackgroundHomeButtonObserverThread.OnServiceErrorListener()
+    {
+        @Override
+        public void onServiceError(final String message)
+        {
+            ForeGroundService.this.runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Toast.makeText(ForeGroundService.this, "FireStarter: " + message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    };
 
     /**
      * @return Binder object
@@ -78,8 +136,11 @@ public class ForeGroundService extends Service
     @Override
     public void onCreate()
     {
-        Log("onCreate");
         super.onCreate();
+
+        Log("onCreate");
+        mHandler = new Handler();
+        mSettings = SettingsProvider.getInstance(this);
     }
 
     @Override
@@ -97,9 +158,6 @@ public class ForeGroundService extends Service
             Log("Foreground Service already running.");
             return;
         }
-
-        // Try to replace ikono-tv image
-        Tools.replaceIkonoIcon(this);
 
         Log("Start Foreground Service");
         startForeground(FOREGROUNDSERVICE_ID, getCompatNotification());
@@ -135,20 +193,22 @@ public class ForeGroundService extends Service
         runnerThreadStop();
 
         Log("Start background thread.");
-        mBackgroundObserverThread = new BackgroundObserverThread(this);
-        mBackgroundObserverThread.start();
+        mBackgroundHomeButtonObserverThread = new BackgroundHomeButtonObserverThread();
+        mBackgroundHomeButtonObserverThread.setOnHomeButtonClickedListener(mHomeButtonClickedListener);
+        mBackgroundHomeButtonObserverThread.setOnServiceErrorListener(mOnServiceErrorListener);
+        mBackgroundHomeButtonObserverThread.start();
     }
 
     /** Stops the test runner */
     private void runnerThreadStop()
     {
-        if(mBackgroundObserverThread != null && mBackgroundObserverThread.isAlive())
+        if(mBackgroundHomeButtonObserverThread != null && mBackgroundHomeButtonObserverThread.isAlive())
         {
             Log("Shut down background thread.");
-            mBackgroundObserverThread.interrupt();
+            mBackgroundHomeButtonObserverThread.stopThread();
             try
             {
-                mBackgroundObserverThread.join();
+                mBackgroundHomeButtonObserverThread.join(2000);
             }
             catch(Exception e)
             {
@@ -157,12 +217,29 @@ public class ForeGroundService extends Service
                 String errorReason = errors.toString();
                 Log("Failed to stop thread: \n" + errorReason);
             }
+
+            if(mBackgroundHomeButtonObserverThread != null && mBackgroundHomeButtonObserverThread.isAlive())
+            {
+                Log("Force shut down background thread.");
+                mBackgroundHomeButtonObserverThread.interrupt();
+                try
+                {
+                    mBackgroundHomeButtonObserverThread.join();
+                }
+                catch (Exception e)
+                {
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    String errorReason = errors.toString();
+                    Log("Failed to stop thread: \n" + errorReason);
+                }
+            }
         }
         else
         {
             Log("No background thread running..");
         }
-        mBackgroundObserverThread = null;
+        mBackgroundHomeButtonObserverThread = null;
     }
 
     /**
@@ -191,6 +268,12 @@ public class ForeGroundService extends Service
         Notification notification = builder.build();
 
         return notification;
+    }
+
+    /** Runs runnables on the UI-Thread */
+    private void runOnUiThread(Runnable runnable)
+    {
+        mHandler.post(runnable);
     }
 
     /**

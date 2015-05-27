@@ -3,4 +3,11 @@
     <string name="AmazonHome">Amazon Home</string>
     <string name="AppName">FireStarter</string>
     <string name="MoveAppAndClickToDrop">Now move app and click again to drop \n(Press RETURN to CANCEL)</string>
+    <string name="loading">loading</string>
+    <string name="background_observation">Background Observation</string>
+    <string name="enable_background_observation_desc">Enable background observation of home-button and startup-event.</string>
+    <string name="enable_background_observation_title">Enable background observation.</string>
+    <string name="iptitle">IP Address</string>
+    <string name="hostnametitle">Hostname</string>
+    <string name="notfound">not found..</string>
 </resources>

@@ -30,7 +30,16 @@ public class AppInfo extends ApplicationInfo
     }
 
     public void setDisplayName(String displayName) { mDisplayName = displayName; }
-    public String getDisplayName() { return mDisplayName; }
+    public String getDisplayName()
+    {
+        String retVal = mDisplayName;
+        if(retVal == null || retVal.equals(""))
+        {
+            retVal = packageName;
+        }
+        return retVal;
+    }
+
 
     public void setDisplayIcon(Drawable icon) { mDisplayIcon = icon; }
     public Drawable getDisplayIcon() { return mDisplayIcon; }

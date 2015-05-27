@@ -18,12 +18,10 @@
     <TextView
         android:id="@+id/textLabel"
         android:singleLine="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:text="@string/AppName"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold" />
+        android:gravity="center" />
 
 </LinearLayout>

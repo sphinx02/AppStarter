@@ -16,9 +16,11 @@ import android.widget.TextView;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.tools.AppInfo;
@@ -30,8 +32,10 @@ import de.belu.firestarter.tools.Tools;
  */
 public class InstalledAppsAdapter extends BaseAdapter
 {
+    /** Context we are currently running in */
     private Context mContext;
 
+    /** List of installed apps */
     private List<AppInfo> mInstalledApps;
 
     /** Default launcher package */
@@ -40,33 +44,78 @@ public class InstalledAppsAdapter extends BaseAdapter
     /** Settings */
     private SettingsProvider mSettings;
 
+    /** Include this app */
+    private Boolean mIncludeOwnApp;
+
+    /** Show hidden apps */
+    private Boolean mShowHiddenApps;
+
+    /**
+     * Create new InstalledAppsAdapter
+     * @param c Current context
+     */
     public InstalledAppsAdapter(Context c)
     {
+        this(c, false, false);
+    }
+
+    /**
+     * Create new InstalledAppsAdapter
+     * @param c Current context
+     * @param includeOwnApp Include this app (de.belu.firestarter)
+     */
+    public InstalledAppsAdapter(Context c, Boolean includeOwnApp, Boolean showHiddenApps)
+    {
         mContext = c;
+        mIncludeOwnApp = includeOwnApp;
+        mShowHiddenApps = showHiddenApps;
 
         // Get default-launcher package
         mDefaultLauncherPackage = Tools.getLauncherPackageName(mContext);
 
-        mSettings = new SettingsProvider(mContext);
+        // Get instance of settingsprovider
+        mSettings = SettingsProvider.getInstance(mContext);
 
+        // Now load all installed apps
         loadInstalledApps();
     }
 
+    /**
+     * @return Count of installed apps
+     */
     public int getCount()
     {
         return mInstalledApps.size();
     }
 
+    /**
+     * @param position Position of item to be returned
+     * @return Item on position
+     */
     public Object getItem(int position)
     {
         return mInstalledApps.get(position);
     }
 
+    /**
+     * Currently not used..
+     */
     public long getItemId(int position)
     {
         return position;
     }
 
+    /**
+     * @return List of found apps
+     */
+    public List<AppInfo> getAppList()
+    {
+        return mInstalledApps;
+    }
+
+    /**
+     * Store current package-order in settings
+     */
     public void storeNewPackageOrder()
     {
         List<String> packageList = new ArrayList<String>();
@@ -77,6 +126,11 @@ public class InstalledAppsAdapter extends BaseAdapter
         mSettings.setPackageOrder(packageList);
     }
 
+    /**
+     * Move certain item to certain position
+     * @param app Item to move
+     * @param position Position to move to
+     */
     public void moveAppToPosition(AppInfo app, int position)
     {
         if(mInstalledApps.contains(app))
@@ -97,7 +151,9 @@ public class InstalledAppsAdapter extends BaseAdapter
         }
     }
 
-    // create a new ImageView for each item referenced by the Adapter
+    /**
+     * @return View of the given position
+     */
     public View getView(int position, View convertView, ViewGroup parent)
     {
         // Get act app
@@ -130,8 +186,23 @@ public class InstalledAppsAdapter extends BaseAdapter
         return gridView;
     }
 
+    /**
+     * Load all installed apps and order them correctly
+     */
     public void loadInstalledApps()
     {
+        // Get hashset of hidden apps
+        Set<String> hiddenApps;
+        if(mShowHiddenApps)
+        {
+            // Create empty hidden-list
+            hiddenApps = new HashSet<String>();
+        }
+        else
+        {
+            hiddenApps = mSettings.getHiddenApps();
+        }
+
         // Get list of installed apps
         PackageManager pm = mContext.getPackageManager();
         List<ApplicationInfo> installedApplications = pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -140,7 +211,10 @@ public class InstalledAppsAdapter extends BaseAdapter
         Map<String, ApplicationInfo> appMap = new LinkedHashMap<String, ApplicationInfo>();
         for(ApplicationInfo installedApplication : installedApplications)
         {
-            appMap.put(installedApplication.packageName, installedApplication);
+            if(!hiddenApps.contains(installedApplication.packageName))
+            {
+                appMap.put(installedApplication.packageName, installedApplication);
+            }
         }
 
         // Get order of last run
@@ -170,20 +244,27 @@ public class InstalledAppsAdapter extends BaseAdapter
         }
 
         // Now handle all other apps
+        Boolean includeSysApps = mSettings.getShowSystemApps();
         for(ApplicationInfo installedApplication : appMap.values())
         {
+            if(includeSysApps &&  (mIncludeOwnApp || !installedApplication.packageName.equals(ownPackageName)))
+            {
+                addAppToCurrentList(installedApplication);
+            }
             // Sort out system apps & app itself
-            if((installedApplication.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 1 &&
+            else if((installedApplication.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 1 &&
                     (installedApplication.flags & ApplicationInfo.FLAG_SYSTEM) != 1 &&
-                    !installedApplication.packageName.equals(ownPackageName) &&
-                    !installedApplication.packageName.equals(Tools.IKONOTVPACKAGE))
+                    (mIncludeOwnApp || !installedApplication.packageName.equals(ownPackageName)))
             {
                 addAppToCurrentList(installedApplication);
             }
         }
     }
 
-    public void addAppToCurrentList(ApplicationInfo app)
+    /**
+     * @param app App to be added to current apps-list
+     */
+    private void addAppToCurrentList(ApplicationInfo app)
     {
         if(app.packageName.equals(mDefaultLauncherPackage))
         {

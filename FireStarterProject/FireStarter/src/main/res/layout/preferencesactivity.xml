@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:padding="10dp" >
+
+    <PreferenceCategory
+        android:title="@string/background_observation">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefBackgroundObservationEnabled"
+            android:summary="@string/enable_background_observation_desc"
+            android:title="@string/enable_background_observation_title" >
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:key="prefStartupPackage"
+            android:summary="App that is startet on FireTV startup"
+            android:title="Startup Application" />
+
+        <ListPreference
+            android:key="prefHomeSingleClickPackage"
+            android:summary="App that is startet on home button single click."
+            android:title="Home Button Single Click Application" />
+
+        <ListPreference
+            android:key="prefHomeDoubleClickPackage"
+            android:summary="App that is startet on home button double click."
+            android:title="Home Button Double Click Application" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowSysApps"
+            android:summary="Show also system apps in app list."
+            android:title="Show system apps" >
+        </CheckBoxPreference>
+
+        <MultiSelectListPreference
+            android:dialogTitle="Hidden Apps"
+            android:key="prefHiddenApps"
+            android:summary="Apps that shall not be shown in apps list."
+            android:title="Hidden Apps" />
+        <!--
+        <ListPreference
+            android:key="prefSyncFrequency"
+            android:entries="@array/syncFrequency"
+            android:summary="@string/pref_sync_frequency_summary"
+            android:entryValues="@array/syncFrequencyValues"
+            android:title="@string/pref_sync_frequency" /> -->
+    </PreferenceCategory>
+
+</PreferenceScreen>
