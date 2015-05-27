@@ -26,6 +26,7 @@ Visit discussion on XDA-Developers:
  * _adb install -r FireStarter-v2.0.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
+ * ADB-Debugging needs to stay enabled (do not disable ADB-Debugging after installation).
  * Enjoy :)
  
 ### Changelog:
