@@ -11,7 +11,7 @@ Visit discussion on XDA-Developers:
 ### Features:
  
  * Similar to Redth's <a href="https://github.com/Redth/FiredTVLauncher" target="_blank">FiredTVLauncher</a> with __real home-detection__ 
- * __Even double-home-click are captured!!__
+ * __Even double-home-clicks are captured!!__
  * Completely configurable what happens on startup-, home-button-single-click or home-button-double-click
  * Default: Starts itself on FireTV-Startup.
  * Default: Starts automatically when Home-Button is clicked.
