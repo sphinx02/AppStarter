@@ -39,6 +39,7 @@ Visit discussion on XDA-Developers:
  * Fixed problems with FireTV-Stick
  * Added FireStarter version to info-view
  
+>
 #### v2.0
  * __Real Home-Button detection__, even double-home-button-clicks are captured
  * Completely new GUI with settings and additional Infos
