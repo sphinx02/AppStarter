@@ -47,4 +47,25 @@
         android:background="@color/whitedivider"
         android:focusable="false" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/firestarterversiontitle"
+        android:textSize="@dimen/textsizeinfotitle"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notfound"
+        android:textSize="@dimen/textsizeinfo"
+        android:id="@+id/firestarterversion"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
 </LinearLayout>

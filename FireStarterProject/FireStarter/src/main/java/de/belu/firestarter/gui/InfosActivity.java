@@ -1,6 +1,7 @@
 package de.belu.firestarter.gui;
 
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,16 @@ public class InfosActivity extends Fragment
 
         TextView hostname = (TextView) rootView.findViewById(R.id.hostname);
         hostname.setText(Tools.getHostName(getActivity().getResources().getString(R.string.notfound)));
+
+        TextView firestarterversion = (TextView) rootView.findViewById(R.id.firestarterversion);
+        try
+        {
+            firestarterversion.setText( "v" + getActivity().getPackageManager().getPackageInfo(getActivity().getApplication().getPackageName(), 0).versionName);
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
 
         return rootView;
     }
