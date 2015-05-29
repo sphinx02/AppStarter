@@ -49,6 +49,7 @@ public class LeftBarItemsListAdapter extends BaseAdapter
         // Add 3 sample items.
         addItem(new FragmentListItem("All Apps", AppActivity.class.getName()));
         addItem(new FragmentListItem("Infos", InfosActivity.class.getName()));
+        addItem(new FragmentListItem("Updates", UpdateActivity.class.getName()));
         addItem(new FragmentListItem("Settings", PreferenceActivity.class.getName()));
     }
 

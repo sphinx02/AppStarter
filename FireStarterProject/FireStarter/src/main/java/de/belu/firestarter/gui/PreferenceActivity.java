@@ -2,9 +2,14 @@ package de.belu.firestarter.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -26,10 +31,26 @@ public class PreferenceActivity extends PreferenceFragment
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+
+        // Set padding to settings view:
+        Integer pad = Math.round(getActivity().getResources().getDimension(R.dimen.settingspadding));
+        Integer padBottom = Math.round(getActivity().getResources().getDimension(R.dimen.settingspadding_bottom));
+        if (rootView != null)
+        {
+            rootView.setPadding(pad,pad,pad,padBottom);
+        }
+
+        return rootView;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.layout.preferencesactivity);
+        addPreferencesFromResource(R.xml.preferencesactivity);
 
         InstalledAppsAdapter actAppsAdapter = new InstalledAppsAdapter(getActivity(), true, false);
         List<AppInfo> actApps = actAppsAdapter.getAppList();
@@ -77,7 +98,34 @@ public class PreferenceActivity extends PreferenceFragment
         hiddenAppsList.setEntries(hiddenEntries);
         hiddenAppsList.setEntryValues(hiddenEntryValues);
         hiddenAppsList.setDefaultValue(mSettings.getHiddenApps());
+
+        EditTextPreference doubleClickInterval = (EditTextPreference) findPreference("prefClickInterval");
+        doubleClickInterval.setDefaultValue(mSettings.getDoubleClickInterval());
+        doubleClickInterval.setText(mSettings.getDoubleClickInterval().toString());
+        doubleClickInterval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                return mSettings.setDoubleClickInterval(newValue, true);
+            }
+        });
+
+        EditTextPreference delayAction = (EditTextPreference) findPreference("prefDelayedAction");
+        delayAction.setDefaultValue(mSettings.getDelayedActionTiming());
+        delayAction.setText(mSettings.getDelayedActionTiming().toString());
+        delayAction.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                return mSettings.setDelayedActionTiming(newValue, true);
+            }
+        });
+
     }
+
+
 
     @Override
     public void onPause()

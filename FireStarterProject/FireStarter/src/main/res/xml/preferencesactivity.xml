@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+
+
+    <PreferenceCategory android:title="@string/applist_settings">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowSysApps"
+            android:summary="@string/showsysapps_desc"
+            android:title="@string/showsysapps_title" />
+
+        <MultiSelectListPreference
+            android:dialogTitle="Hidden Apps"
+            android:key="prefHiddenApps"
+            android:summary="@string/hiddenapps_desc"
+            android:title="@string/hiddenapps_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefAutoSelectFirstIcon"
+            android:summary="@string/autoselectfirsticon_desc"
+            android:title="@string/autoselectfirsricon_title" />
+
+        <!--
+        <ListPreference
+            android:key="prefSyncFrequency"
+            android:entries="@array/syncFrequency"
+            android:summary="@string/pref_sync_frequency_summary"
+            android:entryValues="@array/syncFrequencyValues"
+            android:title="@string/pref_sync_frequency" /> -->
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/background_observation">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefBackgroundObservationEnabled"
+            android:summary="@string/enable_background_observation_desc"
+            android:title="@string/enable_background_observation_title" >
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:key="prefStartupPackage"
+            android:summary="@string/startup_app_desc"
+            android:title="@string/startup_app_title" />
+
+        <ListPreference
+            android:key="prefHomeSingleClickPackage"
+            android:summary="@string/singleclick_app_desc"
+            android:title="@string/singleclick_app_title" />
+
+        <ListPreference
+            android:key="prefHomeDoubleClickPackage"
+            android:summary="@string/doubleclick_app_desc"
+            android:title="@string/doubleclick_app_title" />
+     </PreferenceCategory>
+
+
+     <PreferenceCategory android:title="@string/settings_timings">
+
+         <EditTextPreference
+             android:digits="0123456789"
+             android:key="prefClickInterval"
+             android:summary="@string/doubleclick_interval_desc"
+             android:title="@string/doubleclick_interval_title" />
+
+         <EditTextPreference
+             android:digits="0123456789"
+             android:key="prefDelayedAction"
+             android:summary="@string/delayed_action_desc"
+             android:title="@string/delayed_action_title" />
+
+     </PreferenceCategory>
+
+</PreferenceScreen>

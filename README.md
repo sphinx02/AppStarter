@@ -10,16 +10,17 @@ Visit discussion on XDA-Developers:
 
 ### Features:
  
- * Similar to Redth's <a href="https://github.com/Redth/FiredTVLauncher" target="_blank">FiredTVLauncher</a> with __real home-detection__ 
+ * Similar to Redth's <a href="https://github.com/Redth/FiredTVLauncher" target="_blank">FiredTVLauncher</a> with __real home-detection__ .
  * __Even double-home-clicks are captured!!__
- * Completely configurable what happens on startup-, home-button-single-click or home-button-double-click
+ * Completely configurable what happens on startup-, home-button-single-click or home-button-double-click.
  * Default: Starts itself on FireTV-Startup.
  * Default: Starts automatically when Home-Button is clicked.
  * Default: Starts amazon home when Home-Button is double-clicked. 
  * You can e.g. start Kodi on double-click and FireStarter on single-click.
  * Lists all user-installed apps including side-loaded apps.
  * Apps can be easily sorted by click-drag-and-drop.
- * Apps can be hidden from app drawer
+ * Apps can be hidden from app drawer.
+ * Automatic updates from app itself.
  * __No root required!__
 
 ### Install FireStarter:
@@ -34,6 +35,13 @@ Visit discussion on XDA-Developers:
  
 ### Changelog:
 
+>
+#### v2.2
+ * Added adjustable double-click interval and action-delay
+ * Reordered settings
+ * When going to app-drawer, first icon is automatically focused (configurable in settings)
+ * Update service (able to update itself)
+ 
 >
 #### v2.1
  * Fixed problems with FireTV-Stick
@@ -51,9 +59,10 @@ Visit discussion on XDA-Developers:
 
 ### Screenshots:
 
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_03.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_04.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_05.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_06.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_07.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_08.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_09.png "Screenshot of FireStarter")
 
 ### Why using it and how it works:
  * FireStarter is for all people who dont want to root (and therefore loose warranty) their FireTV's.

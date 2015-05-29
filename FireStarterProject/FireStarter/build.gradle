@@ -8,8 +8,8 @@ android {
         applicationId "de.belu.firestarter"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 3
-        versionName "2.1"
+        versionCode 7
+        versionName "2.2"
     }
 
     compileOptions {
@@ -27,4 +27,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'org.json:json:20141113'
 }

@@ -13,11 +13,16 @@ import android.widget.Toast;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.gui.MainActivity;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
+import de.belu.firestarter.tools.Updater;
 
 
 /**
@@ -53,6 +58,9 @@ public class ForeGroundService extends Service
 
     /** BackgroundObserver to observe home-button */
     private BackgroundHomeButtonObserverThread mBackgroundHomeButtonObserverThread = null;
+
+    /** Timer to check for updates */
+    private Timer mTimer;
 
     /** Handler for Home-Button events */
     BackgroundHomeButtonObserverThread.OnHomeButtonClickedListener mHomeButtonClickedListener = new BackgroundHomeButtonObserverThread.OnHomeButtonClickedListener()
@@ -192,11 +200,45 @@ public class ForeGroundService extends Service
     {
         runnerThreadStop();
 
+        // Schedule task every hour
+        Log("Start update task.");
+        Integer everyXminute = 60;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
+        Calendar calendar = Calendar.getInstance();
+        Log("Current time: " + sdf.format(calendar.getTime()));
+        calendar.add(Calendar.MINUTE, 2);
+        Log("Start: " + sdf.format(calendar.getTime()) + " | Every: " + everyXminute + " minutes");
+
+        mTimer = new Timer();
+        TimerTask timerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    Log("Start scheduled update-check:");
+                    Updater updater = new Updater();
+                    updater.checkForUpdate(true);
+                }
+                catch(Exception e)
+                {
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    String errorReason = errors.toString();
+                    Log("ERROR in timertask: \n" + errorReason);
+                }
+            }
+        };
+        mTimer.schedule(timerTask, calendar.getTime(), 1000*60*everyXminute);
+
         Log("Start background thread.");
         mBackgroundHomeButtonObserverThread = new BackgroundHomeButtonObserverThread();
         mBackgroundHomeButtonObserverThread.setOnHomeButtonClickedListener(mHomeButtonClickedListener);
         mBackgroundHomeButtonObserverThread.setOnServiceErrorListener(mOnServiceErrorListener);
         mBackgroundHomeButtonObserverThread.start();
+
+
     }
 
     /** Stops the test runner */
@@ -240,6 +282,28 @@ public class ForeGroundService extends Service
             Log("No background thread running..");
         }
         mBackgroundHomeButtonObserverThread = null;
+
+        // Then check for running timers
+        if(mTimer != null)
+        {
+            try
+            {
+                Log("Stop timed update checks..");
+                mTimer.cancel();
+                mTimer = null;
+            }
+            catch(Exception e)
+            {
+                StringWriter errors = new StringWriter();
+                e.printStackTrace(new PrintWriter(errors));
+                String errorReason = errors.toString();
+                Log("Failed to stop timed update checks: \n" + errorReason);
+            }
+        }
+        else
+        {
+            Log("No timed update check is active at the moment.");
+        }
     }
 
     /**

@@ -9,15 +9,14 @@ import java.io.SequenceInputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
+import de.belu.firestarter.tools.SettingsProvider;
+
 
 /**
  * Runs in the Background and observes the home button clicks
  */
 public class BackgroundHomeButtonObserverThread extends Thread
 {
-    /** Time to wait for second click in milliseconds */
-    private final static Integer WAITFORSECONDCLICK = 270;
-
     /** Name / IP of the device to be connected */
     private final static String CONNECTDEVICE = "localhost";
     
@@ -53,6 +52,9 @@ public class BackgroundHomeButtonObserverThread extends Thread
 
     /** Process object */
     Process mProcess = null;
+
+    /** Instance of settings */
+    private SettingsProvider mSettings = SettingsProvider.getInstance(null);
     
     /**
      * Create new BackgroundObserverThread
@@ -367,14 +369,26 @@ public class BackgroundHomeButtonObserverThread extends Thread
                                     {
                                         try
                                         {
-                                            Thread.sleep(WAITFORSECONDCLICK);
+                                            Thread.sleep(mSettings.getDoubleClickInterval());
                                             if(mSecondClickInTime)
                                             {
+                                                Integer delaySleepTime = mSettings.getDelayedActionTiming();
+                                                if(delaySleepTime > 0)
+                                                {
+                                                    Thread.sleep(mSettings.getDelayedActionTiming());
+                                                }
+
                                                 // Fire double click event
                                                 fireHomeButtonDoubleClickedEvent();
                                             }
                                             else
                                             {
+                                                Integer delaySleepTime = mSettings.getDelayedActionTiming();
+                                                if(delaySleepTime > 0)
+                                                {
+                                                    Thread.sleep(mSettings.getDelayedActionTiming());
+                                                }
+
                                                 // Fire single click event
                                                 fireHomeButtonClickedEvent();
                                             }

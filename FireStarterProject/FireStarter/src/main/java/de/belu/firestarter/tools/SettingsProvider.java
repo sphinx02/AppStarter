@@ -3,11 +3,14 @@ package de.belu.firestarter.tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import de.belu.firestarter.R;
 
 /**
  * Settings Provider to store all Settins of the app
@@ -26,6 +29,9 @@ public class SettingsProvider
         }
         return SettingsProvider._instance;
     }
+
+    /** Stored context */
+    Context mContext;
 
     /** Instance of app-shared preferences */
     SharedPreferences mPreferences;
@@ -57,9 +63,22 @@ public class SettingsProvider
     /** Show system apps */
     Boolean mShowSystemApps = false;
 
+    /** Time to wait for second click in milliseconds */
+    Integer mDoubleClickInterval = 270;
+
+    /** Time to wait before click events are thrown */
+    Integer mDelayedAction = 10;
+
+    /** Indicates if user have seen update but do not want to update */
+    Boolean mHaveUpdateSeen = false;
+
+    /** Automatically select first icon when switching to app-drawer */
+    Boolean mAutoSelectFirstIcon = true;
+
     /** Create a the instace of SettingsProvider */
     private SettingsProvider(Context context)
     {
+        mContext = context;
         mStartupPackage = context.getApplicationInfo().packageName;
         mSingleClickApp = context.getApplicationInfo().packageName;
         mDoubleClickApp = ""; // No action
@@ -95,6 +114,28 @@ public class SettingsProvider
     {
         readValues();
         return mBackgroundObserverEnabled;
+    }
+
+    public void setHaveUpdateSeen(Boolean value)
+    {
+        mHaveUpdateSeen = value;
+        storeValues();
+    }
+    public Boolean getHaveUpdateSeen()
+    {
+        readValues();
+        return mHaveUpdateSeen;
+    }
+
+    public void setAutoSelectFirstIcon(Boolean value)
+    {
+        mAutoSelectFirstIcon = value;
+        storeValues();
+    }
+    public Boolean getAutoSelectFirstIcon()
+    {
+        readValues();
+        return mAutoSelectFirstIcon;
     }
 
     public void setStartupPackage(String startupPackage)
@@ -152,6 +193,71 @@ public class SettingsProvider
         return mShowSystemApps;
     }
 
+    public Boolean setDoubleClickInterval(Object doubleClickInterval, Boolean simulate)
+    {
+        Boolean retVal = numberCheck(doubleClickInterval, 100, 500);
+        if(!simulate && retVal)
+        {
+            setDoubleClickInterval(Integer.valueOf(doubleClickInterval.toString()));
+        }
+        return retVal;
+    }
+    public void setDoubleClickInterval(Integer doubleClickInterval)
+    {
+        mDoubleClickInterval = doubleClickInterval;
+        storeValues();
+    }
+    public Integer getDoubleClickInterval()
+    {
+        readValues();
+        return mDoubleClickInterval;
+    }
+
+    public Boolean setDelayedActionTiming(Object delayedAction, Boolean simulate)
+    {
+        Boolean retVal = numberCheck(delayedAction, 0, 500);
+        if(retVal && !simulate)
+        {
+            setDelayedActionTiming(Integer.valueOf(delayedAction.toString()));
+        }
+        return retVal;
+    }
+    public void setDelayedActionTiming(Integer delayedAction)
+    {
+        mDelayedAction = delayedAction;
+        storeValues();
+    }
+    public Integer getDelayedActionTiming()
+    {
+        readValues();
+        return mDelayedAction;
+    }
+
+    private boolean numberCheck(Object newValue, Integer min, Integer max)
+    {
+        Boolean retVal = false;
+
+        try
+        {
+            if(!newValue.toString().equals("")  &&  newValue.toString().matches("\\d*") )
+            {
+                Integer value = Integer.valueOf(newValue.toString());
+                if(value >= min && value <= max)
+                {
+                    retVal = true;
+                }
+            }
+        }
+        catch(Exception ignore){}
+
+        if(!retVal)
+        {
+            Toast.makeText(mContext, newValue + " " + mContext.getResources().getString(R.string.is_invalid_number), Toast.LENGTH_SHORT).show();
+        }
+
+        return retVal;
+    }
+
     /**
      * Read values from settings
      */
@@ -184,6 +290,12 @@ public class SettingsProvider
         // BackgroundObserverEnabled
         mBackgroundObserverEnabled = mPreferences.getBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
 
+        // Have update seen
+        mHaveUpdateSeen = mPreferences.getBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
+
+        // Auto select first icon
+        mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
         // Startup-package
         mStartupPackage = mPreferences.getString("prefStartupPackage", mStartupPackage);
 
@@ -198,6 +310,12 @@ public class SettingsProvider
 
         // Show sys apps
         mShowSystemApps = mPreferences.getBoolean("prefShowSysApps", mShowSystemApps);
+
+        // Double click interval
+        setDoubleClickInterval(mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString()), false);
+
+        // Action delay (on clicks)
+        setDelayedActionTiming(mPreferences.getString("prefDelayedAction", mDelayedAction.toString()), false);
 
         // Set is loaded flag
         mIsLoaded = true;
@@ -224,6 +342,12 @@ public class SettingsProvider
         // BackgroundObserverEnabled
         editor.putBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
 
+        // Update seen
+        editor.putBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
+
+        // Auto select first icon
+        editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
         // Startup package
         editor.putString("prefStartupPackage", mStartupPackage);
 
@@ -238,6 +362,12 @@ public class SettingsProvider
 
         // Show sys apps
         editor.putBoolean("prefShowSysApps", mShowSystemApps);
+
+        // Double click interval
+        editor.putString("prefClickInterval", mDoubleClickInterval.toString());
+
+        // Action delay (on clicks)
+        editor.putString("prefDelayedAction", mDelayedAction.toString());
 
 
         editor.commit();

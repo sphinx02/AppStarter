@@ -20,9 +20,11 @@ public class MainActivity extends Activity
     private final static Integer PADDINGNORMAL = 5;
     private final static Integer PADDINGSELECTED = 30;
 
-    ListView mListView;
-    Integer mPaddingNormal;
-    Integer mPaddingSelected;
+    private ListView mListView;
+    private Integer mPaddingNormal;
+    private Integer mPaddingSelected;
+    private Fragment mLastSetFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +62,7 @@ public class MainActivity extends Activity
                 try
                 {
                     Fragment fragment = (Fragment)Class.forName(LeftBarItemsListAdapter.ITEMS.get(position).className).getConstructor().newInstance();
+                    mLastSetFragment = fragment;
 
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -93,9 +96,36 @@ public class MainActivity extends Activity
         super.onResume();
     }
 
+    /** Trigger update */
+    public void triggerUpdate()
+    {
+        try
+        {
+            UpdateActivity fragment = (UpdateActivity)Class.forName(UpdateActivity.class.getName()).getConstructor().newInstance();
+            fragment.triggerUpdateOnStartup();
+            mLastSetFragment = fragment;
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.item_detail_container, fragment);
+            fragmentTransaction.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onBackPressed()
     {
-        // Prevent default..
+        // Check if there is a receiver fragment
+        if(mLastSetFragment != null && mLastSetFragment instanceof CustomFragment)
+        {
+            CustomFragment actFragment = (CustomFragment)mLastSetFragment;
+            ((CustomFragment) mLastSetFragment).onBackPressed();
+        }
+
+        // Prevent default by not calling super class..
     }
 }
