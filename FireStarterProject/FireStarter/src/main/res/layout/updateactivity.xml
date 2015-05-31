@@ -67,4 +67,11 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom"
+        android:text="@string/about_firestarter"
+        android:textSize="@dimen/textsizeinfo" />
+
 </LinearLayout>

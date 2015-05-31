@@ -100,7 +100,7 @@ public class PreferenceActivity extends PreferenceFragment
         hiddenAppsList.setDefaultValue(mSettings.getHiddenApps());
 
         EditTextPreference doubleClickInterval = (EditTextPreference) findPreference("prefClickInterval");
-        doubleClickInterval.setDefaultValue(mSettings.getDoubleClickInterval());
+        doubleClickInterval.setDefaultValue(mSettings.getDoubleClickInterval().toString());
         doubleClickInterval.setText(mSettings.getDoubleClickInterval().toString());
         doubleClickInterval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
         {
@@ -112,7 +112,7 @@ public class PreferenceActivity extends PreferenceFragment
         });
 
         EditTextPreference delayAction = (EditTextPreference) findPreference("prefDelayedAction");
-        delayAction.setDefaultValue(mSettings.getDelayedActionTiming());
+        delayAction.setDefaultValue(mSettings.getDelayedActionTiming().toString());
         delayAction.setText(mSettings.getDelayedActionTiming().toString());
         delayAction.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
         {
@@ -133,11 +133,10 @@ public class PreferenceActivity extends PreferenceFragment
         super.onPause();
 
         // Force read-settings
-        SettingsProvider settingsProvider = SettingsProvider.getInstance(this.getActivity());
-        settingsProvider.readValues(true);
+        mSettings.readValues(true);
 
         // Check if background observer is active
-        if(settingsProvider.getBackgroundObserverEnabled())
+        if(mSettings.getBackgroundObserverEnabled())
         {
             // Start foreground service
             Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);

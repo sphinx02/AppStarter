@@ -1,5 +1,6 @@
 package de.belu.firestarter.observer;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -54,13 +55,16 @@ public class BackgroundHomeButtonObserverThread extends Thread
     Process mProcess = null;
 
     /** Instance of settings */
-    private SettingsProvider mSettings = SettingsProvider.getInstance(null);
+    private SettingsProvider mSettings;
     
     /**
      * Create new BackgroundObserverThread
      */
-    public BackgroundHomeButtonObserverThread()
+    public BackgroundHomeButtonObserverThread(Context context)
     {
+        // Get settings instance
+        mSettings = SettingsProvider.getInstance(context);
+
         // Set our priority to minimal
         this.setPriority(Thread.MIN_PRIORITY);
     }

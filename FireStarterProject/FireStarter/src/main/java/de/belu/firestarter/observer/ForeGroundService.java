@@ -233,7 +233,7 @@ public class ForeGroundService extends Service
         mTimer.schedule(timerTask, calendar.getTime(), 1000*60*everyXminute);
 
         Log("Start background thread.");
-        mBackgroundHomeButtonObserverThread = new BackgroundHomeButtonObserverThread();
+        mBackgroundHomeButtonObserverThread = new BackgroundHomeButtonObserverThread(this);
         mBackgroundHomeButtonObserverThread.setOnHomeButtonClickedListener(mHomeButtonClickedListener);
         mBackgroundHomeButtonObserverThread.setOnServiceErrorListener(mOnServiceErrorListener);
         mBackgroundHomeButtonObserverThread.start();

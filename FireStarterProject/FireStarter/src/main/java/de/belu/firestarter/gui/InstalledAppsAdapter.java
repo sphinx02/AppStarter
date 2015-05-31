@@ -208,21 +208,37 @@ public class InstalledAppsAdapter extends BaseAdapter
         List<ApplicationInfo> installedApplications = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
         // Put them into a map with packagename as keyword for faster handling
+        Boolean includeSysApps = mSettings.getShowSystemApps();
+        String ownPackageName = mContext.getApplicationContext().getPackageName();
         Map<String, ApplicationInfo> appMap = new LinkedHashMap<String, ApplicationInfo>();
         for(ApplicationInfo installedApplication : installedApplications)
         {
             if(!hiddenApps.contains(installedApplication.packageName))
             {
-                appMap.put(installedApplication.packageName, installedApplication);
+                // Check for system app
+                Boolean isSystemApp = ((installedApplication.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1 ||
+                                       (installedApplication.flags & ApplicationInfo.FLAG_SYSTEM) == 1);
+
+                // If amazon-home, mark not as system app
+                if(isSystemApp && installedApplication.packageName.equals(mDefaultLauncherPackage))
+                {
+                    isSystemApp = false;
+                }
+
+                if(includeSysApps || !isSystemApp)
+                {
+                    if((mIncludeOwnApp || !installedApplication.packageName.equals(ownPackageName)))
+                    {
+                        appMap.put(installedApplication.packageName, installedApplication);
+                    }
+                }
             }
         }
 
         // Get order of last run
         List<String> packageOrder = mSettings.getPackageOrder();
 
-        // Get own package name to sort out
-        String ownPackageName = mContext.getApplicationContext().getPackageName();
-
+        // Create new list of apps
         mInstalledApps = new ArrayList<AppInfo>();
 
         // First handle all apps of the last run
@@ -244,21 +260,9 @@ public class InstalledAppsAdapter extends BaseAdapter
         }
 
         // Now handle all other apps
-        Boolean includeSysApps = mSettings.getShowSystemApps();
         for(ApplicationInfo installedApplication : appMap.values())
         {
-            if(includeSysApps &&  (mIncludeOwnApp || !installedApplication.packageName.equals(ownPackageName)))
-            {
-                addAppToCurrentList(installedApplication);
-            }
-            // Sort out system apps & app itself
-            else if((installedApplication.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 1 &&
-                    (installedApplication.flags & ApplicationInfo.FLAG_SYSTEM) != 1 &&
-                    (mIncludeOwnApp || !installedApplication.packageName.equals(ownPackageName)))
-            {
-                addAppToCurrentList(installedApplication);
-            }
-        }
+            addAppToCurrentList(installedApplication);        }
     }
 
     /**

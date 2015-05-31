@@ -62,12 +62,14 @@
      <PreferenceCategory android:title="@string/settings_timings">
 
          <EditTextPreference
+             android:numeric="integer"
              android:digits="0123456789"
              android:key="prefClickInterval"
              android:summary="@string/doubleclick_interval_desc"
              android:title="@string/doubleclick_interval_title" />
 
          <EditTextPreference
+             android:numeric="integer"
              android:digits="0123456789"
              android:key="prefDelayedAction"
              android:summary="@string/delayed_action_desc"

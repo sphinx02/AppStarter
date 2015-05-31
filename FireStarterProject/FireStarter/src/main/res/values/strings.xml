@@ -23,9 +23,9 @@
     <string name="hiddenapps_title">Hidden Apps</string>
     <string name="applist_settings">App Listing Settings</string>
     <string name="settings_timings">Observer Timings</string>
-    <string name="doubleclick_interval_desc">Define the time in milliseconds (between 100 - 500) to wait for the second click</string>
+    <string name="doubleclick_interval_desc">Define the time in milliseconds (between 100 - 1000) to wait for the second click</string>
     <string name="doubleclick_interval_title">Double click interval</string>
-    <string name="delayed_action_desc">Define the time in milliseconds (between 0 - 500) the action (that follows a click or a double click) is delayed. This can help if sometimes amazon home comes up instead of the configured app.</string>
+    <string name="delayed_action_desc">Define the time in milliseconds (between 0 - 1000) the action (that follows a click or a double click) is delayed. This can help if sometimes amazon home comes up instead of the configured app.</string>
     <string name="delayed_action_title">Click action delay</string>
     <string name="is_invalid_number">is invalid for this setting!</string>
     <string name="update_currentversion">Current FireStarter Version</string>
@@ -35,4 +35,6 @@
     <string name="update_hitcheckfor">Hit check for update to check for latest version.</string>
     <string name="autoselectfirsticon_desc">Auto select the first icon when switching to the app drawer (All Apps).</string>
     <string name="autoselectfirsricon_title">Auto select first icon (App Drawer)</string>
+    <string name="about_firestarter">FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:\n\nVisit discussion on XDA-Developers:\nhttp://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135\n\nFireStarter is Open-Source, visit project on GitHub:\nhttps://github.com/sphinx02/FireStarter
+</string>
 </resources>

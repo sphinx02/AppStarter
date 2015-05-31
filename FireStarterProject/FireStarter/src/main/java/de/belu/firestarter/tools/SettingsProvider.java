@@ -3,12 +3,16 @@ package de.belu.firestarter.tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 
 import de.belu.firestarter.R;
 
@@ -19,6 +23,9 @@ public class SettingsProvider
 {
     /** Private static singleton object */
     private static SettingsProvider _instance;
+
+    /** Semaphore to limit readValues and writeValues access */
+    private static Semaphore mSemaphore = new Semaphore(1);
 
     /** Synchronized singleton getter (Thread Safe) */
     public static synchronized SettingsProvider getInstance (Context context)
@@ -195,7 +202,7 @@ public class SettingsProvider
 
     public Boolean setDoubleClickInterval(Object doubleClickInterval, Boolean simulate)
     {
-        Boolean retVal = numberCheck(doubleClickInterval, 100, 500);
+        Boolean retVal = numberCheck(doubleClickInterval, 100, 1000);
         if(!simulate && retVal)
         {
             setDoubleClickInterval(Integer.valueOf(doubleClickInterval.toString()));
@@ -215,8 +222,8 @@ public class SettingsProvider
 
     public Boolean setDelayedActionTiming(Object delayedAction, Boolean simulate)
     {
-        Boolean retVal = numberCheck(delayedAction, 0, 500);
-        if(retVal && !simulate)
+        Boolean retVal = numberCheck(delayedAction, 0, 1000);
+        if(!simulate && retVal)
         {
             setDelayedActionTiming(Integer.valueOf(delayedAction.toString()));
         }
@@ -271,54 +278,79 @@ public class SettingsProvider
      */
     public void readValues(Boolean forceRead)
     {
-        // Load only once (hold in singleton)
-        if(mIsLoaded && !forceRead)
+        try
         {
-            return;
+            // ATTENTION: NEVER CALL ONE OF THE GETTERS OR SETTERS IN HERE!
+            // Aquire semaphore
+            mSemaphore.acquire();
+
+            // Load only once (hold in singleton)
+            if (mIsLoaded && !forceRead)
+            {
+                mSemaphore.release();
+                return;
+            }
+
+            // PackageList
+            List<String> packageList = new ArrayList<String>();
+            Integer size = mPreferences.getInt(PACKAGEORDER + "size", 0);
+            for (Integer i = 0; i < size; i++)
+            {
+                String actKey = PACKAGEORDER + i.toString();
+                packageList.add(mPreferences.getString(actKey, null));
+            }
+            mPackageOrder = packageList;
+
+            // BackgroundObserverEnabled
+            mBackgroundObserverEnabled = mPreferences.getBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
+
+            // Have update seen
+            mHaveUpdateSeen = mPreferences.getBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
+
+            // Auto select first icon
+            mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
+            // Startup-package
+            mStartupPackage = mPreferences.getString("prefStartupPackage", mStartupPackage);
+
+            // Single click package
+            mSingleClickApp = mPreferences.getString("prefHomeSingleClickPackage", mSingleClickApp);
+
+            // Double click package
+            mDoubleClickApp = mPreferences.getString("prefHomeDoubleClickPackage", mDoubleClickApp);
+
+            // HiddenApps-List
+            mHiddenAppsList = mPreferences.getStringSet("prefHiddenApps", mHiddenAppsList);
+
+            // Show sys apps
+            mShowSystemApps = mPreferences.getBoolean("prefShowSysApps", mShowSystemApps);
+
+            // Double click interval
+            String pref = mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString());
+            if(setDoubleClickInterval(pref, true))
+            {
+                mDoubleClickInterval = Integer.valueOf(pref);
+            }
+
+            // Action delay (on clicks)
+            pref = mPreferences.getString("prefDelayedAction", mDelayedAction.toString());
+            if(setDelayedActionTiming(pref, true))
+            {
+                mDelayedAction = Integer.valueOf(pref);
+            }
+
+            // Set is loaded flag
+            mIsLoaded = true;
+        }
+        catch(Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(SettingsProvider.class.getName(), "Exception while reading settings: \n" + errorReason);
         }
 
-        // PackageList
-        List<String> packageList = new ArrayList<String>();
-        Integer size = mPreferences.getInt(PACKAGEORDER + "size", 0);
-        for(Integer i=0; i<size; i++)
-        {
-            String actKey = PACKAGEORDER + i.toString();
-            packageList.add(mPreferences.getString(actKey, null));
-        }
-        mPackageOrder = packageList;
-
-        // BackgroundObserverEnabled
-        mBackgroundObserverEnabled = mPreferences.getBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
-
-        // Have update seen
-        mHaveUpdateSeen = mPreferences.getBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
-
-        // Auto select first icon
-        mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
-
-        // Startup-package
-        mStartupPackage = mPreferences.getString("prefStartupPackage", mStartupPackage);
-
-        // Single click package
-        mSingleClickApp = mPreferences.getString("prefHomeSingleClickPackage", mSingleClickApp);
-
-        // Double click package
-        mDoubleClickApp = mPreferences.getString("prefHomeDoubleClickPackage", mDoubleClickApp);
-
-        // HiddenApps-List
-        mHiddenAppsList = mPreferences.getStringSet("prefHiddenApps", mHiddenAppsList);
-
-        // Show sys apps
-        mShowSystemApps = mPreferences.getBoolean("prefShowSysApps", mShowSystemApps);
-
-        // Double click interval
-        setDoubleClickInterval(mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString()), false);
-
-        // Action delay (on clicks)
-        setDelayedActionTiming(mPreferences.getString("prefDelayedAction", mDelayedAction.toString()), false);
-
-        // Set is loaded flag
-        mIsLoaded = true;
+        mSemaphore.release();
     }
 
     /**
@@ -326,50 +358,67 @@ public class SettingsProvider
      */
     public void storeValues()
     {
-        SharedPreferences.Editor editor = mPreferences.edit();
-        editor.clear();
-
-
-        // PackageList
-        editor.putInt(PACKAGEORDER + "size", mPackageOrder.size());
-        for(Integer i = 0; i < mPackageOrder.size(); i++)
+        try
         {
-            String actKey = PACKAGEORDER + i.toString();
-            editor.remove(actKey);
-            editor.putString(actKey, mPackageOrder.get(i));
+            // ATTENTION: NEVER CALL ONE OF THE GETTERS OR SETTERS IN HERE!
+            // Aquire semaphore
+            mSemaphore.acquire();
+
+            // Get editor, clear editor and save new values
+            SharedPreferences.Editor editor = mPreferences.edit();
+            editor.clear();
+
+
+            // PackageList
+            editor.putInt(PACKAGEORDER + "size", mPackageOrder.size());
+            for (Integer i = 0; i < mPackageOrder.size(); i++)
+            {
+                String actKey = PACKAGEORDER + i.toString();
+                editor.remove(actKey);
+                editor.putString(actKey, mPackageOrder.get(i));
+            }
+
+            // BackgroundObserverEnabled
+            editor.putBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
+
+            // Update seen
+            editor.putBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
+
+            // Auto select first icon
+            editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
+            // Startup package
+            editor.putString("prefStartupPackage", mStartupPackage);
+
+            // Single click
+            editor.putString("prefHomeSingleClickPackage", mSingleClickApp);
+
+            // Double click
+            editor.putString("prefHomeDoubleClickPackage", mDoubleClickApp);
+
+            // Hidden apps list
+            editor.putStringSet("prefHiddenApps", mHiddenAppsList);
+
+            // Show sys apps
+            editor.putBoolean("prefShowSysApps", mShowSystemApps);
+
+            // Double click interval
+            editor.putString("prefClickInterval", mDoubleClickInterval.toString());
+
+            // Action delay (on clicks)
+            editor.putString("prefDelayedAction", mDelayedAction.toString());
+
+
+            editor.commit();
+        }
+        catch(Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(SettingsProvider.class.getName(), "Exception while reading settings: \n" + errorReason);
         }
 
-        // BackgroundObserverEnabled
-        editor.putBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
-
-        // Update seen
-        editor.putBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
-
-        // Auto select first icon
-        editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
-
-        // Startup package
-        editor.putString("prefStartupPackage", mStartupPackage);
-
-        // Single click
-        editor.putString("prefHomeSingleClickPackage", mSingleClickApp);
-
-        // Double click
-        editor.putString("prefHomeDoubleClickPackage", mDoubleClickApp);
-
-        // Hidden apps list
-        editor.putStringSet("prefHiddenApps", mHiddenAppsList);
-
-        // Show sys apps
-        editor.putBoolean("prefShowSysApps", mShowSystemApps);
-
-        // Double click interval
-        editor.putString("prefClickInterval", mDoubleClickInterval.toString());
-
-        // Action delay (on clicks)
-        editor.putString("prefDelayedAction", mDelayedAction.toString());
-
-
-        editor.commit();
+        mSemaphore.release();
     }
 }
