@@ -12,12 +12,6 @@ public class AppInfo extends ApplicationInfo
     /** The current context */
     Context mContext;
 
-    /** The displayed name of the app */
-    String mDisplayName;
-
-    /** The displayed icon of the app */
-    Drawable mDisplayIcon;
-
     /**
      * @param app App to be hold
      */
@@ -25,14 +19,14 @@ public class AppInfo extends ApplicationInfo
     {
         super(app);
         mContext = context;
-        mDisplayName = this.loadLabel(mContext.getPackageManager()).toString();
-        mDisplayIcon = this.loadIcon(mContext.getPackageManager());
     }
 
-    public void setDisplayName(String displayName) { mDisplayName = displayName; }
+    /**
+     * @return Name to be displayed
+     */
     public String getDisplayName()
     {
-        String retVal = mDisplayName;
+        String retVal = this.loadLabel(mContext.getPackageManager()).toString();
         if(retVal == null || retVal.equals(""))
         {
             retVal = packageName;
@@ -40,7 +34,11 @@ public class AppInfo extends ApplicationInfo
         return retVal;
     }
 
-
-    public void setDisplayIcon(Drawable icon) { mDisplayIcon = icon; }
-    public Drawable getDisplayIcon() { return mDisplayIcon; }
+    /**
+     * @return Icon to be displayed
+     */
+    public Drawable getDisplayIcon()
+    {
+        return this.loadIcon(mContext.getPackageManager());
+    }
 }

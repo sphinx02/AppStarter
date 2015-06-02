@@ -51,6 +51,7 @@ public class MainActivity extends Activity
 
         // Get listview and set adapter
         mListView = (ListView)findViewById(R.id.listView);
+        final LeftBarItemsListAdapter actAdapter = new LeftBarItemsListAdapter(this);
 
         // Handle item selected changes
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -61,7 +62,7 @@ public class MainActivity extends Activity
                 // Get instance of selected item and set as current fragment
                 try
                 {
-                    Fragment fragment = (Fragment)Class.forName(LeftBarItemsListAdapter.ITEMS.get(position).className).getConstructor().newInstance();
+                    Fragment fragment = (Fragment)Class.forName(actAdapter.getItem(position).className).getConstructor().newInstance();
                     mLastSetFragment = fragment;
 
                     FragmentManager fm = getFragmentManager();
@@ -81,7 +82,7 @@ public class MainActivity extends Activity
 
             }
         });
-        mListView.setAdapter(new LeftBarItemsListAdapter(this));
+        mListView.setAdapter(actAdapter);
     }
 
     @Override

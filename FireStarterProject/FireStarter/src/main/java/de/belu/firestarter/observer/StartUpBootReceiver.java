@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
-import de.belu.firestarter.tools.Tools;
 
 /**
  * Receiver for Boot-Complete Broadcast
@@ -36,7 +36,7 @@ public class StartUpBootReceiver extends BroadcastReceiver
                 Log.d(StartUpBootReceiver.class.getName(), "Startup start package is: " + startPackage);
                 if(startPackage != null && !startPackage.equals(""))
                 {
-                    Tools.startAppByPackageName(context, startPackage);
+                    AppStarter.startAppByPackageName(context, startPackage, true);
                 }
             }
         }

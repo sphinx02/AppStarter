@@ -376,23 +376,11 @@ public class BackgroundHomeButtonObserverThread extends Thread
                                             Thread.sleep(mSettings.getDoubleClickInterval());
                                             if(mSecondClickInTime)
                                             {
-                                                Integer delaySleepTime = mSettings.getDelayedActionTiming();
-                                                if(delaySleepTime > 0)
-                                                {
-                                                    Thread.sleep(mSettings.getDelayedActionTiming());
-                                                }
-
                                                 // Fire double click event
                                                 fireHomeButtonDoubleClickedEvent();
                                             }
                                             else
                                             {
-                                                Integer delaySleepTime = mSettings.getDelayedActionTiming();
-                                                if(delaySleepTime > 0)
-                                                {
-                                                    Thread.sleep(mSettings.getDelayedActionTiming());
-                                                }
-
                                                 // Fire single click event
                                                 fireHomeButtonClickedEvent();
                                             }

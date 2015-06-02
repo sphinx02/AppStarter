@@ -27,13 +27,20 @@ Visit discussion on XDA-Developers:
 
  * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
- * _adb install -r FireStarter-v2.3.apk_
+ * _adb install -r FireStarter-v2.4.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
  * ADB-Debugging needs to stay enabled (do not disable ADB-Debugging after installation).
  * Enjoy :)
  
 ### Changelog:
+
+>
+#### v2.4
+ * Implemented jumpback prevention watchdog which prevents amazon home from coming to the foreground after click-actions (configurable in settings). Thanks <a href="http://forum.xda-developers.com/showpost.php?p=61096104&postcount=43" target="_blank">XDA user harlekinrains</a> for this idea.
+ * Removed now unnessecary action-delay setting.
+ * Added FireTV settings application to apps-list.
+ * Some code cleanup / optimization.
 
 >
 #### v2.3

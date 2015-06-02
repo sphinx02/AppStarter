@@ -17,6 +17,7 @@ import java.io.StringWriter;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.tools.AppInfo;
+import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
 import de.belu.firestarter.tools.Updater;
@@ -61,7 +62,7 @@ public class AppActivity extends CustomFragment
         mHasBeenInOnPauseButNotInDestroy = false;
 
         // Get default-launcher package
-        mDefaultLauncherPackage = Tools.getLauncherPackageName(getActivity());
+        mDefaultLauncherPackage = AppStarter.getLauncherPackageName(getActivity());
 
         mGridView = (GridView) rootView.findViewById(R.id.gridview);
         final GridView gridview = mGridView;
@@ -155,7 +156,7 @@ public class AppActivity extends CustomFragment
                     String packageName = ((AppInfo) parent.getAdapter().getItem(position)).packageName;
 
                     // Now start app
-                    Tools.startAppByPackageName(getActivity(), packageName);
+                    AppStarter.startAppByPackageName(getActivity(), packageName, false);
                 }
             }
         });

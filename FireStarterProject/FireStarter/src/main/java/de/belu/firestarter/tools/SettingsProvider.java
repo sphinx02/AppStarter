@@ -73,8 +73,8 @@ public class SettingsProvider
     /** Time to wait for second click in milliseconds */
     Integer mDoubleClickInterval = 270;
 
-    /** Time to wait before click events are thrown */
-    Integer mDelayedAction = 10;
+    /** Time to watch for jumpbacks */
+    Integer mJumpbackWatchdogTime = 2000;
 
     /** Indicates if user have seen update but do not want to update */
     Boolean mHaveUpdateSeen = false;
@@ -220,24 +220,24 @@ public class SettingsProvider
         return mDoubleClickInterval;
     }
 
-    public Boolean setDelayedActionTiming(Object delayedAction, Boolean simulate)
+    public Boolean setJumpbackWatchdogTime(Object jumpbackWatchdogTime, Boolean simulate)
     {
-        Boolean retVal = numberCheck(delayedAction, 0, 1000);
+        Boolean retVal = numberCheck(jumpbackWatchdogTime, 0, 10000);
         if(!simulate && retVal)
         {
-            setDelayedActionTiming(Integer.valueOf(delayedAction.toString()));
+            setJumpbackWatchdogTime(Integer.valueOf(jumpbackWatchdogTime.toString()));
         }
         return retVal;
     }
-    public void setDelayedActionTiming(Integer delayedAction)
+    public void setJumpbackWatchdogTime(Integer jumpbackWatchdogTime)
     {
-        mDelayedAction = delayedAction;
+        mJumpbackWatchdogTime = jumpbackWatchdogTime;
         storeValues();
     }
-    public Integer getDelayedActionTiming()
+    public Integer getJumpbackWatchdogTime()
     {
         readValues();
-        return mDelayedAction;
+        return mJumpbackWatchdogTime;
     }
 
     private boolean numberCheck(Object newValue, Integer min, Integer max)
@@ -332,11 +332,11 @@ public class SettingsProvider
                 mDoubleClickInterval = Integer.valueOf(pref);
             }
 
-            // Action delay (on clicks)
-            pref = mPreferences.getString("prefDelayedAction", mDelayedAction.toString());
-            if(setDelayedActionTiming(pref, true))
+            // Jumpback watchdog time
+            pref = mPreferences.getString("prefJumpbackWatchdogTime", mJumpbackWatchdogTime.toString());
+            if(setJumpbackWatchdogTime(pref, true))
             {
-                mDelayedAction = Integer.valueOf(pref);
+                mJumpbackWatchdogTime = Integer.valueOf(pref);
             }
 
             // Set is loaded flag
@@ -405,8 +405,8 @@ public class SettingsProvider
             // Double click interval
             editor.putString("prefClickInterval", mDoubleClickInterval.toString());
 
-            // Action delay (on clicks)
-            editor.putString("prefDelayedAction", mDelayedAction.toString());
+            // JumpbackWatchdogTime
+            editor.putString("prefJumpbackWatchdogTime", mJumpbackWatchdogTime.toString());
 
 
             editor.commit();

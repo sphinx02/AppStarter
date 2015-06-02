@@ -1,10 +1,12 @@
 package de.belu.firestarter.gui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +26,17 @@ import java.util.Set;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.tools.AppInfo;
+import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
-import de.belu.firestarter.tools.Tools;
 
 /**
  * Adapter that lists all installed apps
  */
 public class InstalledAppsAdapter extends BaseAdapter
 {
+    /** Virtual package for settings app */
+    public static final String VIRTUAL_SETTINGS_PACKAGE = "de.belu.firestarter.virtual.settings";
+
     /** Context we are currently running in */
     private Context mContext;
 
@@ -71,13 +76,39 @@ public class InstalledAppsAdapter extends BaseAdapter
         mShowHiddenApps = showHiddenApps;
 
         // Get default-launcher package
-        mDefaultLauncherPackage = Tools.getLauncherPackageName(mContext);
+        mDefaultLauncherPackage = AppStarter.getLauncherPackageName(mContext);
 
         // Get instance of settingsprovider
         mSettings = SettingsProvider.getInstance(mContext);
 
         // Now load all installed apps
         loadInstalledApps();
+    }
+
+    /**
+     * Create a launchable intent by package-name
+     * @param context Current context
+     * @param packageName Package name of app
+     * @return Launchable intent
+     */
+    public static Intent getLaunchableIntentByPackageName(Context context, String packageName)
+    {
+        // Create intent
+        Intent launchIntent;
+
+        // Check if package is one of the virtual packages
+        if(packageName.equals(VIRTUAL_SETTINGS_PACKAGE))
+        {
+            launchIntent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+        }
+        else
+        {
+            launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        }
+
+        // Add clear task flag and return intent
+        launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return launchIntent;
     }
 
     /**
@@ -235,6 +266,35 @@ public class InstalledAppsAdapter extends BaseAdapter
             }
         }
 
+        // Add virtual packages if not hided
+        if(!hiddenApps.contains(VIRTUAL_SETTINGS_PACKAGE))
+        {
+            ApplicationInfo applicationInfo = new ApplicationInfo();
+            applicationInfo.packageName = VIRTUAL_SETTINGS_PACKAGE;
+            appMap.put(VIRTUAL_SETTINGS_PACKAGE, new AppInfo(mContext, applicationInfo)
+            {
+                @Override
+                public String getDisplayName()
+                {
+                    return mContext.getResources().getString(R.string.AmazonSettings);
+                }
+
+                @Override
+                public Drawable getDisplayIcon()
+                {
+                    Drawable retVal = null;
+
+                    try
+                    {
+                        retVal = new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("settingsicon.png")));
+                    }
+                    catch (Exception ignore){ }
+
+                    return retVal;
+                }
+            });
+        }
+
         // Get order of last run
         List<String> packageOrder = mSettings.getPackageOrder();
 
@@ -272,19 +332,41 @@ public class InstalledAppsAdapter extends BaseAdapter
     {
         if(app.packageName.equals(mDefaultLauncherPackage))
         {
-            AppInfo amazonLauncher = new AppInfo(mContext, app);
-            amazonLauncher.setDisplayName(mContext.getResources().getString(R.string.AmazonHome));
-            try
+            AppInfo amazonLauncher = new AppInfo(mContext, app)
             {
-                amazonLauncher.setDisplayIcon(new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("amazonhome.png"))));
-            }
-            catch (Exception ignore){ }
+                @Override
+                public String getDisplayName()
+                {
+                    return mContext.getResources().getString(R.string.AmazonHome);
+                }
+
+                @Override
+                public Drawable getDisplayIcon()
+                {
+                    Drawable retVal = null;
+
+                    try
+                    {
+                        retVal = new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("amazonhome.png")));
+                    }
+                    catch (Exception ignore){ }
+
+                    return retVal;
+                }
+            };
 
             mInstalledApps.add(amazonLauncher);
         }
         else
         {
-            mInstalledApps.add(new AppInfo(mContext, app));
+            if(app instanceof AppInfo)
+            {
+                mInstalledApps.add((AppInfo)app);
+            }
+            else
+            {
+                mInstalledApps.add(new AppInfo(mContext, app));
+            }
         }
     }
 }

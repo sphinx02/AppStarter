@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
@@ -79,14 +81,71 @@ public class Updater
         Boolean retVal = false;
         try
         {
-            Float oldVer = Float.valueOf(oldVersion.substring(1, oldVersion.length()));
-            Float newVer = Float.valueOf(newVersion.substring(1, newVersion.length()));
-            if(newVer > oldVer)
+            List<Integer> oldVerList = getVersionList(oldVersion);
+            List<Integer> newVerList = getVersionList(newVersion);
+            if(oldVerList.size() > 0 && newVerList.size() > 0)
             {
-                retVal = true;
+                for(Integer i = 0; i < newVerList.size(); i++)
+                {
+                    // If oldversion has no additional step and all
+                    // steps before have been equal, newVersion is newer
+                    if(i >= oldVerList.size())
+                    {
+                        retVal = true;
+                        break;
+                    }
+
+                    // If newVersions current step is higher than oldversions stage,
+                    // newVersion is newer
+                    if(newVerList.get(i) > oldVerList.get(i))
+                    {
+                        retVal = true;
+                        break;
+                    }
+
+                    // If oldVersions current step is higher than newVersions stage,
+                    // oldVersion is newer
+                    if(oldVerList.get(i) > newVerList.get(i))
+                    {
+                        break;
+                    }
+
+                    // Else versions habe been equal --> no newer
+                    // --> check next stage or finish
+                }
             }
         }
         catch(Exception ignore){}
+
+        return retVal;
+    }
+
+    /**
+     * Separate version string in major, minor, ..
+     * Most significant value first
+     * @param versionString Version string to be parsed
+     * @return List of Integers
+     */
+    private static List<Integer> getVersionList(String versionString)
+    {
+        List<Integer> retVal = new ArrayList<Integer>();
+
+        try
+        {
+            if(versionString != null && !versionString.equals(""))
+            {
+                versionString = versionString.replaceAll("[^\\d.]", "");
+                String[] parts = versionString.split("\\.");
+                if(parts != null && parts.length > 0)
+                {
+                    for(String part : parts)
+                    {
+                        retVal.add(Integer.valueOf(part));
+                    }
+                }
+            }
+        }
+        catch(Exception ignore) { }
 
         return retVal;
     }

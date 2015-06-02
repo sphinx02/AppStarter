@@ -13,12 +13,12 @@ import java.util.List;
 import de.belu.firestarter.R;
 
 /**
- * Created by luki on 27.05.15.
+ * Adpater for items in the left selection bar
  */
 public class LeftBarItemsListAdapter extends BaseAdapter
 {
     /**
-     * A dummy item representing a piece of description.
+     * A left bar fragment item
      */
     public static class FragmentListItem
     {
@@ -39,31 +39,24 @@ public class LeftBarItemsListAdapter extends BaseAdapter
         }
     }
 
-    /**
-     * An array of sample (dummy) items.
-     */
-    public static List<FragmentListItem> ITEMS = new ArrayList<FragmentListItem>();
+    /** Left bar item list */
+    private static List<FragmentListItem> mItems = null;
 
-    static
-    {
-        // Add 3 sample items.
-        addItem(new FragmentListItem("All Apps", AppActivity.class.getName()));
-        addItem(new FragmentListItem("Infos", InfosActivity.class.getName()));
-        addItem(new FragmentListItem("Updates", UpdateActivity.class.getName()));
-        addItem(new FragmentListItem("Settings", PreferenceActivity.class.getName()));
-    }
-
-    private static void addItem(FragmentListItem item)
-    {
-        ITEMS.add(item);
-    }
-
+    /** Current context */
     private Context mContext;
 
     /** Create new adapter */
     public LeftBarItemsListAdapter(Context context)
     {
         mContext = context;
+        if(mItems == null)
+        {
+            mItems = new ArrayList<FragmentListItem>();
+            mItems.add(new FragmentListItem("All Apps", AppActivity.class.getName()));
+            mItems.add(new FragmentListItem("Infos", InfosActivity.class.getName()));
+            mItems.add(new FragmentListItem("Updates", UpdateActivity.class.getName()));
+            mItems.add(new FragmentListItem("Settings", PreferenceActivity.class.getName()));
+        }
     }
 
     /**
@@ -71,16 +64,16 @@ public class LeftBarItemsListAdapter extends BaseAdapter
      */
     public int getCount()
     {
-        return ITEMS.size();
+        return mItems.size();
     }
 
     /**
      * @param position Position of item to be returned
      * @return Item on position
      */
-    public Object getItem(int position)
+    public FragmentListItem getItem(int position)
     {
-        return ITEMS.get(position);
+        return mItems.get(position);
     }
 
     /**
@@ -112,7 +105,7 @@ public class LeftBarItemsListAdapter extends BaseAdapter
 
         // set value into textview
         TextView textView = (TextView) itemView.findViewById(R.id.textLabel);
-        textView.setText(ITEMS.get(position).description);
+        textView.setText(mItems.get(position).description);
 
         return itemView;
     }

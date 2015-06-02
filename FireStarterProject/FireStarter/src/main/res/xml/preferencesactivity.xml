@@ -71,9 +71,9 @@
          <EditTextPreference
              android:numeric="integer"
              android:digits="0123456789"
-             android:key="prefDelayedAction"
-             android:summary="@string/delayed_action_desc"
-             android:title="@string/delayed_action_title" />
+             android:key="prefJumpbackWatchdogTime"
+             android:summary="@string/jumpbackwatchdogtime_desc"
+             android:title="@string/jumpbackwatchdogtime_title" />
 
      </PreferenceCategory>
 

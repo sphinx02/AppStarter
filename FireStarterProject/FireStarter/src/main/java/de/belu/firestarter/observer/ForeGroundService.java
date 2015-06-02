@@ -20,8 +20,8 @@ import java.util.TimerTask;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.gui.MainActivity;
+import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
-import de.belu.firestarter.tools.Tools;
 import de.belu.firestarter.tools.Updater;
 
 
@@ -73,10 +73,7 @@ public class ForeGroundService extends Service
             // Start single click package
             String startPackage = mSettings.getSingleClickApp();
             Log("Single-click start package is: " + startPackage);
-            if(startPackage != null && !startPackage.equals(""))
-            {
-                Tools.startAppByPackageName(ForeGroundService.this, startPackage);
-            }
+            AppStarter.startAppByPackageName(ForeGroundService.this, startPackage, true);
         }
 
         @Override
@@ -87,10 +84,7 @@ public class ForeGroundService extends Service
             // Start single click package
             String startPackage = mSettings.getDoubleClickApp();
             Log("Double-click start package is: " + startPackage);
-            if(startPackage != null && !startPackage.equals(""))
-            {
-                Tools.startAppByPackageName(ForeGroundService.this, startPackage);
-            }
+            AppStarter.startAppByPackageName(ForeGroundService.this, startPackage, true);
         }
     };
 
