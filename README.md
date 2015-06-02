@@ -39,7 +39,7 @@ Visit discussion on XDA-Developers:
 #### v2.4
  * Implemented jumpback prevention watchdog which prevents amazon home from coming to the foreground after click-actions (configurable in settings). Thanks <a href="http://forum.xda-developers.com/showpost.php?p=61096104&postcount=43" target="_blank">XDA user harlekinrains</a> for this idea.
  * Removed now unnessecary action-delay setting.
- * Added FireTV settings application to apps-list.
+ * Added FireTV settings application to apps-list. Thanks <a href="http://forum.xda-developers.com/showpost.php?p=61078954&postcount=33" target="_blank">XDA user fsi09</a> for this idea.
  * Some code cleanup / optimization.
 
 >
