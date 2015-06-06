@@ -92,4 +92,5 @@ Visit discussion on XDA-Developers:
  
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
+ * [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=sphinx02&url=https://github.com/sphinx02/FireStarter&title=FireStarter&language=java&tags=github&category=software)
  * <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KKQ6VU34YGKYS" target="_blank">PayPal donation link</a>
