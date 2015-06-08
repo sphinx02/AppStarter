@@ -10,17 +10,18 @@ Visit discussion on XDA-Developers:
 
 ### Features:
  
- * Similar to Redth's <a href="https://github.com/Redth/FiredTVLauncher" target="_blank">FiredTVLauncher</a> with __real home-detection__ .
+ * Similar to Redth's <a href="https://github.com/Redth/FiredTVLauncher" target="_blank">FiredTVLauncher</a> with __real home-detection__ (no "amazon home is top-application"-detection).
  * __Even double-home-clicks are captured!!__
- * Completely configurable what happens on startup-, home-button-single-click or home-button-double-click.
+ * Completely configurable which app is started on startup-, home-button-single-click or home-button-double-click.
  * Default: Starts itself on FireTV-Startup.
- * Default: Starts automatically when Home-Button is clicked.
- * Default: Starts amazon home when Home-Button is double-clicked. 
+ * Default: Starts itself when Home-Button is single-clicked.
+ * Default: Starts amazon home when Home-Button is double-clicked (actually does nothing as amazon home is the default action for home-button clicks). 
  * You can e.g. start Kodi on double-click and FireStarter on single-click.
- * Lists all user-installed apps including side-loaded apps.
- * Apps can be easily sorted by click-drag-and-drop.
- * Apps can be hidden from app drawer.
- * Automatic updates from app itself.
+ * Also possible is to keep up the default behaviour (" - No Action - ") on a single-click (amazon home is starting) and to open e.g. FireStarter on a double-click.
+ * Lists all user-installed apps including sideloaded / adb installed apps.
+ * Apps can be easily sorted / ordered by click-drag-and-drop (long-click to start drag-and-drop).
+ * Apps can be hidden from app drawer (see settings).
+ * Automatic update mechanism.
  * __No root required!__
 
 ### Install FireStarter:
