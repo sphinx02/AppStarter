@@ -6,7 +6,7 @@
 __FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:__
 
 Visit discussion on XDA-Developers: 
- * [[APP] FireStarter | Non-Root Home Launcher Replacement / App-Drawer for FireTV](http://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135)
+ * <a href="http://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135" target="_blank">[APP] FireStarter | Non-Root Home Launcher Replacement / App-Drawer for FireTV</a>
 
 ### Features:
  
@@ -36,44 +36,7 @@ Visit discussion on XDA-Developers:
  * Enjoy :)
  
 ### Changelog:
-
->
-#### v2.4.1
- * Apps are not started with FLAG_ACTIVITY_CLEAR_TASK which lets app resume their last activity.
- * Replaced some icons / made some visual optimizations
- * For timing settings, now the correct inputtype is used (number only keyboard is displayed).
- * Adjusted default-timings (only for fresh installations).
- * Minor fixes.
-
->
-#### v2.4
- * Implemented jumpback prevention watchdog which prevents amazon home from coming to the foreground after click-actions (configurable in settings). Thanks <a href="http://forum.xda-developers.com/showpost.php?p=61096104&postcount=43" target="_blank">XDA user harlekinrains</a> for this idea.
- * Removed now unnessecary action-delay setting.
- * Added FireTV settings application to apps-list. Thanks <a href="http://forum.xda-developers.com/showpost.php?p=61078954&postcount=33" target="_blank">XDA user fsi09</a> for this idea.
- * Some code cleanup / optimization.
-
->
-#### v2.3
- * Fixed ugly bug in settings (kind of endless loop), which caused huge cpu-load and weird behaviour of settings storage.
- * Fixed bug when sysapp were set visible and apps were reordered, sysapps were not hided again on settings change.
- * Allow greater double-click interval and action delay (up to 1000ms).
-
->
-#### v2.2
- * Added adjustable double-click interval and action-delay
- * Reordered settings
- * When going to app-drawer, first icon is automatically focused (configurable in settings)
- * Update service (able to update itself)
- 
->
-#### v2.1
- * Fixed problems with FireTV-Stick
- * Added FireStarter version to info-view
- 
->
-#### v2.0
- * __Real Home-Button detection__, even double-home-button-clicks are captured
- * Completely new GUI with settings and additional Infos
+[Check releases page for changelog ..](https://github.com/sphinx02/FireStarter/releases)
 
 ### ToDo List:
  * Add better install instructions for users that dont know adb..
