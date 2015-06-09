@@ -29,13 +29,21 @@ Visit discussion on XDA-Developers:
 
  * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
- * _adb install -r FireStarter-v2.4.apk_
+ * _adb install -r FireStarter-v2.4.1.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
  * ADB-Debugging needs to stay enabled (do not disable ADB-Debugging after installation).
  * Enjoy :)
  
 ### Changelog:
+
+>
+#### v2.4.1
+ * Apps are not started with FLAG_ACTIVITY_CLEAR_TASK which lets app resume their last activity.
+ * Replaced some icons / made some visual optimizations
+ * For timing settings, now the correct inputtype is used (number only keyboard is displayed).
+ * Adjusted default-timings (only for fresh installations).
+ * Minor fixes.
 
 >
 #### v2.4
@@ -74,10 +82,10 @@ Visit discussion on XDA-Developers:
 
 ### Screenshots:
 
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_06.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_07.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_08.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/firestarter_screenshot_09.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_06.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_07.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_08.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_09.png "Screenshot of FireStarter")
 
 ### Why using it and how it works:
  * FireStarter is for all people who dont want to root (and therefore loose warranty) their FireTV's.
