@@ -1,4 +1,4 @@
-FireStarter
+![Logo of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter-logo_small.png "Logo of FireStarter") FireStarter
 =========
 
 [![MPLv2 License](http://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
