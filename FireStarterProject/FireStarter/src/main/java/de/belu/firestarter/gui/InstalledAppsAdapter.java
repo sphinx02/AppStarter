@@ -100,14 +100,17 @@ public class InstalledAppsAdapter extends BaseAdapter
         if(packageName.equals(VIRTUAL_SETTINGS_PACKAGE))
         {
             launchIntent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+
+            // Start settings as new activity
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
         else
         {
             launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         }
 
-        // Add clear task flag and return intent
-        launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        // Return the launchable intent
         return launchIntent;
     }
 
@@ -286,7 +289,7 @@ public class InstalledAppsAdapter extends BaseAdapter
 
                     try
                     {
-                        retVal = new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("settingsicon.png")));
+                        retVal = new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("firetv-settings-icon.png")));
                     }
                     catch (Exception ignore){ }
 
@@ -319,10 +322,19 @@ public class InstalledAppsAdapter extends BaseAdapter
             appMap.remove(mDefaultLauncherPackage);
         }
 
+        // Default amazon settings to the second position
+        // (if user has moved it, it is not anymore in list here)
+        if(appMap.containsKey(VIRTUAL_SETTINGS_PACKAGE))
+        {
+            addAppToCurrentList(appMap.get(VIRTUAL_SETTINGS_PACKAGE));
+            appMap.remove(VIRTUAL_SETTINGS_PACKAGE);
+        }
+
         // Now handle all other apps
         for(ApplicationInfo installedApplication : appMap.values())
         {
-            addAppToCurrentList(installedApplication);        }
+            addAppToCurrentList(installedApplication);
+        }
     }
 
     /**
@@ -347,7 +359,7 @@ public class InstalledAppsAdapter extends BaseAdapter
 
                     try
                     {
-                        retVal = new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("amazonhome.png")));
+                        retVal = new BitmapDrawable(mContext.getResources(), BitmapFactory.decodeStream(mContext.getAssets().open("firetv-home-icon.png")));
                     }
                     catch (Exception ignore){ }
 

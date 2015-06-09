@@ -10,9 +10,8 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
-                  android:layout_width="0dp"
+                  android:layout_width="170dp"
                   android:layout_height="match_parent"
-                  android:layout_weight="1"
                   android:paddingRight="20dp"
                   android:gravity="center">
 
@@ -51,9 +50,9 @@
 
     <FrameLayout
         android:id="@+id/item_detail_container"
-        android:layout_width="0dp"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:padding="20dp"/>
 
 </LinearLayout>

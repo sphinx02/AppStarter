@@ -62,6 +62,7 @@
      <PreferenceCategory android:title="@string/settings_timings">
 
          <EditTextPreference
+             android:inputType="number"
              android:numeric="integer"
              android:digits="0123456789"
              android:key="prefClickInterval"
@@ -69,6 +70,7 @@
              android:title="@string/doubleclick_interval_title" />
 
          <EditTextPreference
+             android:inputType="number"
              android:numeric="integer"
              android:digits="0123456789"
              android:key="prefJumpbackWatchdogTime"

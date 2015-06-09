@@ -71,10 +71,10 @@ public class SettingsProvider
     Boolean mShowSystemApps = false;
 
     /** Time to wait for second click in milliseconds */
-    Integer mDoubleClickInterval = 270;
+    Integer mDoubleClickInterval = 500;
 
     /** Time to watch for jumpbacks */
-    Integer mJumpbackWatchdogTime = 2000;
+    Integer mJumpbackWatchdogTime = 5000;
 
     /** Indicates if user have seen update but do not want to update */
     Boolean mHaveUpdateSeen = false;

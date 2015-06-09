@@ -52,10 +52,10 @@ public class LeftBarItemsListAdapter extends BaseAdapter
         if(mItems == null)
         {
             mItems = new ArrayList<FragmentListItem>();
-            mItems.add(new FragmentListItem("All Apps", AppActivity.class.getName()));
-            mItems.add(new FragmentListItem("Infos", InfosActivity.class.getName()));
-            mItems.add(new FragmentListItem("Updates", UpdateActivity.class.getName()));
-            mItems.add(new FragmentListItem("Settings", PreferenceActivity.class.getName()));
+            mItems.add(new FragmentListItem(mContext.getResources().getString(R.string.leftbar_allapps), AppActivity.class.getName()));
+            mItems.add(new FragmentListItem(mContext.getResources().getString(R.string.leftbar_infos), InfosActivity.class.getName()));
+            mItems.add(new FragmentListItem(mContext.getResources().getString(R.string.leftbar_updates), UpdateActivity.class.getName()));
+            mItems.add(new FragmentListItem(mContext.getResources().getString(R.string.leftbar_settings), PreferenceActivity.class.getName()));
         }
     }
 

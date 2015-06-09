@@ -66,7 +66,7 @@ public class AppStarter
                         final String launcherPackageName = getLauncherPackageName(context);
 
                         // Make sure this is not the launcherpackage which have been started
-                        if (!packageName.equals(launcherPackageName))
+                        if (!packageName.equals(launcherPackageName) && !packageName.equals(InstalledAppsAdapter.VIRTUAL_SETTINGS_PACKAGE))
                         {
                             // Now prepare and start thread
                             mStartAndWatchThread = new Thread(new Runnable()

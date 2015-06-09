@@ -1,6 +1,6 @@
 <resources>
     <!-- String resources -->
-    <string name="AmazonHome">Amazon Home</string>
+    <string name="AmazonHome">FireTV Home</string>
     <string name="AppName">FireStarter</string>
     <string name="MoveAppAndClickToDrop">Now move app and click again to drop \n(Press RETURN to CANCEL)</string>
     <string name="loading">loading</string>
@@ -38,4 +38,8 @@
     <string name="jumpbackwatchdogtime_desc">The time window in milliseconds (between 0 - 10000) in which FireStarter prevents the amazon home launcher from coming to foreground when click-actions have been performed. Set to 0 to disable.</string>
     <string name="jumpbackwatchdogtime_title">Jumpback Watchdog Time</string>
     <string name="AmazonSettings">FireTV Settings</string>
+    <string name="leftbar_allapps">All Apps</string>
+    <string name="leftbar_infos">Infos</string>
+    <string name="leftbar_updates">Updates</string>
+    <string name="leftbar_settings">Settings</string>
 </resources>

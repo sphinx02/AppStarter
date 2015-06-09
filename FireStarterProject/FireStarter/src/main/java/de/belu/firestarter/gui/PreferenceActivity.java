@@ -69,16 +69,19 @@ public class PreferenceActivity extends PreferenceFragment
         startUpPackage.setEntries(entries);
         startUpPackage.setEntryValues(entryValues);
         startUpPackage.setDefaultValue(mSettings.getStartupPackage());
+        startUpPackage.setValue(mSettings.getStartupPackage());
 
         ListPreference singleClick = (ListPreference) findPreference("prefHomeSingleClickPackage");
         singleClick.setEntries(entries);
         singleClick.setEntryValues(entryValues);
         singleClick.setDefaultValue(mSettings.getSingleClickApp());
+        singleClick.setValue(mSettings.getSingleClickApp());
 
         ListPreference doubleClick = (ListPreference) findPreference("prefHomeDoubleClickPackage");
         doubleClick.setEntries(entries);
         doubleClick.setEntryValues(entryValues);
         doubleClick.setDefaultValue(mSettings.getDoubleClickApp());
+        doubleClick.setValue(mSettings.getDoubleClickApp());
 
         InstalledAppsAdapter actHiddenAppsAdapter = new InstalledAppsAdapter(getActivity(), true, true);
         List<AppInfo> actHiddenApps = actHiddenAppsAdapter.getAppList();
