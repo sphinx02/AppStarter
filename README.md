@@ -36,7 +36,7 @@ Visit discussion on XDA-Developers:
  * Enjoy :)
  
 ### Changelog:
-[Check releases page for changelog ..](https://github.com/sphinx02/FireStarter/releases)
+ * [Check releases page for changelog ..](https://github.com/sphinx02/FireStarter/releases)
 
 ### ToDo List:
  * Add better install instructions for users that dont know adb..
