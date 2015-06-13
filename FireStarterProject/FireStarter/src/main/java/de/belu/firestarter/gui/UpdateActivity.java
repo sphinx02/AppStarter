@@ -49,7 +49,7 @@ public class UpdateActivity extends Fragment
         @Override
         public void onClick(View v)
         {
-            mCheckForUpdateProgress = ProgressDialog.show(getActivity(), "Checking for updates", "Wait till checked Github for latest release.", true);
+            mCheckForUpdateProgress = ProgressDialog.show(getActivity(), getActivity().getResources().getString(R.string.update_checkfortitle), getActivity().getResources().getString(R.string.update_checkfordesc), true);
             mUpdater.checkForUpdate();
         }
     };
@@ -61,7 +61,7 @@ public class UpdateActivity extends Fragment
         public void onClick(View v)
         {
             mUpdateProgress = new ProgressDialog(getActivity());
-            mUpdateProgress.setMessage("Check for update.");
+            mUpdateProgress.setMessage(getActivity().getResources().getString(R.string.update_checkformessage));
             mUpdateProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mUpdateProgress.setCancelable(false);
             mUpdateProgress.setProgress(0);
@@ -89,11 +89,11 @@ public class UpdateActivity extends Fragment
                     {
                         if(Updater.isVersionNewer(mCurrentAppVersion, Updater.LATEST_VERSION))
                         {
-                            mLatestVersion.setText(Updater.LATEST_VERSION + " - Found newer Version - Update Now!");
+                            mLatestVersion.setText(Updater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
                         }
                         else
                         {
-                            mLatestVersion.setText(Updater.LATEST_VERSION + " - You have already the newest version!");
+                            mLatestVersion.setText(Updater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
                         }
                     }
                     else

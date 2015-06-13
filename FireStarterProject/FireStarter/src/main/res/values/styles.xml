@@ -24,4 +24,9 @@
         <item name="android:paddingLeft">12dp</item>
     </style>
 
+    <style name="TransparentDialog" parent="@android:style/Theme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

@@ -1,9 +1,11 @@
 package de.belu.firestarter.gui;
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
 import de.belu.firestarter.tools.Updater;
+
+import static de.belu.firestarter.gui.AppSettingsOverlayDialog.*;
 
 /**
  * Launcher main (shows the user apps)
@@ -65,11 +69,10 @@ public class AppActivity extends CustomFragment
         mDefaultLauncherPackage = AppStarter.getLauncherPackageName(getActivity());
 
         mGridView = (GridView) rootView.findViewById(R.id.gridview);
-        final GridView gridview = mGridView;
-        gridview.setAdapter(new InstalledAppsAdapter(getActivity()));
+        mGridView.setAdapter(new InstalledAppsAdapter(getActivity()));
 
         // Focus first item
-        gridview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+        mGridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
         {
             @Override
             public void onGlobalLayout()
@@ -77,13 +80,13 @@ public class AppActivity extends CustomFragment
                 try
                 {
                     // Remove listener
-                    gridview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    mGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                     // Check if first icon have to be selected
-                    if(mSettings.getAutoSelectFirstIcon() && gridview.getChildCount() > 0)
+                    if(mSettings.getAutoSelectFirstIcon() && mGridView.getChildCount() > 0)
                     {
-                        gridview.requestFocusFromTouch();
-                        gridview.setSelection(0);
+                        mGridView.requestFocusFromTouch();
+                        mGridView.setSelection(0);
                     }
 
                     // Check for new update
@@ -136,7 +139,7 @@ public class AppActivity extends CustomFragment
         });
 
         // Set click listener
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
@@ -144,8 +147,8 @@ public class AppActivity extends CustomFragment
                 {
                     // Stop moving
                     mMovingApp[0] = null;
-                    gridview.setDrawSelectorOnTop(false);
-                    gridview.invalidate();
+                    mGridView.setDrawSelectorOnTop(false);
+                    mGridView.invalidate();
 
                     // Save current order
                     InstalledAppsAdapter actAdapter = (InstalledAppsAdapter) parent.getAdapter();
@@ -162,15 +165,15 @@ public class AppActivity extends CustomFragment
         });
 
         // Set long click listener
-        gridview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        mGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
                 // Get packagename of the app to be started
                 mMovingApp[0] = (AppInfo) parent.getAdapter().getItem(position);
-                gridview.setDrawSelectorOnTop(true);
-                gridview.invalidate();
+                mGridView.setDrawSelectorOnTop(true);
+                mGridView.invalidate();
 
                 Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MoveAppAndClickToDrop), Toast.LENGTH_SHORT).show();
 
@@ -179,7 +182,7 @@ public class AppActivity extends CustomFragment
         });
 
         // Set select listener
-        gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        mGridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -242,6 +245,69 @@ public class AppActivity extends CustomFragment
             InstalledAppsAdapter actAdapter = (InstalledAppsAdapter)mGridView.getAdapter();
             actAdapter.loadInstalledApps();
             actAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent e)
+    {
+        if(mMovingApp[0] == null && keycode == KeyEvent.KEYCODE_MENU)
+        {
+            showAppSettingsDialogForCurrentApp();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void showAppSettingsDialogForCurrentApp()
+    {
+        try
+        {
+            // Check selected app
+            if(mGridView.hasFocus())
+            {
+                final AppInfo appInfo = (AppInfo) ((InstalledAppsAdapter) mGridView.getAdapter()).getItem(mGridView.getSelectedItemPosition());
+                final AppSettingsOverlayDialog appSettingsDialog = newInstance(appInfo);
+
+                appSettingsDialog.setOnActionClickedHandler(new OnActionClickedHandler()
+                {
+                    @Override
+                    public void onActionClicked(ActionEnum action)
+                    {
+                        Log.d("AppSettingsAction", "Clicked action: " + action.toString());
+
+                        // Close dialog and evaluate click event:
+                        appSettingsDialog.dismiss();
+                        switch (action)
+                        {
+                            case SORT:
+                                // Get packagename of the app to be started
+                                mMovingApp[0] = appInfo;
+                                mGridView.setDrawSelectorOnTop(true);
+                                mGridView.invalidate();
+
+                                Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MoveAppAndClickToDropWhenStartedByMenu), Toast.LENGTH_SHORT).show();
+                                break;
+                            case SETTINGS:
+                                AppStarter.startSettingsViewByPackageName(AppActivity.this.getActivity(), appInfo.packageName);
+                                break;
+                            default:
+                                // Do nothing by default
+                        }
+                    }
+                });
+
+                FragmentManager fm = getActivity().getFragmentManager();
+                appSettingsDialog.show(fm, "");
+            }
+        }
+        catch (Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(MainActivity.class.getName(), "Failed to load app settings: \n" + errorReason);
         }
     }
 }

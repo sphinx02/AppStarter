@@ -1,0 +1,57 @@
+<resources>
+    <!-- String resources (non translatable) -->
+    <string name="AppName">FireStarter</string>
+
+    <!-- To be translated -->
+    <string name="AmazonHome">FireTV Home</string>
+    <string name="MoveAppAndClickToDrop">Verschiebe die App nun und klicke erneut \n(ZURÜCK um abzubrechen)</string>
+    <string name="MoveAppAndClickToDropWhenStartedByMenu">Verschiebe die App nun und klicke erneut \n(ZURÜCK um abzubrechen)</string>
+    <string name="loading">läd..</string>
+    <string name="background_observation">Hintergrund Überwachung</string>
+    <string name="enable_background_observation_desc">Aktiviere Hintergrund-Überwachung des home-button und des startup-events.</string>
+    <string name="enable_background_observation_title">Aktiviere Hintergrund Überwachung</string>
+    <string name="iptitle">IP Adresse</string>
+    <string name="hostnametitle">Hostname</string>
+    <string name="notfound">nicht gefunden..</string>
+    <string name="firestarterversiontitle">FireStarter Version</string>
+    <string name="startup_app_desc">App nach dem Einschalten des FireTV gestartet wird.</string>
+    <string name="startup_app_title">Startup App</string>
+    <string name="singleclick_app_desc">App die bei einem Home-Button Einzel-Klick gestartet wird.</string>
+    <string name="singleclick_app_title">Home-Button Einzel-Klick App</string>
+    <string name="doubleclick_app_desc">App die bei einem Home-Button Doppel-Klick gestartet wird.</string>
+    <string name="doubleclick_app_title">Home-Button Doppel-Klick App</string>
+    <string name="showsysapps_desc">Zeige auch System-Apps in der App-Liste.</string>
+    <string name="showsysapps_title">Zeige System-Apps</string>
+    <string name="hiddenapps_desc">Apps die ausgeblendet werden sollen.</string>
+    <string name="hiddenapps_title">Versteckte Apps</string>
+    <string name="applist_settings">App-Listen Einstellungen</string>
+    <string name="settings_timings">Überwachungs-Timings</string>
+    <string name="doubleclick_interval_desc">Zeit in Millisekunden (zwischen 100 - 1000) in der auf den zweiten Klick gewartet wird</string>
+    <string name="doubleclick_interval_title">Doppel-Klick Intervall</string>
+    <string name="is_invalid_number">ist nicht erlaubt für diese Einstellung!</string>
+    <string name="update_currentversion">Aktuelle FireStarter Version</string>
+    <string name="serverVersion">Neueste FireStarter Version</string>
+    <string name="update_checkfor">Auf Update prüfen</string>
+    <string name="update">Updaten</string>
+    <string name="update_hitcheckfor">Klicke auf Update prüfen.</string>
+    <string name="autoselectfirsticon_desc">Automatisch die erste App auswählen in der App-Übersicht (Alle Apps).</string>
+    <string name="autoselectfirsricon_title">Erste-App Auto-Auswahl (App-Übersicht)</string>
+    <string name="about_firestarter">FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:\n\nVisit discussion on XDA-Developers:\nhttp://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135\n\nFireStarter is Open-Source, visit project on GitHub:\nhttps://github.com/sphinx02/FireStarter</string>
+    <string name="jumpbackwatchdogtime_desc">Die Zeit in Millisekunden (zwischen 0 - 10000) in der FireStarter verhindert, dass der FireTV Home-Launcher sich in den Vordergrund drängt wenn von FireStarter Klick-Aktionen durchgeführt wurden. Auf 0 setzen um zu deaktiviern.</string>
+    <string name="jumpbackwatchdogtime_title">Jump Back Watchdog Zeit</string>
+    <string name="AmazonSettings">FireTV Einstellungen</string>
+    <string name="leftbar_allapps">Alle Apps</string>
+    <string name="leftbar_infos">Infos</string>
+    <string name="leftbar_updates">Updates</string>
+    <string name="leftbar_settings">Einstellungen</string>
+    <string name="appsettingssort">Verschieben</string>
+    <string name="appsettings_settings">App Einstell..</string>
+    <string name="language_settings">Sprach Einstellungen</string>
+    <string name="language_summary">Sprache manuell einstellen</string>
+    <string name="language_title">Sprache</string>
+    <string name="update_checkfortitle">Prüfe auf Update</string>
+    <string name="update_checkfordesc">Warten bis GitHub auf Update geprüft wurde.</string>
+    <string name="update_checkformessage">Prüfe auf Update.</string>
+    <string name="update_foundnew">Neue Version gefunden - jetzt updaten!</string>
+    <string name="update_foundnotnew">Die neueste Version ist bereits installiert!</string>
+</resources>

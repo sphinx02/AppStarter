@@ -1,5 +1,7 @@
 package de.belu.firestarter.tools;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,11 +19,68 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+import de.belu.firestarter.observer.ForeGroundService;
+
 /**
  * Tools class to provide some additional infos
  */
 public class Tools
 {
+    /**
+     * Restarts the current application
+     * @param c
+     */
+    public static void doRestart(Context c)
+    {
+        try
+        {
+            //check if the context is given
+            if (c != null)
+            {
+                //fetch the packagemanager so we can get the default launch activity
+                // (you can replace this intent with any other activity if you want
+                PackageManager pm = c.getPackageManager();
+                //check if we got the PackageManager
+                if (pm != null)
+                {
+                    //create the intent with the default start activity for your application
+                    Intent mStartActivity = pm.getLaunchIntentForPackage(c.getPackageName());
+                    if (mStartActivity != null)
+                    {
+                        mStartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        // Stop foreground service
+                        Intent startIntent = new Intent(c, ForeGroundService.class);
+                        startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
+                        c.startService(startIntent);
+
+                        //create a pending intent so the application is restarted after System.exit(0) was called.
+                        // We use an AlarmManager to call this intent in 100ms
+                        int mPendingIntentId = 223344;
+                        PendingIntent mPendingIntent = PendingIntent.getActivity(c, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                        AlarmManager mgr = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+
+                        //kill the application
+                        System.exit(0);
+                    } else
+                    {
+                        Log.e("AppRestarter", "Was not able to restart application, mStartActivity null");
+                    }
+                } else
+                {
+                    Log.e("AppRestarter", "Was not able to restart application, PM null");
+                }
+            } else
+            {
+                Log.e("AppRestarter", "Was not able to restart application, Context null");
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e("AppRestarter", "Was not able to restart application");
+        }
+    }
 
     /**
      * @param c context

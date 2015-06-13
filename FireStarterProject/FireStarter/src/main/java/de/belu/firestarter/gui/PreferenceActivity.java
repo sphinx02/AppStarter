@@ -9,11 +9,13 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
 import java.util.List;
+import java.util.Map;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.observer.ForeGroundService;
 import de.belu.firestarter.tools.AppInfo;
 import de.belu.firestarter.tools.SettingsProvider;
+import de.belu.firestarter.tools.Tools;
 
 /**
  * Preferences activity
@@ -82,6 +84,39 @@ public class PreferenceActivity extends PreferenceFragment
         doubleClick.setEntryValues(entryValues);
         doubleClick.setDefaultValue(mSettings.getDoubleClickApp());
         doubleClick.setValue(mSettings.getDoubleClickApp());
+
+        CharSequence[] langEntries = new CharSequence[SettingsProvider.LANG.size()];
+        CharSequence[] langValues = new CharSequence[SettingsProvider.LANG.size()];
+        Integer counter = 0;
+        for(Map.Entry<String, String> entry : SettingsProvider.LANG.entrySet())
+        {
+            langEntries[counter] = entry.getValue();
+            langValues[counter] = entry.getKey();
+            counter++;
+        }
+        ListPreference languagePreference = (ListPreference) findPreference("prefLanguage");
+        languagePreference.setEntries(langEntries);
+        languagePreference.setEntryValues(langValues);
+        languagePreference.setDefaultValue(mSettings.getLanguage());
+        languagePreference.setValue(mSettings.getLanguage());
+        languagePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                // Check if value has really changed:
+                if(!mSettings.getLanguage().equals(newValue.toString()))
+                {
+                    // Force reload settings
+                    mSettings.setLanguage(newValue.toString());
+
+                    // Restart whole app
+                    Tools.doRestart(PreferenceActivity.this.getActivity());
+                }
+                return true;
+            }
+        });
+
 
         InstalledAppsAdapter actHiddenAppsAdapter = new InstalledAppsAdapter(getActivity(), true, true);
         List<AppInfo> actHiddenApps = actHiddenAppsAdapter.getAppList();

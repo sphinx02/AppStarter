@@ -10,7 +10,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -21,6 +23,16 @@ import de.belu.firestarter.R;
  */
 public class SettingsProvider
 {
+    /** Map of possible languages */
+    public static final Map<String, String> LANG = new LinkedHashMap<String, String>()
+    {{
+        // Key is the static field name of Locale (e.g. Locale.GERMAN or Locale.ENGLISH)
+        // Value is the displayed value for the settings
+        put("", "Auto");
+        put("ENGLISH", "English");
+        put("GERMAN", "Deutsch");
+    }};
+
     /** Private static singleton object */
     private static SettingsProvider _instance;
 
@@ -54,6 +66,9 @@ public class SettingsProvider
 
     /** Background observer enabled */
     Boolean mBackgroundObserverEnabled = true;
+
+    /** Language string */
+    String mLanguage = "";
 
     /** Startup package name */
     String mStartupPackage;
@@ -143,6 +158,17 @@ public class SettingsProvider
     {
         readValues();
         return mAutoSelectFirstIcon;
+    }
+
+    public void setLanguage(String language)
+    {
+        mLanguage = language;
+        storeValues();
+    }
+    public String getLanguage()
+    {
+        readValues();
+        return mLanguage;
     }
 
     public void setStartupPackage(String startupPackage)
@@ -325,6 +351,9 @@ public class SettingsProvider
             // Show sys apps
             mShowSystemApps = mPreferences.getBoolean("prefShowSysApps", mShowSystemApps);
 
+            // lang
+            mLanguage = mPreferences.getString("prefLanguage", mLanguage);
+
             // Double click interval
             String pref = mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString());
             if(setDoubleClickInterval(pref, true))
@@ -401,6 +430,9 @@ public class SettingsProvider
 
             // Show sys apps
             editor.putBoolean("prefShowSysApps", mShowSystemApps);
+
+            // Lang
+            editor.putString("prefLanguage", mLanguage);
 
             // Double click interval
             editor.putString("prefClickInterval", mDoubleClickInterval.toString());

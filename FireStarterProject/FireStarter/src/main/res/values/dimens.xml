@@ -14,6 +14,10 @@
     <dimen name="infodivicermargintopbottom">10dp</dimen>
     <dimen name="settingspadding">25dp</dimen>
     <dimen name="settingspadding_bottom">0dp</dimen>
+    <dimen name="appsettingsoptionpadding">20dp</dimen>
+    <dimen name="appsettingboxsize">150dp</dimen>
+    <dimen name="appsettingboxsize_small">120dp</dimen>
+    <dimen name="settingsiconsize">80dp</dimen>
     <item type="dimen" name="bg_grad_center_x">0.1</item>
     <item type="dimen" name="bg_grad_center_y">0.1</item>
     <item type="dimen" name="bg_grad_size">1900.0</item>

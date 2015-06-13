@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.io.PrintWriter;
@@ -133,6 +135,30 @@ public class AppStarter
             e.printStackTrace(new PrintWriter(errors));
             String errorReason = errors.toString();
             Log.d(AppStarter.class.getName(), "Failed to launch activity: \n" + errorReason);
+        }
+    }
+
+    /**
+     * Start settings view by packagename
+     * @param context
+     * @param packageName
+     */
+    public static void startSettingsViewByPackageName(Context context, String packageName)
+    {
+        try
+        {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.fromParts("package", packageName, null));
+
+            context.startActivity(intent);
+        }
+        catch(Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(AppStarter.class.getName(), "Failed to launch settings-activity: \n" + errorReason);
         }
     }
 

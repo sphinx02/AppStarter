@@ -5,6 +5,16 @@
     android:layout_width="fill_parent">
 
 
+    <PreferenceCategory android:title="@string/language_settings">
+
+        <ListPreference
+            android:key="prefLanguage"
+            android:summary="@string/language_summary"
+            android:title="@string/language_title" />
+
+    </PreferenceCategory>
+
+
     <PreferenceCategory android:title="@string/applist_settings">
         <CheckBoxPreference
             android:defaultValue="false"
@@ -13,7 +23,7 @@
             android:title="@string/showsysapps_title" />
 
         <MultiSelectListPreference
-            android:dialogTitle="Hidden Apps"
+            android:dialogTitle="@string/hiddenapps_title"
             android:key="prefHiddenApps"
             android:summary="@string/hiddenapps_desc"
             android:title="@string/hiddenapps_title" />
