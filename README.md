@@ -36,11 +36,11 @@ Visit discussion on XDA-Developers:
  * Enjoy :)
  
 ### Reviews / Articles:
- * [English / Text] <a href="http://www.aftvnews.com/firestarter-is-a-non-root-launcher-replacement-with-fantastic-home-button-detection/" target="_blank">..aftvnews.com/firestarter-..-fantastic-home..detection/</a>
- * [English / Video] <a href="https://www.youtube.com/watch?v=FEpqG6vRXrY" target="_blank">https://www.youtube.com/watch?v=FEpqG6vRXrY</a>
- * [Deutsch / Text] <a href="http://www.katzeausdemsack.de/2015/06/12/fire-tv-stick-firestarter-alternativer-launcher-ermoeglicht-belegung-der-home-taste/" target="_blank">..katzeausdemsack.de/..fire-tv-stick-firestarter-..</a>
- * [Deutsch / Text] <a href="http://www.golem.de/news/fire-starter-angeschaut-mehr-bedienkomfort-fuer-fire-tv-und-fire-tv-stick-1506-114626.html" target="_blank">..golem.de/..mehr-bedienkomfort-fuer-..fire-tv-stick-..</a>
- * [Deutsch / Text] <a href="http://www.usp-forum.de/artikel-ratgeber/9513-firestarter-neue-alternative-launcher-f-r-amazon-fire-tv.html" target="_blank">..usp-forum.de/..firestarter-..-launcher-..fire-tv.html</a>
+ * [English /  Text] <a href="http://www.aftvnews.com/firestarter-is-a-non-root-launcher-replacement-with-fantastic-home-button-detection/" target="_blank">..aftvnews.com/firestarter-..-fantastic-home..detection/</a>
+ * [English / Video] <a href="https://www.youtube.com/watch?v=FEpqG6vRXrY" target="_blank">..youtube.com/watch?v=FEpqG6vRXrY</a>
+ * [Deutsch /  Text] <a href="http://www.katzeausdemsack.de/2015/06/12/fire-tv-stick-firestarter-alternativer-launcher-ermoeglicht-belegung-der-home-taste/" target="_blank">..katzeausdemsack.de/..fire-tv-stick-firestarter-..</a>
+ * [Deutsch /  Text] <a href="http://www.golem.de/news/fire-starter-angeschaut-mehr-bedienkomfort-fuer-fire-tv-und-fire-tv-stick-1506-114626.html" target="_blank">..golem.de/..mehr-bedienkomfort-fuer-..fire-tv-stick-..</a>
+ * [Deutsch /  Text] <a href="http://www.usp-forum.de/artikel-ratgeber/9513-firestarter-neue-alternative-launcher-f-r-amazon-fire-tv.html" target="_blank">..usp-forum.de/..firestarter-..-launcher-..fire-tv.html</a>
  
 ### Changelog:
  * [Check releases page for changelog ..](https://github.com/sphinx02/FireStarter/releases)
