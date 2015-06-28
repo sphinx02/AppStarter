@@ -6,10 +6,10 @@
               android:baselineAligned="false"
               android:orientation="horizontal"
               android:background="@drawable/mainbackground"
+              android:id="@+id/linearLayoutMain"
               tools:context=".ItemListActivity" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
+    <LinearLayout android:orientation="vertical"
                   android:layout_width="170dp"
                   android:layout_height="match_parent"
                   android:paddingRight="20dp"

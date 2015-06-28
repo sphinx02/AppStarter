@@ -19,7 +19,10 @@ import de.belu.firestarter.tools.SettingsProvider;
 public class BackgroundHomeButtonObserverThread extends Thread
 {
     /** Name / IP of the device to be connected */
-    private final static String CONNECTDEVICE = "localhost";
+    public final static String CONNECTDEVICE = "localhost";
+
+    /** Name of the device to that is connected */
+    public static String CONNECTEDDEVICE = CONNECTDEVICE;
     
     /** Home-button-clicked-listener */
     private OnHomeButtonClickedListener mHomeButtonClickedListener = null;
@@ -220,6 +223,7 @@ public class BackgroundHomeButtonObserverThread extends Thread
                                             if(line.contains(CONNECTDEVICE))
                                             {
                                                 mAdbDevice = line;
+                                                CONNECTEDDEVICE = mAdbDevice;
                                                 break;
                                             }
                                         }
@@ -415,6 +419,9 @@ public class BackgroundHomeButtonObserverThread extends Thread
                 mErrorMessage = "Exception: " + e.getMessage();
                 fireServiceErrorEvent(mErrorMessage);
             }
+
+            // Reset connected device
+            CONNECTEDDEVICE = CONNECTDEVICE;
 
             // Check if we shall run again:
             if(mRun)

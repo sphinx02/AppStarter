@@ -6,12 +6,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.io.PrintWriter;
@@ -25,6 +27,7 @@ import de.belu.firestarter.tools.SettingsProvider;
 
 public class MainActivity extends Activity
 {
+    private LinearLayout mMainLayout;
     private ListView mListView;
     private Fragment mLastSetFragment;
     private SettingsProvider mSettings;
@@ -104,6 +107,13 @@ public class MainActivity extends Activity
             startService(startIntent);
         }
 
+        // Get base linear layout
+        mMainLayout = (LinearLayout)findViewById(R.id.linearLayoutMain);
+
+        // Check if background image have to be set
+        WallpaperSelectDialog selectDialog = new WallpaperSelectDialog(this);
+        selectDialog.setWallpaper(false);
+
         // Get ListView
         mListView = (ListView)findViewById(R.id.listView);
 
@@ -163,6 +173,24 @@ public class MainActivity extends Activity
                 }
             }
         });
+    }
+
+    /**
+     * @param drawable Set this drawable as background image
+     */
+    public void setBackgroundImage(Drawable drawable)
+    {
+        mMainLayout.setBackground(drawable);
+    }
+
+    public Integer getBackgroundWidth()
+    {
+        return mMainLayout.getWidth();
+    }
+
+    public Integer getBackgroundHeight()
+    {
+        return mMainLayout.getHeight();
     }
 
     @Override

@@ -46,7 +46,8 @@ public class PreferenceActivity extends PreferenceFragment
 //    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferencesactivity);
@@ -54,15 +55,15 @@ public class PreferenceActivity extends PreferenceFragment
         InstalledAppsAdapter actAppsAdapter = new InstalledAppsAdapter(getActivity(), true, false);
         List<AppInfo> actApps = actAppsAdapter.getAppList();
 
-        CharSequence[] entries = new CharSequence[actApps.size()+1];
-        CharSequence[] entryValues = new CharSequence[actApps.size()+1];
+        CharSequence[] entries = new CharSequence[actApps.size() + 1];
+        CharSequence[] entryValues = new CharSequence[actApps.size() + 1];
 
         entries[0] = " - No Action - ";
         entryValues[0] = "";
 
-        for(Integer i = 1; i < actApps.size()+1; i++)
+        for (Integer i = 1; i < actApps.size() + 1; i++)
         {
-            AppInfo actApp = actApps.get(i-1);
+            AppInfo actApp = actApps.get(i - 1);
             entries[i] = actApp.getDisplayName();
             entryValues[i] = actApp.packageName;
         }
@@ -88,7 +89,7 @@ public class PreferenceActivity extends PreferenceFragment
         CharSequence[] langEntries = new CharSequence[SettingsProvider.LANG.size()];
         CharSequence[] langValues = new CharSequence[SettingsProvider.LANG.size()];
         Integer counter = 0;
-        for(Map.Entry<String, String> entry : SettingsProvider.LANG.entrySet())
+        for (Map.Entry<String, String> entry : SettingsProvider.LANG.entrySet())
         {
             langEntries[counter] = entry.getValue();
             langValues[counter] = entry.getKey();
@@ -105,7 +106,7 @@ public class PreferenceActivity extends PreferenceFragment
             public boolean onPreferenceChange(Preference preference, Object newValue)
             {
                 // Check if value has really changed:
-                if(!mSettings.getLanguage().equals(newValue.toString()))
+                if (!mSettings.getLanguage().equals(newValue.toString()))
                 {
                     // Force reload settings
                     mSettings.setLanguage(newValue.toString());
@@ -122,7 +123,7 @@ public class PreferenceActivity extends PreferenceFragment
         List<AppInfo> actHiddenApps = actHiddenAppsAdapter.getAppList();
         CharSequence[] hiddenEntries = new CharSequence[actHiddenApps.size()];
         CharSequence[] hiddenEntryValues = new CharSequence[actHiddenApps.size()];
-        for(Integer i = 0; i < actHiddenApps.size(); i++)
+        for (Integer i = 0; i < actHiddenApps.size(); i++)
         {
             AppInfo actApp = actHiddenApps.get(i);
             hiddenEntries[i] = actApp.getDisplayName();
@@ -157,8 +158,19 @@ public class PreferenceActivity extends PreferenceFragment
                 return mSettings.setJumpbackWatchdogTime(newValue, true);
             }
         });
-    }
 
+        Preference prefWallpaper = (Preference) findPreference("prefWallpaper");
+        prefWallpaper.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                WallpaperSelectDialog wallpaperSelector = new WallpaperSelectDialog((MainActivity)PreferenceActivity.this.getActivity());
+                wallpaperSelector.show();
+                return false;
+            }
+        });
+    }
 
 
     @Override
@@ -170,14 +182,13 @@ public class PreferenceActivity extends PreferenceFragment
         mSettings.readValues(true);
 
         // Check if background observer is active
-        if(mSettings.getBackgroundObserverEnabled())
+        if (mSettings.getBackgroundObserverEnabled())
         {
             // Start foreground service
             Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);
             startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
             this.getActivity().startService(startIntent);
-        }
-        else
+        } else
         {
             // Stop foreground service
             Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);

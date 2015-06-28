@@ -5,9 +5,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -88,46 +92,74 @@ public class Tools
      */
     public static String getActiveIpAddress(Context c, String defValue)
     {
-        String retVal = "";
-
         try
         {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); )
+            String retVal = "";
+
+            try
             {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); )
+                for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); )
                 {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress())
+                    NetworkInterface intf = en.nextElement();
+                    for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); )
                     {
-                        if(!retVal.equals(""))
+                        InetAddress inetAddress = enumIpAddr.nextElement();
+                        if (!inetAddress.isLoopbackAddress())
                         {
-                            retVal += ", ";
+                            if (!retVal.equals(""))
+                            {
+                                retVal += ", ";
+                            }
+                            // retVal += Formatter.formatIpAddress(inetAddress.hashCode());
+                            retVal += inetAddress.getHostAddress().toString();
                         }
-                        // retVal += Formatter.formatIpAddress(inetAddress.hashCode());
-                        retVal += inetAddress.getHostAddress().toString();
                     }
                 }
             }
-        }
-        catch (SocketException ex){ }
+            catch (SocketException ex)
+            {
+            }
 
-        if(retVal == null || retVal.equals(""))
+            if (retVal == null || retVal.equals(""))
+            {
+                retVal = defValue;
+            }
+
+            ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+            String subType = activeNetworkInfo.getSubtypeName();
+            if (subType != null && !subType.equals(""))
+            {
+                subType = "-" + subType;
+            }
+
+            retVal = activeNetworkInfo.getTypeName() + subType + ": " + retVal;
+            return retVal;
+        }
+        catch(Exception e)
         {
-            retVal = defValue;
+            return defValue;
         }
+    }
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-
-        String subType = activeNetworkInfo.getSubtypeName();
-        if(subType != null && !subType.equals(""))
+    /**
+     * Retrieves the wifi name
+     * @param defValue the value to be returned if info could
+     * not be resolved
+     */
+    public static String getWifiSsid(Context context, String defValue)
+    {
+        try
         {
-            subType = "-" + subType;
+            WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+            return wifiInfo.getSSID();
         }
-
-        retVal = activeNetworkInfo.getTypeName() + subType + ": " + retVal;
-        return retVal;
+        catch (Exception ex)
+        {
+            return defValue;
+        }
     }
 
     /**
@@ -187,5 +219,34 @@ public class Tools
             }
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + f.getAbsolutePath())));
         }
+    }
+
+    /**
+     * Resize a bitmap to fit the new dimensions (Fit-Center)
+     * @param source
+     * @param fitWidth
+     * @param fitHeight
+     * @return
+     */
+    public static Bitmap resizeBitmapToFit(Bitmap source, Integer fitWidth, Integer fitHeight)
+    {
+         return ThumbnailUtils.extractThumbnail(source, fitWidth, fitHeight);
+//        // Set new width and height to fit center
+//        int targetW = fitWidth;
+//        int targetH = fitHeight;
+//        Log.d("PHOTO", "Target-Size : " + targetW + "x" + targetH);
+//
+//        // Get size of current bitmap
+//        int photoW = source.getWidth();
+//        int photoH = source.getHeight();
+//        Log.d("PHOTO", "Source-Size : " + photoW + "x" + photoH);
+//
+//        // Create and return correct bitmap
+//        Matrix m = new Matrix();
+//        m.setRectToRect(new RectF(0, 0, photoW, photoH), new RectF(0, 0, targetW, targetH), Matrix.ScaleToFit.CENTER);
+//
+//        Bitmap retVal = Bitmap.createBitmap(source, 0, 0, photoW, photoH, m, true);
+//        Log.d("PHOTO", "Cropped-Size: " + retVal.getWidth() + "x" + retVal.getHeight());
+//        return retVal;
     }
 }

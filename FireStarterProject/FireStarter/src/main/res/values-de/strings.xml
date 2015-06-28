@@ -40,8 +40,8 @@
     <string name="jumpbackwatchdogtime_desc">Die Zeit in Millisekunden (zwischen 0 - 10000) in der FireStarter verhindert, dass der FireTV Home-Launcher sich in den Vordergrund drängt wenn von FireStarter Klick-Aktionen durchgeführt wurden. Auf 0 setzen um zu deaktiviern.</string>
     <string name="jumpbackwatchdogtime_title">Jump Back Watchdog Zeit</string>
     <string name="AmazonSettings">FireTV Einstellungen</string>
-    <string name="leftbar_allapps">Alle Apps</string>
-    <string name="leftbar_infos">Infos</string>
+    <string name="leftbar_allapps">Apps</string>
+    <string name="leftbar_infos">System</string>
     <string name="leftbar_updates">Updates</string>
     <string name="leftbar_settings">Einstellungen</string>
     <string name="appsettingssort">Verschieben</string>
@@ -54,4 +54,11 @@
     <string name="update_checkformessage">Prüfe auf Update.</string>
     <string name="update_foundnew">Neue Version gefunden - jetzt updaten!</string>
     <string name="update_foundnotnew">Die neueste Version ist bereits installiert!</string>
+    <string name="power_reboot">Neustarten</string>
+    <string name="wifissidtitle">WiFi / WLAN Name (SSID)</string>
+    <string name="layout_settings">Layout Einstellungen</string>
+    <string name="wallpaper_summary">Wähle ein eigenes Hintergrundbild / Wallpaper für FireStarter</string>
+    <string name="wallpaper_title">Wallpaper / Hintergrundbild</string>
+    <string name="remove_wallpaper">Wallpaper entfernen</string>
+    <string name="select_wallpaper">Wallpaper auswählen</string>
 </resources>

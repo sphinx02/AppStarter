@@ -40,8 +40,8 @@
     <string name="jumpbackwatchdogtime_desc">The time window in milliseconds (between 0 - 10000) in which FireStarter prevents the amazon home launcher from coming to foreground when click-actions have been performed. Set to 0 to disable.</string>
     <string name="jumpbackwatchdogtime_title">Jump Back Watchdog Time</string>
     <string name="AmazonSettings">FireTV Settings</string>
-    <string name="leftbar_allapps">All Apps</string>
-    <string name="leftbar_infos">Infos</string>
+    <string name="leftbar_allapps">Apps</string>
+    <string name="leftbar_infos">System</string>
     <string name="leftbar_updates">Updates</string>
     <string name="leftbar_settings">Settings</string>
     <string name="appsettingssort">Move</string>
@@ -54,4 +54,11 @@
     <string name="update_checkformessage">Check for update.</string>
     <string name="update_foundnew">Found newer Version - Update Now!</string>
     <string name="update_foundnotnew">You have already the newest version!</string>
+    <string name="power_reboot">Reboot</string>
+    <string name="wifissidtitle">WiFi / WLAN Name (SSID)</string>
+    <string name="layout_settings">Layout Settings</string>
+    <string name="wallpaper_summary">Set a custom background image / wallpaper for FireStarter</string>
+    <string name="wallpaper_title">Wallpaper / Background Image</string>
+    <string name="remove_wallpaper">Remove Wallpaper</string>
+    <string name="select_wallpaper">Select Wallpaper</string>
 </resources>

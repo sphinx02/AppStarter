@@ -49,6 +49,8 @@ Visit discussion on XDA-Developers:
  * [Check releases page for changelog ..](https://github.com/sphinx02/FireStarter/releases)
 
 ### ToDo List:
+ * Settings Backup / Restore
+ * GUI Redesign / Theme Possibilities
  * Add better install instructions for users that dont know adb..
  * Perhaps add possiblity to install and keep updated some apps via FireStarter (e.g. Kodi, Es File Explorer, ..)
 

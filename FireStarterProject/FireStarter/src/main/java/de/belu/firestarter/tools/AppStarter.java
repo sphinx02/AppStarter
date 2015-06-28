@@ -33,7 +33,7 @@ public class AppStarter
      * @param packageName Name of the apps package
      * @param isClickAction Indicates if this method is initiated by a click-action
      */
-    public static synchronized void startAppByPackageName(final Context context, String packageName, Boolean isClickAction)
+    public static synchronized void startAppByPackageName(final Context context, String packageName, Boolean isClickAction, Boolean isStartupAction)
     {
         try
         {
@@ -49,6 +49,13 @@ public class AppStarter
             {
                 // Prepare the intent
                 final Intent launchIntent = InstalledAppsAdapter.getLaunchableIntentByPackageName(context, packageName);
+                if(isStartupAction)
+                {
+                    // Start in new Task if startup -> perhaps prevents weird colors of kodi
+                    // that some users reported..
+                    launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                }
 
                 // Launch the intent
                 Log.d(Tools.class.getName(), "Starting launcher activity of package: " + packageName);

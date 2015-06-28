@@ -5,12 +5,17 @@
     android:layout_width="fill_parent">
 
 
-    <PreferenceCategory android:title="@string/language_settings">
+    <PreferenceCategory android:title="@string/layout_settings">
 
         <ListPreference
             android:key="prefLanguage"
             android:summary="@string/language_summary"
             android:title="@string/language_title" />
+
+        <Preference
+            android:key="prefWallpaper"
+            android:summary="@string/wallpaper_summary"
+            android:title="@string/wallpaper_title" />
 
     </PreferenceCategory>
 
