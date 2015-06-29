@@ -56,10 +56,11 @@ Visit discussion on XDA-Developers:
 
 ### Screenshots:
 
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_10.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_11.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_12.png "Screenshot of FireStarter")
-![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_13.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_01.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_02.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_03.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_04.png "Screenshot of FireStarter")
+![Screenshot of FireStarter](https://raw.githubusercontent.com/sphinx02/FireStarter/master/Screenshots/firestarter_screenshot_05.png "Screenshot of FireStarter")
 
 ### Why using it and how it works:
  * FireStarter is for all people who dont want to root (and therefore loose warranty) their FireTV's.
