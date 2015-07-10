@@ -61,4 +61,25 @@
     <string name="wallpaper_title">Wallpaper / Background Image</string>
     <string name="remove_wallpaper">Remove Wallpaper</string>
     <string name="select_wallpaper">Select Wallpaper</string>
+    <string name="power_sleep">Sleep</string>
+    <string name="system_informative">System Information</string>
+    <string name="system_settings">System Settings</string>
+    <string name="system_sleeptime_edit_summary">Time of inactivity in minutes after which the device goes to sleep.</string>
+    <string name="system_sleeptime_edit_title">Sleep Timeout</string>
+    <string name="gotosleep_summary">ATTENTION: If you click here, the device goes to sleep immediately!</string>
+    <string name="gotosleep_title">Go to sleep</string>
+    <string name="system_restart_summary">ATTENTION: If you click here, the device reboots immediately!</string>
+    <string name="system_restart_title">Reboot</string>
+    <string name="gotosleep_waitforsleep">Please wait, device goes to sleep in a few seconds..</string>
+    <string name="gotosleep_waitforsleep_title">Going to sleep mode..</string>
+    <string name="sleeptime_limit">Only values between %1$d and %2$d minutes are allowed!</string>
+    <string name="gotosleep_cancel">Canceled go to sleep..</string>
+    <string name="devicedetailstitle">Device Details</string>
+    <string name="appicon_size_title">App Icon Size</string>
+    <string name="appicon_size_summary">Size between 0 and 200 (in DPI) of the App-Icons on the main App-Drawer in DPI. Set to 0 for default.</string>
+    <string name="importExport">Import / Export</string>
+    <string name="importexport_export_summary">Export current FireStarter settings to ZIP-File.</string>
+    <string name="importexport_export_title">Export</string>
+    <string name="importexport_import_summary">Import FireStarter Settings from ZIP-File. Be sure to only import trusted ZIP-Files!</string>
+    <string name="importexport_import_title">Import</string>
 </resources>

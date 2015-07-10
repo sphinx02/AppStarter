@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.PrintWriter;
@@ -28,6 +29,7 @@ import de.belu.firestarter.R;
 import de.belu.firestarter.tools.AppInfo;
 import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
+import de.belu.firestarter.tools.Tools;
 
 /**
  * Adapter that lists all installed apps
@@ -207,6 +209,18 @@ public class InstalledAppsAdapter extends BaseAdapter
         } else
         {
             gridView = (View) convertView;
+        }
+
+        Integer appIconSize = mSettings.getAppIconSize();
+        if(appIconSize > 0)
+        {
+            // Set size of items
+            appIconSize = Tools.getPixelFromDip(parent.getContext(), appIconSize);
+            LinearLayout linearLayout = (LinearLayout) gridView.findViewById(R.id.linearLayout);
+            ViewGroup.LayoutParams params = linearLayout.getLayoutParams();
+            params.width = appIconSize;
+            params.height = appIconSize;
+            linearLayout.setLayoutParams(params);
         }
 
         // set value into textview

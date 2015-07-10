@@ -12,6 +12,14 @@
             android:summary="@string/language_summary"
             android:title="@string/language_title" />
 
+        <EditTextPreference
+            android:inputType="number"
+            android:numeric="integer"
+            android:digits="0123456789"
+            android:key="prefAppIconSize"
+            android:summary="@string/appicon_size_summary"
+            android:title="@string/appicon_size_title" />
+
         <Preference
             android:key="prefWallpaper"
             android:summary="@string/wallpaper_summary"
@@ -93,5 +101,19 @@
              android:title="@string/jumpbackwatchdogtime_title" />
 
      </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/importExport">
+
+        <Preference
+            android:key="prefExportCurrentSettings"
+            android:summary="@string/importexport_export_summary"
+            android:title="@string/importexport_export_title" />
+
+        <Preference
+            android:key="prefImportCurrentSettings"
+            android:summary="@string/importexport_import_summary"
+            android:title="@string/importexport_import_title" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

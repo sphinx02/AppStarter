@@ -29,4 +29,9 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/appsettings_overlay_in</item>
+        <item name="android:windowExitAnimation">@anim/appsettings_overlay_out</item>
+    </style>
+
 </resources>

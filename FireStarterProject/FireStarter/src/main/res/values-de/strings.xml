@@ -61,4 +61,25 @@
     <string name="wallpaper_title">Wallpaper / Hintergrundbild</string>
     <string name="remove_wallpaper">Wallpaper entfernen</string>
     <string name="select_wallpaper">Wallpaper auswählen</string>
+    <string name="power_sleep">Sleep</string>
+    <string name="system_informative">System Informationen</string>
+    <string name="system_settings">System Einstellungen</string>
+    <string name="system_sleeptime_edit_summary">Die Zeit ohne Aktivität in Minuten nach der das Gerät in den Ruhezustand geht.</string>
+    <string name="system_sleeptime_edit_title">Ruhezustand Timeout</string>
+    <string name="gotosleep_summary">ACHTUNG: Klicken bringt das Gerät sofort in den Ruhemodus!</string>
+    <string name="gotosleep_title">Gehe in den Ruhezustand</string>
+    <string name="system_restart_summary">ACHTUNG: Klicken started das Gerät sofort neu!</string>
+    <string name="system_restart_title">Neustarten</string>
+    <string name="gotosleep_waitforsleep">Bitte warten, das Gerät geht in wenigen Sekunden in den Ruhemodus..</string>
+    <string name="gotosleep_waitforsleep_title">Gehe in den Ruhemodus..</string>
+    <string name="sleeptime_limit">Nur Werte zwischen %1$d und %2$d Minuten sind erlaubt!</string>
+    <string name="gotosleep_cancel">Ruhemodus abgebrochen..</string>
+    <string name="devicedetailstitle">Geräte Details</string>
+    <string name="appicon_size_title">App Icon Größe</string>
+    <string name="appicon_size_summary">Größe zwischen 0 und 200 (in DPI) der App-Icons im App-Drawer auf der Hauptseite. Auf 0 setzen für Default-Größe.</string>
+    <string name="importExport">Import / Export</string>
+    <string name="importexport_export_summary">Exportiere aktuelle FireStarter Einstellungen in ZIP-File.</string>
+    <string name="importexport_export_title">Export</string>
+    <string name="importexport_import_summary">Importiere FireStarter Einstellungen aus ZIP-File. Nur vertrauenswürdige ZIP-Files importieren!</string>
+    <string name="importexport_import_title">Import</string>
 </resources>

@@ -3,57 +3,107 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:baselineAligned="false"
-              android:orientation="horizontal"
+              android:orientation="vertical"
               android:background="@drawable/mainbackground"
-              android:id="@+id/linearLayoutMain"
-              tools:context=".ItemListActivity" >
+              android:id="@+id/linearLayoutMain">
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="170dp"
-                  android:layout_height="match_parent"
-                  android:paddingRight="20dp"
-                  android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
+            <ImageView
+                android:id="@+id/imageLabel"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/firestarter_logo_only_white"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="7dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/AppName"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="13dp"
+                android:textSize="17dp"
+                android:textColor="#FFFFFF"
+                android:text="@string/AppName"
+                android:autoText="true"
+                android:focusable="false"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewClock"
+                    android:layout_gravity="right"
+                    android:textSize="18dp"
+                    android:textColor="#FFFFFF"
+                    android:text="00:00"
+                    android:autoText="true"
+                    android:focusable="false"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDate"
+                    android:layout_gravity="right"
+                    android:textSize="13dp"
+                    android:textColor="#FFFFFF"
+                    android:text="Mo, 1. Jan 2015"
+                    android:autoText="true"
+                    android:focusable="false"
+                    android:textStyle="bold" />
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_weight="1"
+                  android:orientation="horizontal">
+
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="170dp"
+                      android:layout_height="match_parent"
+                      android:paddingRight="20dp"
+                      android:gravity="center">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingTop="90dp"
+                android:layout_weight="1"
+                android:dividerHeight="0dp"
+                android:divider="#00000000"
+                android:listSelector="@drawable/itemselector" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/item_detail_container"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffce55"
-            android:text="@string/AppName"
-            android:id="@+id/textView"
-            android:paddingTop="30dp"
-            android:paddingBottom="0dp"
-            android:paddingLeft="20dp"
-            android:autoText="true"
-            android:gravity="center_vertical|right"
-            android:focusable="false"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:focusable="false"
-            android:layout_marginBottom="50dp" />
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:dividerHeight="0dp"
-            android:divider="#00000000"
-            android:listSelector="@drawable/itemselector" />
+            android:paddingTop="6dp"
+            android:paddingBottom="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"/>
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/item_detail_container"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:padding="20dp"/>
-
 </LinearLayout>
-

@@ -85,6 +85,9 @@ public class SettingsProvider
     /** Show system apps */
     Boolean mShowSystemApps = false;
 
+    /** Size of the app icons */
+    Integer mAppIconSize = 0;
+
     /** Time to wait for second click in milliseconds */
     Integer mDoubleClickInterval = 500;
 
@@ -226,6 +229,26 @@ public class SettingsProvider
         return mShowSystemApps;
     }
 
+    public Boolean setAppIconSize(Object appIconSize, Boolean simulate)
+    {
+        Boolean retVal = numberCheck(appIconSize, 0, 200);
+        if(!simulate && retVal)
+        {
+            setAppIconSize(Integer.valueOf(appIconSize.toString()));
+        }
+        return retVal;
+    }
+    public void setAppIconSize(Integer appIconSize)
+    {
+        mAppIconSize = appIconSize;
+        storeValues();
+    }
+    public Integer getAppIconSize()
+    {
+        readValues();
+        return mAppIconSize;
+    }
+
     public Boolean setDoubleClickInterval(Object doubleClickInterval, Boolean simulate)
     {
         Boolean retVal = numberCheck(doubleClickInterval, 100, 1000);
@@ -354,8 +377,15 @@ public class SettingsProvider
             // lang
             mLanguage = mPreferences.getString("prefLanguage", mLanguage);
 
+            // App icon size
+            String pref = mPreferences.getString("prefAppIconSize", mAppIconSize.toString());
+            if(setAppIconSize(pref, true))
+            {
+                mAppIconSize = Integer.valueOf(pref);
+            }
+
             // Double click interval
-            String pref = mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString());
+            pref = mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString());
             if(setDoubleClickInterval(pref, true))
             {
                 mDoubleClickInterval = Integer.valueOf(pref);
@@ -433,6 +463,9 @@ public class SettingsProvider
 
             // Lang
             editor.putString("prefLanguage", mLanguage);
+
+            // App icon size
+            editor.putString("prefAppIconSize", mAppIconSize.toString());
 
             // Double click interval
             editor.putString("prefClickInterval", mDoubleClickInterval.toString());

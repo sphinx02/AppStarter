@@ -20,8 +20,10 @@ Visit discussion on XDA-Developers:
  * You can e.g. start Kodi on double-click and FireStarter on single-click.
  * Also possible is to keep up the default behaviour (" - No Action - ") on a single-click (amazon home is starting) and to open e.g. FireStarter on a double-click.
  * Lists all user-installed apps including sideloaded / adb installed apps.
- * Apps can be easily sorted / ordered by click-drag-and-drop (long-click to start drag-and-drop).
+ * Apps can be easily sorted / ordered by settings-button or click-drag-and-drop (long-click to start drag-and-drop).
  * Apps can be hidden from app drawer (see settings).
+ * Possibility to change the time of no action the FireTV waits to go to sleep.
+ * Possibility to import / export settings.
  * Automatic update mechanism.
  * __No root required!__
 
@@ -29,7 +31,7 @@ Visit discussion on XDA-Developers:
 
  * If you don't know how to sideload/install apps via ADB, read a turoial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
- * _adb install -r FireStarter-v2.6.apk_
+ * _adb install -r FireStarter-v2.7.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
  * ADB-Debugging needs to stay enabled (do not disable ADB-Debugging after installation).
@@ -49,8 +51,7 @@ Visit discussion on XDA-Developers:
  * [Check releases page for changelog ..](https://github.com/sphinx02/FireStarter/releases)
 
 ### ToDo List:
- * Settings Backup / Restore
- * GUI Redesign / Theme Possibilities
+ * Further GUI optimizations
  * Add better install instructions for users that dont know adb..
  * Perhaps add possiblity to install and keep updated some apps via FireStarter (e.g. Kodi, Es File Explorer, ..)
 

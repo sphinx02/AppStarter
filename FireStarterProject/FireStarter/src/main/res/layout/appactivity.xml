@@ -5,7 +5,7 @@
           android:id="@+id/gridview"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
-          android:columnWidth="140dp"
+          android:columnWidth="@dimen/applisting_itemsize"
           android:numColumns="auto_fit"
           android:stretchMode="columnWidth"
           android:gravity="center"

@@ -13,7 +13,10 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
+import android.util.TypedValue;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +33,18 @@ import de.belu.firestarter.observer.ForeGroundService;
  */
 public class Tools
 {
+    // Fallback-value if timeout-value is not found
+    private static final int FALLBACK_SCREEN_TIMEOUT_VALUE = 30000;
+
+    // Last stored timeout-value
+    private static long LAST_STORED_TIMEOUT_VALUE = -1;
+
+    // Path of the backup-file
+    private static final String EXPORT_FILE_PATH_NAME = new File(Environment.getExternalStorageDirectory(), "FireStarterBackup.zip").getAbsolutePath();
+
     /**
      * Restarts the current application
+     *
      * @param c
      */
     public static void doRestart(Context c)
@@ -86,6 +99,44 @@ public class Tools
         }
     }
 
+    public static long getSleepModeTimeout(Context c)
+    {
+        long currentTimeout = Settings.System.getLong(c.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, FALLBACK_SCREEN_TIMEOUT_VALUE);
+        Log.d("SLEEPMODE", "CurrentSleepModeTime: " + currentTimeout);
+        return currentTimeout;
+    }
+
+    public static void setSleepModeTimeout(Context c, long valueInMs)
+    {
+        Settings.System.putInt(c.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, (int) valueInMs);
+    }
+
+    public static void setSleepModeDirectActive(Context c)
+    {
+        // Store the current time
+        LAST_STORED_TIMEOUT_VALUE = getSleepModeTimeout(c);
+        Log.d("SLEEPMODE", "Stored current sleep-mode timeout: " + LAST_STORED_TIMEOUT_VALUE);
+
+        // Setting the time to sleep very short
+        long veryShort = 10;
+        Log.d("SLEEPMODE", "Set current sleep-mode timeout to: " + veryShort);
+        setSleepModeTimeout(c, veryShort);
+    }
+
+    public static void setSleepModeDirectNotActive(Context c)
+    {
+        if (LAST_STORED_TIMEOUT_VALUE > 0)
+        {
+            Log.d("SLEEPMODE", "Current sleep-mode timeout was: " + getSleepModeTimeout(c));
+            Log.d("SLEEPMODE", "Set current sleep-mode timeout back to: " + LAST_STORED_TIMEOUT_VALUE);
+            setSleepModeTimeout(c, LAST_STORED_TIMEOUT_VALUE);
+            LAST_STORED_TIMEOUT_VALUE = -1;
+        } else
+        {
+            Log.d("SLEEPMODE", "We have not initiated the sleep-mode, so nothing to set back..");
+        }
+    }
+
     /**
      * @param c context
      * @return active ip address
@@ -137,7 +188,7 @@ public class Tools
             retVal = activeNetworkInfo.getTypeName() + subType + ": " + retVal;
             return retVal;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return defValue;
         }
@@ -145,8 +196,9 @@ public class Tools
 
     /**
      * Retrieves the wifi name
+     *
      * @param defValue the value to be returned if info could
-     * not be resolved
+     *                 not be resolved
      */
     public static String getWifiSsid(Context context, String defValue)
     {
@@ -163,9 +215,19 @@ public class Tools
     }
 
     /**
+     * @return Details about the device
+     */
+    public static String getDeviceDetails()
+    {
+        String retVal = String.format("%s - Android %s\n\t-> %s", Build.MODEL, Build.VERSION.RELEASE, Build.DISPLAY);
+        return retVal;
+    }
+
+    /**
      * Retrieves the net.hostname system property
+     *
      * @param defValue the value to be returned if the hostname could
-     * not be resolved
+     *                 not be resolved
      */
     public static String getHostName(String defValue)
     {
@@ -181,6 +243,21 @@ public class Tools
         }
     }
 
+    /**
+     * @param c
+     * @param dip Value in DIP
+     * @return Value in Pixel
+     */
+    public static int getPixelFromDip(Context c, int dip)
+    {
+        int retVal = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, c.getResources().getDisplayMetrics());
+        return retVal;
+    }
+
+    /**
+     * @param context
+     * @return Current version of FireStarter
+     */
     public static String getCurrentAppVersion(Context context)
     {
         String retVal = "unknown";
@@ -198,20 +275,21 @@ public class Tools
 
     /**
      * Delete a directory recursively
+     *
      * @param f Directory
      * @throws IOException
      */
     public static void deleteDirectoryRecursively(Context context, File f, Boolean onlyContent) throws IOException
     {
-        if(f.isDirectory())
+        if (f.isDirectory())
         {
-            for(File c : f.listFiles())
+            for (File c : f.listFiles())
             {
                 deleteDirectoryRecursively(context, c, false);
             }
         }
 
-        if(!onlyContent)
+        if (!onlyContent)
         {
             if (!f.delete())
             {
@@ -221,8 +299,43 @@ public class Tools
         }
     }
 
+    public static String settingsExport(Context c)
+    {
+        String retVal = "Settings export failed..";
+
+        try
+        {
+            ZipDirectory.zipDirectory(c.getApplicationInfo().dataDir, EXPORT_FILE_PATH_NAME);
+            retVal = "Settings exported to: " + EXPORT_FILE_PATH_NAME;
+        }
+        catch(Exception e)
+        {
+            retVal += " " + e.getMessage();
+        }
+
+        return retVal;
+    }
+
+    public static String settingsImport(Context c)
+    {
+        String retVal = null;
+
+        try
+        {
+            File dataDir = new File(c.getApplicationInfo().dataDir);
+            ZipDirectory.unZipDirectory(new File(EXPORT_FILE_PATH_NAME), dataDir);
+        }
+        catch(Exception e)
+        {
+            retVal = "Settings import failed: " + e.getMessage();
+        }
+
+        return retVal;
+    }
+
     /**
      * Resize a bitmap to fit the new dimensions (Fit-Center)
+     *
      * @param source
      * @param fitWidth
      * @param fitHeight
@@ -230,7 +343,7 @@ public class Tools
      */
     public static Bitmap resizeBitmapToFit(Bitmap source, Integer fitWidth, Integer fitHeight)
     {
-         return ThumbnailUtils.extractThumbnail(source, fitWidth, fitHeight);
+        return ThumbnailUtils.extractThumbnail(source, fitWidth, fitHeight);
 //        // Set new width and height to fit center
 //        int targetW = fitWidth;
 //        int targetH = fitHeight;

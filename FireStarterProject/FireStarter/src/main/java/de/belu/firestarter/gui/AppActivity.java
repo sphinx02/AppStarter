@@ -68,7 +68,14 @@ public class AppActivity extends CustomFragment
         // Get default-launcher package
         mDefaultLauncherPackage = AppStarter.getLauncherPackageName(getActivity());
 
+        // Check for custom app-icon size
         mGridView = (GridView) rootView.findViewById(R.id.gridview);
+        Integer appIconSize = mSettings.getAppIconSize();
+        if(appIconSize > 0)
+        {
+            // Set size of items
+            mGridView.setColumnWidth(Tools.getPixelFromDip(getActivity(), appIconSize));
+        }
         mGridView.setAdapter(new InstalledAppsAdapter(getActivity()));
 
         // Focus first item

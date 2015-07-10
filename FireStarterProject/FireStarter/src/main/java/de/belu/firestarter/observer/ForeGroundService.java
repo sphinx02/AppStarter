@@ -3,7 +3,10 @@ package de.belu.firestarter.observer;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,6 +25,7 @@ import de.belu.firestarter.R;
 import de.belu.firestarter.gui.MainActivity;
 import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
+import de.belu.firestarter.tools.Tools;
 import de.belu.firestarter.tools.Updater;
 
 
@@ -61,6 +65,17 @@ public class ForeGroundService extends Service
 
     /** Timer to check for updates */
     private Timer mTimer;
+
+    // Handler for ScreenOnEvents
+    BroadcastReceiver mScreenOnReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            Log("Device comes back from sleep, check if we have to reset sleep timing");
+            Tools.setSleepModeDirectNotActive(ForeGroundService.this);
+        }
+    };
 
     /** Handler for Home-Button events */
     BackgroundHomeButtonObserverThread.OnHomeButtonClickedListener mHomeButtonClickedListener = new BackgroundHomeButtonObserverThread.OnHomeButtonClickedListener()
@@ -232,7 +247,9 @@ public class ForeGroundService extends Service
         mBackgroundHomeButtonObserverThread.setOnServiceErrorListener(mOnServiceErrorListener);
         mBackgroundHomeButtonObserverThread.start();
 
-
+        // Register screen on receiver
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        registerReceiver(mScreenOnReceiver, filter);
     }
 
     /** Stops the test runner */
@@ -298,6 +315,13 @@ public class ForeGroundService extends Service
         {
             Log("No timed update check is active at the moment.");
         }
+
+        // Stop screen on receiver
+        try
+        {
+            unregisterReceiver(mScreenOnReceiver);
+        }
+        catch(Exception ignore){}
     }
 
     /**

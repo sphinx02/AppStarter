@@ -15,10 +15,17 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.observer.ForeGroundService;
@@ -31,6 +38,11 @@ public class MainActivity extends Activity
     private ListView mListView;
     private Fragment mLastSetFragment;
     private SettingsProvider mSettings;
+
+    private TextView mTextViewClock;
+    private TextView mTextViewDate;
+
+    private Timer mTimer = null;
 
     /**
      * Handles selection or click of the left-bar items..
@@ -97,9 +109,8 @@ public class MainActivity extends Activity
         // Now go on
         setContentView(R.layout.mainactivity);
 
-        // Get settings provider
-        SettingsProvider settingsProvider = SettingsProvider.getInstance(this);
-        if(settingsProvider.getBackgroundObserverEnabled())
+        // Check if observer have to be started
+        if(mSettings.getBackgroundObserverEnabled())
         {
             // Start foreground service
             Intent startIntent = new Intent(this, ForeGroundService.class);
@@ -113,6 +124,10 @@ public class MainActivity extends Activity
         // Check if background image have to be set
         WallpaperSelectDialog selectDialog = new WallpaperSelectDialog(this);
         selectDialog.setWallpaper(false);
+
+        // Get clock and date
+        mTextViewClock = (TextView)findViewById(R.id.textViewClock);
+        mTextViewDate = (TextView)findViewById(R.id.textViewDate);
 
         // Get ListView
         mListView = (ListView)findViewById(R.id.listView);
@@ -176,6 +191,77 @@ public class MainActivity extends Activity
     }
 
     /**
+     * Start the timer to update clock
+     */
+    private void startTimer()
+    {
+        mTimer = new Timer ();
+        TimerTask timerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                setDateAndTime();
+            }
+        };
+
+        // Schedule task every full minute
+        Integer everyXminute = 1;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Integer toBeAdded = everyXminute - (calendar.get(Calendar.MINUTE) % everyXminute);
+        if(toBeAdded == 0)
+        {
+            toBeAdded = everyXminute;
+        }
+        calendar.add(Calendar.MINUTE, toBeAdded);
+
+        mTimer.schedule(timerTask, calendar.getTime(), 1000*60*everyXminute);
+        Log.d(MainActivity.class.getName(), "Update Time started");
+    }
+
+    /**
+     * Stops the timer to update clock
+     */
+    private void stopTimer()
+    {
+        if(mTimer != null)
+        {
+            mTimer.cancel();
+            mTimer = null;
+        }
+        Log.d(MainActivity.class.getName(), "Update Time stopped");
+    }
+
+    /**
+     * Sets the current time and date
+     */
+    private void setDateAndTime()
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                // Get current date time
+                Date actDateTime = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
+                Log.d(MainActivity.class.getName(), "Update Time to " + sdf.format(actDateTime));
+
+                // Set clock
+                DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, getResources().getConfiguration().locale);
+                mTextViewClock.setText(timeFormat.format(actDateTime));
+
+                // Set date
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, getResources().getConfiguration().locale);
+                mTextViewDate.setText(dateFormat.format(actDateTime));
+            }
+        });
+    }
+
+    /**
      * @param drawable Set this drawable as background image
      */
     public void setBackgroundImage(Drawable drawable)
@@ -197,11 +283,18 @@ public class MainActivity extends Activity
     public void onPause()
     {
         super.onPause();
+
+        // Stop update timer
+        stopTimer();
     }
 
     @Override
     public void onResume()
     {
+        // Set date and time and start timer
+        setDateAndTime();
+        startTimer();
+
         super.onResume();
     }
 

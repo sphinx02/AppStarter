@@ -7,6 +7,7 @@ import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
@@ -135,6 +136,18 @@ public class PreferenceActivity extends PreferenceFragment
         hiddenAppsList.setEntryValues(hiddenEntryValues);
         hiddenAppsList.setDefaultValue(mSettings.getHiddenApps());
 
+        EditTextPreference appIconSize = (EditTextPreference) findPreference("prefAppIconSize");
+        appIconSize.setDefaultValue(mSettings.getAppIconSize().toString());
+        appIconSize.setText(mSettings.getAppIconSize().toString());
+        appIconSize.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                return mSettings.setAppIconSize(newValue, true);
+            }
+        });
+
         EditTextPreference doubleClickInterval = (EditTextPreference) findPreference("prefClickInterval");
         doubleClickInterval.setDefaultValue(mSettings.getDoubleClickInterval().toString());
         doubleClickInterval.setText(mSettings.getDoubleClickInterval().toString());
@@ -167,6 +180,51 @@ public class PreferenceActivity extends PreferenceFragment
             {
                 WallpaperSelectDialog wallpaperSelector = new WallpaperSelectDialog((MainActivity)PreferenceActivity.this.getActivity());
                 wallpaperSelector.show();
+                return false;
+            }
+        });
+
+        Preference prefExportCurrentSettings = (Preference) findPreference("prefExportCurrentSettings");
+        prefExportCurrentSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                Toast.makeText(getActivity(), Tools.settingsExport(getActivity()), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        Preference prefImportCurrentSettings = (Preference) findPreference("prefImportCurrentSettings");
+        prefImportCurrentSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                String retVal = Tools.settingsImport(getActivity());
+                if(retVal == null)
+                {
+                    Toast.makeText(getActivity(), "Settings imported successful, restart..", Toast.LENGTH_SHORT).show();
+                    Thread restarter = new Thread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            try
+                            {
+                                Thread.sleep(2000);
+                            }
+                            catch (Exception ignore){ }
+
+                            Tools.doRestart(getActivity());
+                        }
+                    });
+                    restarter.start();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), retVal, Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
         });
