@@ -31,6 +31,8 @@ public class SettingsProvider
         put("", "Auto");
         put("ENGLISH", "English");
         put("GERMAN", "Deutsch");
+        put("ru", "Русский");
+        put("uk", "Українська");
     }};
 
     /** Private static singleton object */

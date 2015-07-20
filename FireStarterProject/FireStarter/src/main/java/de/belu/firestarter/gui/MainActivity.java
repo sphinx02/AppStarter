@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,69 +46,23 @@ public class MainActivity extends Activity
 
     private Timer mTimer = null;
 
-    /**
-     * Handles selection or click of the left-bar items..
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    private void handleLeftBarItemSelection(AdapterView<?> parent, View view, int position, long id)
-    {
-        // Get instance of selected item and set as current fragment
-        try
-        {
-            Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: selected position " + position);
-            Fragment fragment = (Fragment)Class.forName(((LeftBarItemsListAdapter)parent.getAdapter()).getItem(position).className).getConstructor().newInstance();
-            mLastSetFragment = fragment;
-
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.item_detail_container, fragment);
-            fragmentTransaction.commit();
-        }
-        catch (Exception e)
-        {
-            StringWriter errors = new StringWriter();
-            e.printStackTrace(new PrintWriter(errors));
-            String errorReason = errors.toString();
-            Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: Exception: \n" + errorReason);
-        }
-    }
-
-    private void setLocale(Locale locale)
-    {
-        Configuration config = new Configuration(getResources().getConfiguration());
-        config.locale = locale;
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-    }
+    private boolean mOnResumeDirectlyAfterOnCreate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-
         // Get settings provider
         mSettings = SettingsProvider.getInstance(this);
 
         // Check language
-        String lang = mSettings.getLanguage();
-        if(lang != null && !lang.equals("") && SettingsProvider.LANG.containsKey(lang))
-        {
-            try
-            {
-                setLocale((Locale) Locale.class.getField(lang).get(Locale.getDefault()));
-            }
-            catch (Exception e)
-            {
-                StringWriter errors = new StringWriter();
-                e.printStackTrace(new PrintWriter(errors));
-                String errorReason = errors.toString();
-                Log.d(MainActivity.class.getName(), "Failed to load custom language setting: \n" + errorReason);
-            }
-        }
+        Log.d(MainActivity.class.getName(), "Set locale in onCreate");
+        setLocale();
+
+        // Set flag indicating we are in oncreate
+        mOnResumeDirectlyAfterOnCreate = true;
 
         // Now go on
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
 
         // Check if observer have to be started
@@ -188,6 +144,101 @@ public class MainActivity extends Activity
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume()
+    {
+        // If not onResume directly after onCreate reset locale
+        if(!mOnResumeDirectlyAfterOnCreate)
+        {
+            Log.d(MainActivity.class.getName(), "Set locale again in onResume");
+            setLocale();
+        }
+
+        // Set date and time and start timer
+        setDateAndTime();
+        startTimer();
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        // Stop update timer
+        stopTimer();
+
+        // Set back onResume directly after onCreate
+        mOnResumeDirectlyAfterOnCreate = false;
+    }
+
+    /**
+     * Handles selection or click of the left-bar items..
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    private void handleLeftBarItemSelection(AdapterView<?> parent, View view, int position, long id)
+    {
+        // Get instance of selected item and set as current fragment
+        try
+        {
+            Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: selected position " + position);
+            Fragment fragment = (Fragment)Class.forName(((LeftBarItemsListAdapter)parent.getAdapter()).getItem(position).className).getConstructor().newInstance();
+            mLastSetFragment = fragment;
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.item_detail_container, fragment);
+            fragmentTransaction.commit();
+        }
+        catch (Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: Exception: \n" + errorReason);
+        }
+    }
+
+    private void setLocale()
+    {
+        // Check language
+        String lang = mSettings.getLanguage();
+        if(lang != null && !lang.equals("") && SettingsProvider.LANG.containsKey(lang))
+        {
+            try
+            {
+                Locale newLocale;
+
+                // If lang is <= 3 chars, it is a language code
+                if(lang.length() <= 3)
+                {
+                    newLocale = new Locale(lang);
+                }
+                else
+                {
+                    newLocale = (Locale) Locale.class.getField(lang).get(Locale.getDefault());
+                }
+
+                Locale.setDefault(newLocale);
+
+                Configuration config = new Configuration(getResources().getConfiguration());
+                config.locale = newLocale;
+                getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+            }
+            catch (Exception e)
+            {
+                StringWriter errors = new StringWriter();
+                e.printStackTrace(new PrintWriter(errors));
+                String errorReason = errors.toString();
+                Log.d(MainActivity.class.getName(), "Failed to load custom language setting: \n" + errorReason);
+            }
+        }
     }
 
     /**
@@ -277,25 +328,6 @@ public class MainActivity extends Activity
     public Integer getBackgroundHeight()
     {
         return mMainLayout.getHeight();
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-
-        // Stop update timer
-        stopTimer();
-    }
-
-    @Override
-    public void onResume()
-    {
-        // Set date and time and start timer
-        setDateAndTime();
-        startTimer();
-
-        super.onResume();
     }
 
     /** Trigger update */

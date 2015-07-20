@@ -205,6 +205,9 @@ public class FileDialog
             }
         }
         this.fileEndsWith = fileEndsWith;
+
+        // Again load file-list (because now file-list can change)
+        loadFileList(currentPath);
     }
 }
 

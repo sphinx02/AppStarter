@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- String resources (non translatable) -->
+  <!--Original value: FireStarter-->
+  <string name="AppName">FireStarter</string>
+  <!-- To be translated -->
+  <!--Original value: FireTV Home-->
+  <string name="AmazonHome">FireTV Home</string>
+  <!--Original value: Now move app and click again to drop 
+(Press RETURN to CANCEL)-->
+  <string name="MoveAppAndClickToDrop">Переместите приложение и кликните снова на новом месте\n(Нажмите Назад для Отмены)</string>
+  <!--Original value: Now move app and click to drop 
+(Press RETURN to CANCEL)-->
+  <string name="MoveAppAndClickToDropWhenStartedByMenu">Переместите приложение и кликните на новом месте\n(Нажмите Назад для Отмены)</string>
+  <!--Original value: loading-->
+  <string name="loading">загрузка</string>
+  <!--Original value: Background Observation-->
+  <string name="background_observation">Фоновое отслеживание</string>
+  <!--Original value: Enable background observation of home-button and startup-event.-->
+  <string name="enable_background_observation_desc">Отслеживать в фоновом режиме нажатия кнопки Домой и старт Fire TV.</string>
+  <!--Original value: Enable background observation.-->
+  <string name="enable_background_observation_title">Включить фоновое отслеживание.</string>
+  <!--Original value: IP Address-->
+  <string name="iptitle">IP адрес</string>
+  <!--Original value: Hostname-->
+  <string name="hostnametitle">Имя хоста</string>
+  <!--Original value: not found..-->
+  <string name="notfound">не найдено...</string>
+  <!--Original value: FireStarter Version-->
+  <string name="firestarterversiontitle">Версия FireStarter</string>
+  <!--Original value: App that is started on FireTV startup-->
+  <string name="startup_app_desc">Приложение, запускаемое при старте Fire TV</string>
+  <!--Original value: Startup Application-->
+  <string name="startup_app_title">Стартовое приложение</string>
+  <!--Original value: App that is started on home button single click.-->
+  <string name="singleclick_app_desc">Приложение, запускаемое одинарным кликом кнопки Домой</string>
+  <!--Original value: Home Button Single Click Application-->
+  <string name="singleclick_app_title">Кнопка Домой - приложение по одинарному клику</string>
+  <!--Original value: App that is started on home button double click.-->
+  <string name="doubleclick_app_desc">Приложение, запускаемое двойным кликом кнопки Домой</string>
+  <!--Original value: Home Button Double Click Application-->
+  <string name="doubleclick_app_title">Кнопка Домой - приложение по двойному клику</string>
+  <!--Original value: Show also system apps in app list.-->
+  <string name="showsysapps_desc">Показывать также системные приложения в меню Приложения</string>
+  <!--Original value: Show system apps-->
+  <string name="showsysapps_title">Показывать системные приложения</string>
+  <!--Original value: Apps that shall not be shown in apps list.-->
+  <string name="hiddenapps_desc">Приложения, которые не будут показаны в меню Приложения</string>
+  <!--Original value: Hidden Apps-->
+  <string name="hiddenapps_title">Скрытые Приложения</string>
+  <!--Original value: App Listing Settings-->
+  <string name="applist_settings">Настройки списка приложений / меню Приложения</string>
+  <!--Original value: Observer Timings-->
+  <string name="settings_timings">Временные задержки</string>
+  <!--Original value: Define the time in milliseconds (between 100 - 1000) to wait for the second click-->
+  <string name="doubleclick_interval_desc">Укажите время в миллисекундах (в пределах 100 - 1000) для ожидания второго клика</string>
+  <!--Original value: Double click interval-->
+  <string name="doubleclick_interval_title">Интервал двойного клика</string>
+  <!--Original value: is invalid for this setting!-->
+  <string name="is_invalid_number">некорректно для данной настройки!</string>
+  <!--Original value: Current FireStarter Version-->
+  <string name="update_currentversion">Текущая версия FireStarter</string>
+  <!--Original value: Latest FireStarter Version-->
+  <string name="serverVersion">Последняя версия FireStarter</string>
+  <!--Original value: Check for Update-->
+  <string name="update_checkfor">Проверить обновление</string>
+  <!--Original value: Update to latest Version-->
+  <string name="update">Обновить до последней версии</string>
+  <!--Original value: Hit check for update to check for latest version.-->
+  <string name="update_hitcheckfor">Нажмите Проверить обновление для проверки наличия обновления</string>
+  <!--Original value: Auto select the first icon when switching to the app drawer (All Apps).-->
+  <string name="autoselectfirsticon_desc">Авто выбор первой иконки при переходе в меню Приложения (Все Приложения)</string>
+  <!--Original value: Auto select first icon (App Drawer)-->
+  <string name="autoselectfirsricon_title">Авто выбор первой иконки (App Drawer)</string>
+  <!--Original value: FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:
+
+Visit discussion on XDA-Developers:
+http://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135
+
+FireStarter is Open-Source, visit project on GitHub:
+https://github.com/sphinx02/FireStarter-->
+  <string name="about_firestarter">FireStarter - замена лаунчера / рабочий стол для Amazon Fire TV (не требует root):\n\nПосетите тему на XDA-Developers:\nhttp://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135\n\nFireStarter является Open-Source, посетите проект на GitHub:\nhttps://github.com/sphinx02/FireStarter</string>
+  <!--Original value: The time window in milliseconds (between 0 - 10000) in which FireStarter prevents the amazon home launcher from coming to foreground when click-actions have been performed. Set to 0 to disable.-->
+  <string name="jumpbackwatchdogtime_desc">Время в миллисекундах (в пределах 0 - 10000), в течение которого FireStarter предотвращает показ стартового экрана Amazon при выполнении клик-действий. Установите 0 для отключения.</string>
+  <!--Original value: Jump Back Watchdog Time-->
+  <string name="jumpbackwatchdogtime_title">Время предотвращения показа стартового экрана Amazon</string>
+  <!--Original value: FireTV Settings-->
+  <string name="AmazonSettings">Настройки Fire TV</string>
+  <!--Original value: Apps-->
+  <string name="leftbar_allapps">Приложения</string>
+  <!--Original value: System-->
+  <string name="leftbar_infos">Система</string>
+  <!--Original value: Updates-->
+  <string name="leftbar_updates">Обновление</string>
+  <!--Original value: Settings-->
+  <string name="leftbar_settings">Настройки</string>
+  <!--Original value: Move-->
+  <string name="appsettingssort">Перемещение</string>
+  <!--Original value: App Settings-->
+  <string name="appsettings_settings">Настройки</string>
+  <!--Original value: Language Settings-->
+  <string name="language_settings">Языковые настройки</string>
+  <!--Original value: Set language manually.-->
+  <string name="language_summary">Указать язык вручную</string>
+  <!--Original value: Language-->
+  <string name="language_title">Язык</string>
+  <!--Original value: Checking for updates-->
+  <string name="update_checkfortitle">Проверка обновления</string>
+  <!--Original value: Wait till checked GitHub for latest release.-->
+  <string name="update_checkfordesc">Дождитесь окончания проверки нового релиза на GitHub.</string>
+  <!--Original value: Check for update.-->
+  <string name="update_checkformessage">Проверяем наличие обновления</string>
+  <!--Original value: Found newer Version - Update Now!-->
+  <string name="update_foundnew">Найдена новая версия - Обновите сейчас!</string>
+  <!--Original value: You have already the newest version!-->
+  <string name="update_foundnotnew">Вы уже используете последнюю версию!</string>
+  <!--Original value: Reboot-->
+  <string name="power_reboot">Перезагрузка</string>
+  <!--Original value: WiFi / WLAN Name (SSID)-->
+  <string name="wifissidtitle">Имя WiFi / WLAN (SSID)</string>
+  <!--Original value: Layout Settings-->
+  <string name="layout_settings">Настройки отображения</string>
+  <!--Original value: Set a custom background image / wallpaper for FireStarter-->
+  <string name="wallpaper_summary">Установите пользовательское фоновое изображение / обои для FireStarter</string>
+  <!--Original value: Wallpaper / Background Image-->
+  <string name="wallpaper_title">Обои / Фоновое изображение</string>
+  <!--Original value: Remove Wallpaper-->
+  <string name="remove_wallpaper">Удалить обои</string>
+  <!--Original value: Select Wallpaper-->
+  <string name="select_wallpaper">Выбрать обои</string>
+  <!--Original value: Sleep-->
+  <string name="power_sleep">Сон</string>
+  <!--Original value: System Information-->
+  <string name="system_informative">Информация о системе</string>
+  <!--Original value: System Settings-->
+  <string name="system_settings">Настройки системы</string>
+  <!--Original value: Time of inactivity in minutes after which the device goes to sleep.-->
+  <string name="system_sleeptime_edit_summary">Время неактивности в минутах, после которого устройство перейдет в режим сна.</string>
+  <!--Original value: Sleep Timeout-->
+  <string name="system_sleeptime_edit_title">Таймаут сна</string>
+  <!--Original value: ATTENTION: If you click here, the device goes to sleep immediately!-->
+  <string name="gotosleep_summary">ВНИМАНИЕ: Если кликнуть здесь, устройство перейдет в режим сна немедленно!</string>
+  <!--Original value: Go to sleep-->
+  <string name="gotosleep_title">Перейти в режим сна</string>
+  <!--Original value: ATTENTION: If you click here, the device reboots immediately!-->
+  <string name="system_restart_summary">ВНИМАНИЕ: Если кликнуть здесь, устройство перезагрузится немедленно!</string>
+  <!--Original value: Reboot-->
+  <string name="system_restart_title">Перезагрузка</string>
+  <!--Original value: Please wait, device goes to sleep in a few seconds..-->
+  <string name="gotosleep_waitforsleep">Подождите пожалуйста, устройство перейдет в режим сна в течение нескольких секунд..</string>
+  <!--Original value: Going to sleep mode..-->
+  <string name="gotosleep_waitforsleep_title">Переход в режим сна..</string>
+  <!--Original value: Only values between %1$d and %2$d minutes are allowed!-->
+  <string name="sleeptime_limit" formatted="false">Допустимые значения в диапазоне между %1$d и %2$d минут!</string>
+  <!--Original value: Canceled go to sleep..-->
+  <string name="gotosleep_cancel">Отмена перехода в режим сна..</string>
+  <!--Original value: Device Details-->
+  <string name="devicedetailstitle">Подробнее об устройстве</string>
+  <!--Original value: App Icon Size-->
+  <string name="appicon_size_title">Размер иконок приложений</string>
+  <!--Original value: Size between 0 and 200 (in DPI) of the App-Icons on the main App-Drawer in DPI. Set to 0 for default.-->
+  <string name="appicon_size_summary">Размер иконок приложений на рабочем столе в диапазоне от 0 до 200 (в DPI). Установите 0 для размера по умолчанию.</string>
+  <!--Original value: Import / Export-->
+  <string name="importExport">Импорт / Экспорт</string>
+  <!--Original value: Export current FireStarter settings to ZIP-File.-->
+  <string name="importexport_export_summary">Экспорт текущих настроек FireStarter в ZIP файл.</string>
+  <!--Original value: Export-->
+  <string name="importexport_export_title">Экспорт</string>
+  <!--Original value: Import FireStarter Settings from ZIP-File. Be sure to only import trusted ZIP-Files!-->
+  <string name="importexport_import_summary">Импорт настроек FireStarter из ZIP файла. Импортируйте ZIP файлы только из доверенного источника!</string>
+  <!--Original value: Import-->
+  <string name="importexport_import_title">Импорт</string>
+</resources>
