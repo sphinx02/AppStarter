@@ -38,6 +38,7 @@ Visit discussion on XDA-Developers:
  * Enjoy :)
  
 ### Reviews / Articles:
+ * [English / Installation Tutorial] <a href="https://www.youtube.com/watch?v=8_gkSeGBJP4" target="_blank">Amazon Fire Tv Stick How to install XBMC Kodi 15 and add-ons FireStarter IPTV iVue - YouTube</a>
  * [English /  Text] <a href="http://www.aftvnews.com/firestarter-is-a-non-root-launcher-replacement-with-fantastic-home-button-detection/" target="_blank">..aftvnews.com/firestarter-..-fantastic-home..detection/</a>
  * [English /  Text] <a href="http://myezsystem.com/firestarter-new-launcher-for-firetv-stick" target="_blank">..myezsystem.com/firestarter-new-launcher-for-firetv-stick</a>
  * [English / Video] <a href="https://www.youtube.com/watch?v=FEpqG6vRXrY" target="_blank">..youtube.com/watch?v=FEpqG6vRXrY</a>
