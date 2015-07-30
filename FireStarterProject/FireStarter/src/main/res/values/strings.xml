@@ -66,7 +66,7 @@
     <string name="system_settings">System Settings</string>
     <string name="system_sleeptime_edit_summary">Time of inactivity in minutes after which the device goes to sleep.</string>
     <string name="system_sleeptime_edit_title">Sleep Timeout</string>
-    <string name="gotosleep_summary">ATTENTION: If you click here, the device goes to sleep immediately!</string>
+    <string name="gotosleep_summary">ATTENTION: This feature has been removed from FireStarter! Long press home-button to find the option to go to sleep immediately.</string>
     <string name="gotosleep_title">Go to sleep</string>
     <string name="system_restart_summary">ATTENTION: If you click here, the device reboots immediately!</string>
     <string name="system_restart_title">Reboot</string>
@@ -82,4 +82,6 @@
     <string name="importexport_export_title">Export</string>
     <string name="importexport_import_summary">Import FireStarter Settings from ZIP-File. Be sure to only import trusted ZIP-Files!</string>
     <string name="importexport_import_title">Import</string>
+    <string name="deviceuptime">Uptime</string>
+    <string name="uptimedesc">Device is up for %1$s (startup: %2$s)</string>
 </resources>

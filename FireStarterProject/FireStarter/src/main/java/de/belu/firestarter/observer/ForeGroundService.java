@@ -25,7 +25,6 @@ import de.belu.firestarter.R;
 import de.belu.firestarter.gui.MainActivity;
 import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
-import de.belu.firestarter.tools.Tools;
 import de.belu.firestarter.tools.Updater;
 
 
@@ -72,8 +71,7 @@ public class ForeGroundService extends Service
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log("Device comes back from sleep, check if we have to reset sleep timing");
-            Tools.setSleepModeDirectNotActive(ForeGroundService.this);
+            // Possibly used again in future
         }
     };
 

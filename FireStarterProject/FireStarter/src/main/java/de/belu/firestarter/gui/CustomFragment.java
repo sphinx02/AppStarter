@@ -11,9 +11,9 @@ public class CustomFragment extends Fragment
     /**
      * Custom on backpressed method
      */
-    public void onBackPressed()
+    public boolean onBackPressed()
     {
-
+        return false;
     }
 
     public boolean onKeyDown(int keycode, KeyEvent e)

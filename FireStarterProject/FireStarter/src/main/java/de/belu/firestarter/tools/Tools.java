@@ -36,9 +36,6 @@ public class Tools
     // Fallback-value if timeout-value is not found
     private static final int FALLBACK_SCREEN_TIMEOUT_VALUE = 30000;
 
-    // Last stored timeout-value
-    private static long LAST_STORED_TIMEOUT_VALUE = -1;
-
     // Path of the backup-file
     private static final String EXPORT_FILE_PATH_NAME = new File(Environment.getExternalStorageDirectory(), "FireStarterBackup.zip").getAbsolutePath();
 
@@ -111,30 +108,19 @@ public class Tools
         Settings.System.putInt(c.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, (int) valueInMs);
     }
 
-    public static void setSleepModeDirectActive(Context c)
+    public static String formatInterval(final long ms)
     {
-        // Store the current time
-        LAST_STORED_TIMEOUT_VALUE = getSleepModeTimeout(c);
-        Log.d("SLEEPMODE", "Stored current sleep-mode timeout: " + LAST_STORED_TIMEOUT_VALUE);
+        long millis = ms % 1000;
+        long x = ms / 1000;
+        long seconds = x % 60;
+        x /= 60;
+        long minutes = x % 60;
+        x /= 60;
+        long hours = x % 24;
+        x /= 24;
+        long days = x;
 
-        // Setting the time to sleep very short
-        long veryShort = 10;
-        Log.d("SLEEPMODE", "Set current sleep-mode timeout to: " + veryShort);
-        setSleepModeTimeout(c, veryShort);
-    }
-
-    public static void setSleepModeDirectNotActive(Context c)
-    {
-        if (LAST_STORED_TIMEOUT_VALUE > 0)
-        {
-            Log.d("SLEEPMODE", "Current sleep-mode timeout was: " + getSleepModeTimeout(c));
-            Log.d("SLEEPMODE", "Set current sleep-mode timeout back to: " + LAST_STORED_TIMEOUT_VALUE);
-            setSleepModeTimeout(c, LAST_STORED_TIMEOUT_VALUE);
-            LAST_STORED_TIMEOUT_VALUE = -1;
-        } else
-        {
-            Log.d("SLEEPMODE", "We have not initiated the sleep-mode, so nothing to set back..");
-        }
+        return String.format("%dd %02dh %02dm %02ds", days, hours, minutes, seconds, millis);
     }
 
     /**

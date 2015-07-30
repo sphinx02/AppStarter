@@ -26,6 +26,11 @@
             android:summary="@string/notfound"
             android:title="@string/iptitle" />
 
+        <Preference
+            android:key="prefVirtualDeviceUpTime"
+            android:summary="@string/notfound"
+            android:title="@string/deviceuptime" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/system_settings">

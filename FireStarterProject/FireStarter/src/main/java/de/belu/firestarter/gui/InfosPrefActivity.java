@@ -1,8 +1,7 @@
 package de.belu.firestarter.gui;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -11,6 +10,8 @@ import android.widget.Toast;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.util.Date;
 
 import de.belu.firestarter.R;
 import de.belu.firestarter.observer.BackgroundHomeButtonObserverThread;
@@ -48,6 +49,11 @@ public class InfosPrefActivity extends PreferenceFragment
         Preference prefIpAddress = (Preference) findPreference("prefVirtualIpAddress");
         prefIpAddress.setSummary(Tools.getActiveIpAddress(getActivity(), getActivity().getResources().getString(R.string.notfound)));
 
+        Preference prefDeviceUpTime = (Preference) findPreference("prefVirtualDeviceUpTime");
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM, getResources().getConfiguration().locale);
+        String upTime = String.format(getActivity().getResources().getString(R.string.uptimedesc), Tools.formatInterval(SystemClock.elapsedRealtime()), dateFormat.format(new Date(System.currentTimeMillis() - SystemClock.elapsedRealtime())));
+        prefDeviceUpTime.setSummary(upTime);
+
         EditTextPreference prefSetSleepTimeout = (EditTextPreference) findPreference("prefVirtualSleepTime");
         prefSetSleepTimeout.setText(((Long)(Tools.getSleepModeTimeout(getActivity()) / 1000 / 60)).toString());
         prefSetSleepTimeout.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -60,11 +66,13 @@ public class InfosPrefActivity extends PreferenceFragment
                 {
                     newTimeInMinutes = Long.valueOf(newValue.toString());
                 }
-                catch(Exception ignore){}
+                catch (Exception ignore)
+                {
+                }
 
                 do
                 {
-                    if(newTimeInMinutes < SLEEPTIME_MINIMUM || newTimeInMinutes > SLEEPTIME_MAXIMUM)
+                    if (newTimeInMinutes < SLEEPTIME_MINIMUM || newTimeInMinutes > SLEEPTIME_MAXIMUM)
                     {
                         Toast.makeText(InfosPrefActivity.this.getActivity(), String.format(getActivity().getResources().getString(R.string.sleeptime_limit), SLEEPTIME_MINIMUM, SLEEPTIME_MAXIMUM), Toast.LENGTH_SHORT).show();
                         break;
@@ -73,7 +81,7 @@ public class InfosPrefActivity extends PreferenceFragment
                     long newTimeInMs = newTimeInMinutes * 60 * 1000;
                     Tools.setSleepModeTimeout(getActivity(), newTimeInMs);
                 }
-                while(false);
+                while (false);
 
                 return false;
             }
@@ -85,46 +93,7 @@ public class InfosPrefActivity extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if(BackgroundHomeButtonObserverThread.CONNECTDEVICE.equals(BackgroundHomeButtonObserverThread.CONNECTEDDEVICE))
-                {
-                    Toast.makeText(InfosPrefActivity.this.getActivity(), "Sleep only works if Background-Observer is up and running..", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Tools.setSleepModeDirectActive(InfosPrefActivity.this.getActivity());
-                    final ProgressDialog actDialog = ProgressDialog.show(getActivity(), getActivity().getResources().getString(R.string.gotosleep_waitforsleep_title), getActivity().getResources().getString(R.string.gotosleep_waitforsleep), true);
-                    actDialog.setOnDismissListener(new DialogInterface.OnDismissListener()
-                    {
-                        @Override
-                        public void onDismiss(DialogInterface dialog)
-                        {
-                            // If user dismiss dialog before the Thread
-                            // is dismissing the dialog, stop go to sleep..
-                            Tools.setSleepModeDirectNotActive(getActivity());
-                            Toast.makeText(InfosPrefActivity.this.getActivity(), R.string.gotosleep_cancel, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    actDialog.setCancelable(true);
-
-                    Thread closerThread = new Thread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            try
-                            {
-                                Thread.sleep(10000);
-                            }
-                            catch (Exception ignore) { }
-                            if(actDialog != null && actDialog.isShowing())
-                            {
-                                actDialog.setOnDismissListener(null);
-                                actDialog.dismiss();
-                            }
-                        }
-                    });
-                    closerThread.start();
-                }
+                Toast.makeText(InfosPrefActivity.this.getActivity(), getActivity().getResources().getString(R.string.gotosleep_summary), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

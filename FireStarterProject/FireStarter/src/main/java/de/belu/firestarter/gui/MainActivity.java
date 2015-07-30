@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -175,6 +173,26 @@ public class MainActivity extends Activity
         mOnResumeDirectlyAfterOnCreate = false;
     }
 
+    private void setActiveFragment(Fragment fragment)
+    {
+        try
+        {
+            mLastSetFragment = fragment;
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.item_detail_container, fragment);
+            fragmentTransaction.commit();
+        }
+        catch (Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(MainActivity.class.getName(), "Set Active Fragment: Exception: \n" + errorReason);
+        }
+    }
+
     /**
      * Handles selection or click of the left-bar items..
      * @param parent
@@ -189,12 +207,7 @@ public class MainActivity extends Activity
         {
             Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: selected position " + position);
             Fragment fragment = (Fragment)Class.forName(((LeftBarItemsListAdapter)parent.getAdapter()).getItem(position).className).getConstructor().newInstance();
-            mLastSetFragment = fragment;
-
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.item_detail_container, fragment);
-            fragmentTransaction.commit();
+            setActiveFragment(fragment);
         }
         catch (Exception e)
         {
@@ -337,12 +350,7 @@ public class MainActivity extends Activity
         {
             UpdateActivity fragment = (UpdateActivity)Class.forName(UpdateActivity.class.getName()).getConstructor().newInstance();
             fragment.triggerUpdateOnStartup();
-            mLastSetFragment = fragment;
-
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.item_detail_container, fragment);
-            fragmentTransaction.commit();
+            setActiveFragment(fragment);
         }
         catch (Exception e)
         {
@@ -370,11 +378,24 @@ public class MainActivity extends Activity
     @Override
     public void onBackPressed()
     {
+        boolean isHandled = false;
+
         // Check if there is a receiver fragment
         if(mLastSetFragment != null && mLastSetFragment instanceof CustomFragment)
         {
             CustomFragment actFragment = (CustomFragment)mLastSetFragment;
-            ((CustomFragment) mLastSetFragment).onBackPressed();
+            isHandled = ((CustomFragment) mLastSetFragment).onBackPressed();
+        }
+
+        // Check if back-pressed is already handled
+        if(!isHandled)
+        {
+            // If the fragment does not handle the back-button and FireStarter is not
+            // on the main-app-view, open main-app-view
+            if(!(mLastSetFragment instanceof AppActivity))
+            {
+                mListView.setSelection(0);
+            }
         }
 
         // Prevent default by not calling super class..

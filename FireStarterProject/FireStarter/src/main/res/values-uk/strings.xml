@@ -138,7 +138,7 @@
     <!--Original value: Sleep Timeout-->
     <string name="system_sleeptime_edit_title">Таймаут сна</string>
     <!--Original value: ATTENTION: If you click here, the device goes to sleep immediately!-->
-    <string name="gotosleep_summary">УВАГА: Якщо клікнути тут, пристрій перейде в режим сна негайно!</string>
+    <string name="gotosleep_summary">УВАГА: This feature has been removed from FireStarter! Long press home-button to find the option to go to sleep immediately.</string>
     <!--Original value: Go to sleep-->
     <string name="gotosleep_title">Перейти в режим сна</string>
     <!--Original value: ATTENTION: If you click here, the device reboots immediately!-->
@@ -169,4 +169,6 @@
     <string name="importexport_import_summary">Імпорт налаштувань FireStarter з ZIP файла. Імпортуйте ZIP файли тільки з довіреного джерела!</string>
     <!--Original value: Import-->
     <string name="importexport_import_title">Імпорт</string>
+    <string name="deviceuptime">Uptime</string>
+    <string name="uptimedesc">Device is up for %1$s (startup: %2$s)</string>
 </resources>

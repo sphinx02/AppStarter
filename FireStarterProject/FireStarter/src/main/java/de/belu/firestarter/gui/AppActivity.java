@@ -239,8 +239,10 @@ public class AppActivity extends CustomFragment
     }
 
     @Override
-    public void onBackPressed()
+    public boolean onBackPressed()
     {
+        boolean retVal = false;
+
         if(mMovingApp[0] != null)
         {
             // Stop moving without saving the order
@@ -252,7 +254,11 @@ public class AppActivity extends CustomFragment
             InstalledAppsAdapter actAdapter = (InstalledAppsAdapter)mGridView.getAdapter();
             actAdapter.loadInstalledApps();
             actAdapter.notifyDataSetChanged();
+
+            retVal = true;
         }
+
+        return retVal;
     }
 
     @Override

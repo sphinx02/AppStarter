@@ -139,7 +139,7 @@ https://github.com/sphinx02/FireStarter-->
   <!--Original value: Sleep Timeout-->
   <string name="system_sleeptime_edit_title">Таймаут сна</string>
   <!--Original value: ATTENTION: If you click here, the device goes to sleep immediately!-->
-  <string name="gotosleep_summary">ВНИМАНИЕ: Если кликнуть здесь, устройство перейдет в режим сна немедленно!</string>
+  <string name="gotosleep_summary">ВНИМАНИЕ: This feature has been removed from FireStarter! Long press home-button to find the option to go to sleep immediately.</string>
   <!--Original value: Go to sleep-->
   <string name="gotosleep_title">Перейти в режим сна</string>
   <!--Original value: ATTENTION: If you click here, the device reboots immediately!-->
@@ -170,4 +170,6 @@ https://github.com/sphinx02/FireStarter-->
   <string name="importexport_import_summary">Импорт настроек FireStarter из ZIP файла. Импортируйте ZIP файлы только из доверенного источника!</string>
   <!--Original value: Import-->
   <string name="importexport_import_title">Импорт</string>
+    <string name="deviceuptime">Uptime</string>
+    <string name="uptimedesc">Device is up for %1$s (startup: %2$s)</string>
 </resources>
