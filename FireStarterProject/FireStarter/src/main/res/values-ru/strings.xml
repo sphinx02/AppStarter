@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- String resources (non translatable) -->
   <!--Original value: FireStarter-->
@@ -138,8 +138,10 @@ https://github.com/sphinx02/FireStarter-->
   <string name="system_sleeptime_edit_summary">Время неактивности в минутах, после которого устройство перейдет в режим сна.</string>
   <!--Original value: Sleep Timeout-->
   <string name="system_sleeptime_edit_title">Таймаут сна</string>
-  <!--Original value: ATTENTION: If you click here, the device goes to sleep immediately!-->
-  <string name="gotosleep_summary">ВНИМАНИЕ: This feature has been removed from FireStarter! Long press home-button to find the option to go to sleep immediately.</string>
+  <!--Original value: ATTENTION: This feature has been removed from FireStarter! Long press home-button to find the option to go to sleep immediately.-->
+  <string name="gotosleep_summary">ВНИМАНИЕ: Эта функция удалена из FireStarter! Длительное нажатие кнопки Домой для выбора опции немедленного перехода в режим сна.</string>
+
+
   <!--Original value: Go to sleep-->
   <string name="gotosleep_title">Перейти в режим сна</string>
   <!--Original value: ATTENTION: If you click here, the device reboots immediately!-->
@@ -170,6 +172,8 @@ https://github.com/sphinx02/FireStarter-->
   <string name="importexport_import_summary">Импорт настроек FireStarter из ZIP файла. Импортируйте ZIP файлы только из доверенного источника!</string>
   <!--Original value: Import-->
   <string name="importexport_import_title">Импорт</string>
-    <string name="deviceuptime">Uptime</string>
-    <string name="uptimedesc">Device is up for %1$s (startup: %2$s)</string>
+  <!--Original value: Uptime-->
+  <string name="deviceuptime">Время с момента включения</string>
+  <!--Original value: Device is up for %1$s (startup: %2$s)-->
+  <string name="uptimedesc" formatted="false">Устройство работает %1$s (включено: %2$s)</string>
 </resources>
