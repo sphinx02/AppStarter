@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
   <!-- String resources (non translatable) -->
   <!--Original value: FireStarter-->
@@ -174,4 +175,8 @@ https://github.com/sphinx02/FireStarter-->
   <string name="deviceuptime">Час з моменту ввімкнення</string>
   <!--Original value: Device is up for %1$s (startup: %2$s)-->
   <string name="uptimedesc" formatted="false">Пристрій працює %1$s (ввімкнено: %2$s)</string>
+  
+  
+  
+  
 </resources>
