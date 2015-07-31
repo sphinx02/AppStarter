@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <!-- String resources (non translatable) -->
+<resources><!-- String resources (non translatable) -->
   <!--Original value: FireStarter-->
   <string name="AppName">FireStarter</string>
   <!-- To be translated -->
