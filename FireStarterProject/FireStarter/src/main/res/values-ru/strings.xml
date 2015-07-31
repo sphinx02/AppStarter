@@ -140,8 +140,6 @@ https://github.com/sphinx02/FireStarter-->
   <string name="system_sleeptime_edit_title">Таймаут сна</string>
   <!--Original value: ATTENTION: This feature has been removed from FireStarter! Long press home-button to find the option to go to sleep immediately.-->
   <string name="gotosleep_summary">ВНИМАНИЕ: Эта функция удалена из FireStarter! Длительное нажатие кнопки Домой для выбора опции немедленного перехода в режим сна.</string>
-
-
   <!--Original value: Go to sleep-->
   <string name="gotosleep_title">Перейти в режим сна</string>
   <!--Original value: ATTENTION: If you click here, the device reboots immediately!-->
@@ -176,8 +174,4 @@ https://github.com/sphinx02/FireStarter-->
   <string name="deviceuptime">Время с момента включения</string>
   <!--Original value: Device is up for %1$s (startup: %2$s)-->
   <string name="uptimedesc" formatted="false">Устройство работает %1$s (включено: %2$s)</string>
-  
-  
-  
-  
 </resources>
