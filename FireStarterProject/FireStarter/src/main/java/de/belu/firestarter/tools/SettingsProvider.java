@@ -102,6 +102,12 @@ public class SettingsProvider
     /** Automatically select first icon when switching to app-drawer */
     Boolean mAutoSelectFirstIcon = true;
 
+    /** FLAG_ACTIVITY_CLEAR_TASK is used for single click actions */
+    Boolean mClearPreviousInstancesForSingleClick = false;
+
+    /** FLAG_ACTIVITY_CLEAR_TASK is used for double click actions */
+    Boolean mClearPreviousInstancesForDoubleClick = false;
+
     /** Create a the instace of SettingsProvider */
     private SettingsProvider(Context context)
     {
@@ -131,6 +137,27 @@ public class SettingsProvider
         return mPackageOrder;
     }
 
+    public void setClearPreviousInstancesForDoubleClick(Boolean value)
+    {
+        mClearPreviousInstancesForDoubleClick = value;
+        storeValues();
+    }
+    public Boolean getClearPreviousInstancesForDoubleClick()
+    {
+        readValues();
+        return mClearPreviousInstancesForDoubleClick;
+    }
+
+    public void setClearPreviousInstancesForSingleClick(Boolean value)
+    {
+        mClearPreviousInstancesForSingleClick = value;
+        storeValues();
+    }
+    public Boolean getClearPreviousInstancesForSingleClick()
+    {
+        readValues();
+        return mClearPreviousInstancesForSingleClick;
+    }
 
     public void setBackgroundObserverEnabled(Boolean value)
     {
@@ -361,6 +388,12 @@ public class SettingsProvider
             // Auto select first icon
             mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
 
+            // ClearPreviousInstancesForDoubleClick
+            mClearPreviousInstancesForDoubleClick = mPreferences.getBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
+
+            // ClearPreviousInstancesForSingleClick
+            mClearPreviousInstancesForSingleClick = mPreferences.getBoolean("prefClearPreviousInstancesForSingleClick", mClearPreviousInstancesForSingleClick);
+
             // Startup-package
             mStartupPackage = mPreferences.getString("prefStartupPackage", mStartupPackage);
 
@@ -447,6 +480,12 @@ public class SettingsProvider
 
             // Auto select first icon
             editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
+            // ClearPreviousInstancesForDoubleClick
+            editor.putBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
+
+            // ClearPreviousInstancesForSingleClick
+            editor.putBoolean("prefClearPreviousInstancesForSingleClick", mClearPreviousInstancesForSingleClick);
 
             // Startup package
             editor.putString("prefStartupPackage", mStartupPackage);

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -315,8 +316,12 @@ public class MainActivity extends Activity
                 Log.d(MainActivity.class.getName(), "Update Time to " + sdf.format(actDateTime));
 
                 // Set clock
-                DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, getResources().getConfiguration().locale);
-                mTextViewClock.setText(timeFormat.format(actDateTime));
+//                DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, getResources().getConfiguration().locale.getDefault());
+//                if(android.text.format.DateFormat.is24HourFormat(MainActivity.this))
+//                {
+//                }
+//                mTextViewClock.setText(timeFormat.format(actDateTime));
+                mTextViewClock.setText(DateUtils.formatDateTime(MainActivity.this, actDateTime.getTime(), DateUtils.FORMAT_SHOW_TIME));
 
                 // Set date
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, getResources().getConfiguration().locale);

@@ -23,7 +23,7 @@ import de.belu.firestarter.tools.Tools;
 public class InfosPrefActivity extends PreferenceFragment
 {
     static final long SLEEPTIME_MINIMUM = 1;
-    static final long SLEEPTIME_MAXIMUM = 30;
+    static final long SLEEPTIME_MAXIMUM = 120;
 
     public InfosPrefActivity()
     {
@@ -54,7 +54,7 @@ public class InfosPrefActivity extends PreferenceFragment
         String upTime = String.format(getActivity().getResources().getString(R.string.uptimedesc), Tools.formatInterval(SystemClock.elapsedRealtime()), dateFormat.format(new Date(System.currentTimeMillis() - SystemClock.elapsedRealtime())));
         prefDeviceUpTime.setSummary(upTime);
 
-        EditTextPreference prefSetSleepTimeout = (EditTextPreference) findPreference("prefVirtualSleepTime");
+        final EditTextPreference prefSetSleepTimeout = (EditTextPreference) findPreference("prefVirtualSleepTime");
         prefSetSleepTimeout.setText(((Long)(Tools.getSleepModeTimeout(getActivity()) / 1000 / 60)).toString());
         prefSetSleepTimeout.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
         {
@@ -80,6 +80,7 @@ public class InfosPrefActivity extends PreferenceFragment
 
                     long newTimeInMs = newTimeInMinutes * 60 * 1000;
                     Tools.setSleepModeTimeout(getActivity(), newTimeInMs);
+                    prefSetSleepTimeout.setText(((Long)(Tools.getSleepModeTimeout(getActivity()) / 1000 / 60)).toString());
                 }
                 while (false);
 

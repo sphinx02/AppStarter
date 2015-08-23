@@ -75,10 +75,22 @@
             android:summary="@string/singleclick_app_desc"
             android:title="@string/singleclick_app_title" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefClearPreviousInstancesForSingleClick"
+            android:summary="@string/clearpreviousinstance_desc"
+            android:title="@string/clearpreviousinstance_singleclick_title" />
+
         <ListPreference
             android:key="prefHomeDoubleClickPackage"
             android:summary="@string/doubleclick_app_desc"
             android:title="@string/doubleclick_app_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefClearPreviousInstancesForDoubleClick"
+            android:summary="@string/clearpreviousinstance_desc"
+            android:title="@string/clearpreviousinstance_doubleclick_title" />
      </PreferenceCategory>
 
 
