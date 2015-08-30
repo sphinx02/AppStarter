@@ -10,6 +10,7 @@ import java.io.SequenceInputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
+import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
 
 
@@ -369,6 +370,9 @@ public class BackgroundHomeButtonObserverThread extends Thread
                             }
                             else
                             {
+                                // For each first home-button click disable immediately the jumpback mechanism
+                                AppStarter.stopWatchThread();
+
                                 // Create new thread to check for double click
                                 mWaitForSecondClickThread = new Thread(new Runnable()
                                 {

@@ -166,7 +166,7 @@ public class AppActivity extends CustomFragment
                     String packageName = ((AppInfo) parent.getAdapter().getItem(position)).packageName;
 
                     // Now start app
-                    AppStarter.startAppByPackageName(getActivity(), packageName, false, false);
+                    AppStarter.startAppByPackageName(getActivity(), packageName, false, false, false);
                 }
             }
         });

@@ -36,7 +36,7 @@ public class StartUpBootReceiver extends BroadcastReceiver
                 Log.d(StartUpBootReceiver.class.getName(), "Startup start package is: " + startPackage);
                 if(startPackage != null && !startPackage.equals(""))
                 {
-                    AppStarter.startAppByPackageName(context, startPackage, true, true);
+                    AppStarter.startAppByPackageName(context, startPackage, true, true, true);
                 }
             }
         }

@@ -86,7 +86,7 @@ public class ForeGroundService extends Service
             // Start single click package
             String startPackage = mSettings.getSingleClickApp();
             Log("Single-click start package is: " + startPackage);
-            AppStarter.startAppByPackageName(ForeGroundService.this, startPackage, true, false);
+            AppStarter.startAppByPackageName(ForeGroundService.this, startPackage, true, false, mSettings.getClearPreviousInstancesForSingleClick());
         }
 
         @Override
@@ -97,7 +97,7 @@ public class ForeGroundService extends Service
             // Start single click package
             String startPackage = mSettings.getDoubleClickApp();
             Log("Double-click start package is: " + startPackage);
-            AppStarter.startAppByPackageName(ForeGroundService.this, startPackage, true, false);
+            AppStarter.startAppByPackageName(ForeGroundService.this, startPackage, true, false, mSettings.getClearPreviousInstancesForDoubleClick());
         }
     };
 
