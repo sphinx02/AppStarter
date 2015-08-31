@@ -173,7 +173,10 @@
     <string name="deviceuptime">Час з моменту ввімкнення</string>
     <!--Original value: Device is up for %1$s (startup: %2$s)-->
     <string name="uptimedesc" formatted="false">Пристрій працює %1$s (ввімкнено: %2$s)</string>
-    <string name="clearpreviousinstance_desc">If this option is set, all previous instances of the app are cleared and the app is started fresh (nothing from the last activity is restored).</string>
-    <string name="clearpreviousinstance_singleclick_title">Single Click App: Clear previous instances</string>
-    <string name="clearpreviousinstance_doubleclick_title">Double Click App: Clear previous instances</string>
+    <!--Original value: If this option is set, all previous instances of the app are cleared and the app is started fresh (nothing from the last activity is restored).-->
+     <string name="clearpreviousinstance_desc">Якщо опція активна, всі попередні екземпляри програми будуть закриті та програма запуститься \"з нуля\" (а не відновить попередній стан).</string>
+    <!--Original value: Single Click App: Clear previous instances-->
+    <string name="clearpreviousinstance_singleclick_title">Програма по одинарному кліку: Запускати \"з нуля\"</string>
+    <!--Original value: Double Click App: Clear previous instances-->
+    <string name="clearpreviousinstance_doubleclick_title">Програма по подвійному кліку: Запускати \"з нуля\"</string>
 </resources>
