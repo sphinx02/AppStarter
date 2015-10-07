@@ -180,4 +180,7 @@ https://github.com/sphinx02/FireStarter-->
   <string name="clearpreviousinstance_singleclick_title">Приложение по одинарному клику: Запускать \"с нуля\"</string>
   <!--Original value: Double Click App: Clear previous instances-->
   <string name="clearpreviousinstance_doubleclick_title">Приложение по двойному клику: Запускать \"с нуля\"</string>
+  <string name="background_observation_viaadb_title">Home-Detection via ADB</string>
+  <string name="background_observation_viaadb_desc">Use ADB to detect home button clicks. This is more accurate but does only work with ADB running and correctly enabled (disable / enable in settings).</string>
+  <string name="system_restart_summary_removed">ATTENTION: This feature has been removed from FireStarter hold \"Enter/Select\"-Button + \"Play\"-Button to restart FireTV.</string>
 </resources>

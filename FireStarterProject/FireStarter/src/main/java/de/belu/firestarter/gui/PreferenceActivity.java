@@ -178,7 +178,7 @@ public class PreferenceActivity extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                WallpaperSelectDialog wallpaperSelector = new WallpaperSelectDialog((MainActivity)PreferenceActivity.this.getActivity());
+                WallpaperSelectDialog wallpaperSelector = new WallpaperSelectDialog((MainActivity) PreferenceActivity.this.getActivity());
                 wallpaperSelector.show();
                 return false;
             }
@@ -228,6 +228,58 @@ public class PreferenceActivity extends PreferenceFragment
                 return false;
             }
         });
+
+        Preference prefBackgroundObservationEnabled = (Preference) findPreference("prefBackgroundObservationEnabled");
+        prefBackgroundObservationEnabled.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                mSettings.setBackgroundObserverEnabled((Boolean)newValue);
+
+                if(mSettings.getBackgroundObserverEnabled())
+                {
+                    // Start foreground service
+                    Intent startIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                    startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
+                    PreferenceActivity.this.getActivity().startService(startIntent);
+                }
+                else
+                {
+                    // Stop foreground service
+                    Intent stopIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                    stopIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
+                    PreferenceActivity.this.getActivity().startService(stopIntent);
+                }
+
+                return true;
+            }
+        });
+
+        Preference prefBackgroundObservationViaAdb = (Preference) findPreference("prefBackgroundObservationViaAdb");
+        prefBackgroundObservationViaAdb.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                mSettings.setBackgroundObservationViaAdb((Boolean) newValue);
+
+                // Stop foreground service
+                Intent stopIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                stopIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
+                PreferenceActivity.this.getActivity().startService(stopIntent);
+
+                if(mSettings.getBackgroundObserverEnabled())
+                {
+                    // Start foreground service
+                    Intent startIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                    startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
+                    PreferenceActivity.this.getActivity().startService(startIntent);
+                }
+
+                return true;
+            }
+        });
     }
 
 
@@ -238,21 +290,6 @@ public class PreferenceActivity extends PreferenceFragment
 
         // Force read-settings
         mSettings.readValues(true);
-
-        // Check if background observer is active
-        if (mSettings.getBackgroundObserverEnabled())
-        {
-            // Start foreground service
-            Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);
-            startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
-            this.getActivity().startService(startIntent);
-        } else
-        {
-            // Stop foreground service
-            Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);
-            startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
-            this.getActivity().startService(startIntent);
-        }
     }
 
     @Override

@@ -5,16 +5,12 @@ import android.os.SystemClock;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.DateFormat;
 import java.util.Date;
 
 import de.belu.firestarter.R;
-import de.belu.firestarter.observer.BackgroundHomeButtonObserverThread;
 import de.belu.firestarter.tools.Tools;
 
 /**
@@ -105,28 +101,7 @@ public class InfosPrefActivity extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if(BackgroundHomeButtonObserverThread.CONNECTDEVICE.equals(BackgroundHomeButtonObserverThread.CONNECTEDDEVICE))
-                {
-                    Toast.makeText(InfosPrefActivity.this.getActivity(), "Reboot only works if Background-Observer is up and running..", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    try
-                    {
-                        Log.d(InfosPrefActivity.class.getName(), "Send reboot command..");
-                        Process p = Runtime.getRuntime().exec(new String[]{"adb", "-s", BackgroundHomeButtonObserverThread.CONNECTEDDEVICE, "reboot"});
-                        p.waitFor();
-                    }
-                    catch (Exception e)
-                    {
-                        StringWriter errors = new StringWriter();
-                        e.printStackTrace(new PrintWriter(errors));
-                        String errorReason = errors.toString();
-                        Log.d(InfosPrefActivity.class.getName(), "Failed to send reboot command: \n" + errorReason);
-
-                        Toast.makeText(InfosPrefActivity.this.getActivity(), "Failed to send reboot command..", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                Toast.makeText(InfosPrefActivity.this.getActivity(), getActivity().getResources().getString(R.string.system_restart_summary_removed), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

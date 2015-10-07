@@ -87,4 +87,7 @@
     <string name="clearpreviousinstance_desc">Wenn diese Option gesetzt ist, werden alle vorherigen Instanzen der App vor dem Start gelöscht (nichts von der vorherigen Aktivität wird wiederhergestellt).</string>
     <string name="clearpreviousinstance_singleclick_title">Einzel-Klick App: Sauberer Start</string>
     <string name="clearpreviousinstance_doubleclick_title">Doppel-Klick App: Sauberer Start</string>
+    <string name="background_observation_viaadb_title">Home-Detection via ADB</string>
+    <string name="background_observation_viaadb_desc">Use ADB to detect home button clicks. This is more accurate but does only work with ADB running and correctly enabled (disable / enable in settings).</string>
+    <string name="system_restart_summary_removed">ATTENTION: This feature has been removed from FireStarter hold \"Enter/Select\"-Button + \"Play\"-Button to restart FireTV.</string>
 </resources>

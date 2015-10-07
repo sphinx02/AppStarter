@@ -65,6 +65,13 @@
             android:title="@string/enable_background_observation_title" >
         </CheckBoxPreference>
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefBackgroundObservationViaAdb"
+            android:summary="@string/background_observation_viaadb_desc"
+            android:title="@string/background_observation_viaadb_title" >
+        </CheckBoxPreference>
+
         <ListPreference
             android:key="prefStartupPackage"
             android:summary="@string/startup_app_desc"

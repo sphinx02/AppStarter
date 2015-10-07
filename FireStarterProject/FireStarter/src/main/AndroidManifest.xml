@@ -21,12 +21,16 @@
         <!-- Main Activity (Launcher Activity) -->
         <activity
             android:name=".gui.MainActivity"
-            android:label="@string/AppName" >
+            android:label="@string/AppName"
+            android:launchMode="singleInstance"
+            android:stateNotNeeded="true">
 
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <!-- Use intent-filters of amazon-launcher instead
