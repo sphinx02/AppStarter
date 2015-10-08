@@ -144,7 +144,7 @@ public class BackgroundHomeButtonObserverThreadNonADB extends Thread
 //        }
     }
 
-    private synchronized void clickActionDetected()
+    private void clickActionDetected()
     {
         Log.d("TEST", "click action detected");
 

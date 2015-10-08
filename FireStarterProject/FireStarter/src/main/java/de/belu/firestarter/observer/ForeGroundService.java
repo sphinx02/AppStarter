@@ -118,7 +118,23 @@ public class ForeGroundService extends Service
                 @Override
                 public void run()
                 {
-                    Toast.makeText(ForeGroundService.this, "FireStarter: " + message, Toast.LENGTH_SHORT).show();
+                    if(message.equals(BackgroundHomeButtonObserverThreadADB.HANDLE_TOO_MUCH_FAILS))
+                    {
+                        if(mSettings.getBackgroundObservationFallBackToNonAdb())
+                        {
+                            // Send toast
+                            Toast.makeText(ForeGroundService.this, getResources().getString(R.string.adb_fail_auto_observation_change), Toast.LENGTH_LONG).show();
+
+                            // Restart background observations with non-adb detection:
+                            stopBackgroundActions();
+                            mSettings.setBackgroundObservationViaAdb(false);
+                            startBackgroundActions();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(ForeGroundService.this, "FireStarter: " + message, Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -284,6 +300,8 @@ public class ForeGroundService extends Service
         if(mBackgroundHomeButtonObserverThreadNonADB != null && mBackgroundHomeButtonObserverThreadNonADB.isAlive())
         {
             Log("Shut down background thread for NON-ADB observation.");
+            mBackgroundHomeButtonObserverThreadNonADB.setOnHomeButtonClickedListener(null);
+            mBackgroundHomeButtonObserverThreadNonADB.setOnServiceErrorListener(null);
             mBackgroundHomeButtonObserverThreadNonADB.stopThread();
             mBackgroundHomeButtonObserverThreadNonADB.interrupt();
             try
@@ -297,6 +315,7 @@ public class ForeGroundService extends Service
                 String errorReason = errors.toString();
                 Log("Failed to stop thread: \n" + errorReason);
             }
+            mBackgroundHomeButtonObserverThreadNonADB = null;
         }
         else
         {
@@ -307,10 +326,12 @@ public class ForeGroundService extends Service
         if(mBackgroundHomeButtonObserverThreadADB != null && mBackgroundHomeButtonObserverThreadADB.isAlive())
         {
             Log("Shut down background thread for ADB observation.");
+            mBackgroundHomeButtonObserverThreadADB.setOnHomeButtonClickedListener(null);
+            mBackgroundHomeButtonObserverThreadADB.setOnServiceErrorListener(null);
             mBackgroundHomeButtonObserverThreadADB.stopThread();
             try
             {
-                mBackgroundHomeButtonObserverThreadADB.join(2000);
+                mBackgroundHomeButtonObserverThreadADB.join(4000);
             }
             catch(Exception e)
             {

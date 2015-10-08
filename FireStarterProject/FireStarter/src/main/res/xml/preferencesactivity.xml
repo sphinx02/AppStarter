@@ -67,10 +67,22 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
+            android:key="prefBackgroundObservationFallBackToNonAdb"
+            android:summary="@string/fallback_to_nonadb_desc"
+            android:title="@string/fallback_to_nonadb_title" >
+        </CheckBoxPreference>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:key="prefBackgroundObservationViaAdb"
             android:summary="@string/background_observation_viaadb_desc"
             android:title="@string/background_observation_viaadb_title" >
         </CheckBoxPreference>
+
+        <Preference
+            android:key="prefVirtualOpenAdbSettings"
+            android:summary="@string/open_adb_settings_summary"
+            android:title="@string/open_adb_settings_title" />
 
         <ListPreference
             android:key="prefStartupPackage"
