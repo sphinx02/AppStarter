@@ -1,12 +1,15 @@
 package de.belu.firestarter.gui;
 
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,6 +27,23 @@ import de.belu.firestarter.tools.Tools;
 public class PreferenceActivity extends PreferenceFragment
 {
     SettingsProvider mSettings = SettingsProvider.getInstance(this.getActivity());
+
+    SharedPreferences.OnSharedPreferenceChangeListener mSharedPreferenceListener = new SharedPreferences.OnSharedPreferenceChangeListener()
+    {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+        {
+            Thread readValuesThread = new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mSettings.readValues(true);
+                }
+            });
+            readValuesThread.start();
+        }
+    };
 
     public PreferenceActivity()
     {
@@ -178,7 +198,7 @@ public class PreferenceActivity extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                WallpaperSelectDialog wallpaperSelector = new WallpaperSelectDialog((MainActivity)PreferenceActivity.this.getActivity());
+                WallpaperSelectDialog wallpaperSelector = new WallpaperSelectDialog((MainActivity) PreferenceActivity.this.getActivity());
                 wallpaperSelector.show();
                 return false;
             }
@@ -202,7 +222,7 @@ public class PreferenceActivity extends PreferenceFragment
             public boolean onPreferenceClick(Preference preference)
             {
                 String retVal = Tools.settingsImport(getActivity());
-                if(retVal == null)
+                if (retVal == null)
                 {
                     Toast.makeText(getActivity(), "Settings imported successful, restart..", Toast.LENGTH_SHORT).show();
                     Thread restarter = new Thread(new Runnable()
@@ -214,20 +234,101 @@ public class PreferenceActivity extends PreferenceFragment
                             {
                                 Thread.sleep(2000);
                             }
-                            catch (Exception ignore){ }
+                            catch (Exception ignore)
+                            {
+                            }
 
                             Tools.doRestart(getActivity());
                         }
                     });
                     restarter.start();
-                }
-                else
+                } else
                 {
                     Toast.makeText(getActivity(), retVal, Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
         });
+
+        Preference prefBackgroundObservationEnabled = (Preference) findPreference("prefBackgroundObservationEnabled");
+        prefBackgroundObservationEnabled.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                mSettings.setBackgroundObserverEnabled((Boolean) newValue);
+
+                if(mSettings.getBackgroundObserverEnabled())
+                {
+                    // Start foreground service
+                    Intent startIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                    startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
+                    PreferenceActivity.this.getActivity().startService(startIntent);
+                }
+                else
+                {
+                    // Stop foreground service
+                    Intent stopIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                    stopIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
+                    PreferenceActivity.this.getActivity().startService(stopIntent);
+                }
+
+                return true;
+            }
+        });
+
+        Preference prefBackgroundObservationViaAdb = (Preference) findPreference("prefBackgroundObservationViaAdb");
+        prefBackgroundObservationViaAdb.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+        {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue)
+            {
+                mSettings.setBackgroundObservationViaAdb((Boolean) newValue);
+
+                // Stop foreground service
+                Intent stopIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                stopIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
+                PreferenceActivity.this.getActivity().startService(stopIntent);
+
+                if (mSettings.getBackgroundObserverEnabled())
+                {
+                    // Start foreground service
+                    Intent startIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
+                    startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
+                    PreferenceActivity.this.getActivity().startService(startIntent);
+                }
+
+                if (mSettings.getBackgroundObservationViaAdb())
+                {
+                    InfoOverlayDialog infoDialog = InfoOverlayDialog.newInstance(getActivity().getResources().getString(R.string.observation_via_adb_title), getActivity().getResources().getString(R.string.observation_via_adb_summary));
+                    FragmentManager fm = getActivity().getFragmentManager();
+                    infoDialog.show(fm, "");
+                } else
+                {
+                    InfoOverlayDialog infoDialog = InfoOverlayDialog.newInstance(getActivity().getResources().getString(R.string.observation_without_adb_title), getActivity().getResources().getString(R.string.observation_without_adb_summary));
+                    FragmentManager fm = getActivity().getFragmentManager();
+                    infoDialog.show(fm, "");
+                }
+
+                return true;
+            }
+        });
+
+        Preference prefVirtualOpenAdbSettings = (Preference) findPreference("prefVirtualOpenAdbSettings");
+        prefVirtualOpenAdbSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                // Open ADB settings
+                Intent adbSettingsOpenIntent = new Intent("android.settings.APPLICATON_DEVELOPMENT_SETTINGS");
+                PreferenceActivity.this.getActivity().startActivity(adbSettingsOpenIntent);
+
+                return false;
+            }
+        });
+
+
     }
 
 
@@ -236,28 +337,17 @@ public class PreferenceActivity extends PreferenceFragment
     {
         super.onPause();
 
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).unregisterOnSharedPreferenceChangeListener(mSharedPreferenceListener);
+
         // Force read-settings
         mSettings.readValues(true);
-
-        // Check if background observer is active
-        if (mSettings.getBackgroundObserverEnabled())
-        {
-            // Start foreground service
-            Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);
-            startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
-            this.getActivity().startService(startIntent);
-        } else
-        {
-            // Stop foreground service
-            Intent startIntent = new Intent(this.getActivity(), ForeGroundService.class);
-            startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
-            this.getActivity().startService(startIntent);
-        }
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
+
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(mSharedPreferenceListener);
     }
 }

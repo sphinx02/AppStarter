@@ -50,7 +50,7 @@
 
         <Preference
             android:key="prefVirtualRestart"
-            android:summary="@string/system_restart_summary"
+            android:summary="@string/system_restart_summary_removed"
             android:title="@string/system_restart_title" />
 
     </PreferenceCategory>

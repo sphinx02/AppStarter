@@ -91,7 +91,7 @@ public class AppStarter
                         SettingsProvider settings = SettingsProvider.getInstance(context);
                         final Integer watchdogTime = settings.getJumpbackWatchdogTime();
 
-                        if (watchdogTime > 0)
+                        if (watchdogTime > 0 && settings.getBackgroundObservationViaAdb())
                         {
                             // Get the name of the launcher package
                             final String launcherPackageName = getLauncherPackageName(context);

@@ -108,6 +108,12 @@ public class SettingsProvider
     /** FLAG_ACTIVITY_CLEAR_TASK is used for double click actions */
     Boolean mClearPreviousInstancesForDoubleClick = false;
 
+    /** Indicates if ADB is used to detect home button clicks */
+    Boolean mBackgroundObservationViaAdb = true;
+
+    /** Indicates if Fallback to Non-ADB detection is used automatically */
+    Boolean mBackgroundObservationFallBackToNonAdb = true;
+
     /** Create a the instace of SettingsProvider */
     private SettingsProvider(Context context)
     {
@@ -157,6 +163,28 @@ public class SettingsProvider
     {
         readValues();
         return mClearPreviousInstancesForSingleClick;
+    }
+
+    public void setBackgroundObservationFallBackToNonAdb(Boolean value)
+    {
+        mBackgroundObservationFallBackToNonAdb = value;
+        storeValues();
+    }
+    public Boolean getBackgroundObservationFallBackToNonAdb()
+    {
+        readValues();
+        return mBackgroundObservationFallBackToNonAdb;
+    }
+
+    public void setBackgroundObservationViaAdb(Boolean value)
+    {
+        mBackgroundObservationViaAdb = value;
+        storeValues();
+    }
+    public Boolean getBackgroundObservationViaAdb()
+    {
+        readValues();
+        return mBackgroundObservationViaAdb;
     }
 
     public void setBackgroundObserverEnabled(Boolean value)
@@ -388,6 +416,12 @@ public class SettingsProvider
             // Auto select first icon
             mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
 
+            // ADB observation
+            mBackgroundObservationViaAdb = mPreferences.getBoolean("prefBackgroundObservationViaAdb", mBackgroundObservationViaAdb);
+
+            // ADB fallback to Non-ADB
+            mBackgroundObservationFallBackToNonAdb = mPreferences.getBoolean("prefBackgroundObservationFallBackToNonAdb", mBackgroundObservationFallBackToNonAdb);
+
             // ClearPreviousInstancesForDoubleClick
             mClearPreviousInstancesForDoubleClick = mPreferences.getBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
 
@@ -480,6 +514,12 @@ public class SettingsProvider
 
             // Auto select first icon
             editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
+            // ADB observation
+            editor.putBoolean("prefBackgroundObservationViaAdb", mBackgroundObservationViaAdb);
+
+            // ADB observation
+            editor.putBoolean("prefBackgroundObservationFallBackToNonAdb", mBackgroundObservationFallBackToNonAdb);
 
             // ClearPreviousInstancesForDoubleClick
             editor.putBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
