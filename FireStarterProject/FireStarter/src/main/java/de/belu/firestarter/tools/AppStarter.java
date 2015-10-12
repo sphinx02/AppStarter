@@ -41,8 +41,12 @@ public class AppStarter
                     mStartAndWatchThread.interrupt();
                     mStartAndWatchThread.join();
                     mStartAndWatchThread = null;
+                    Log.d(AppStarter.class.getName(), "Watchthread stopped");
                 }
-                Log.d(AppStarter.class.getName(), "Watchthread stopped");
+                else
+                {
+                    Log.d(AppStarter.class.getName(), "Watchthread was not alive, nothing to be done.");
+                }
             }
             catch(Exception e)
             {
