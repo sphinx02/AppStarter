@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_currentversion">Current FireStarter Version</string>
+    <string name="AmazonHome">FireTV Home</string>
+    <string name="AmazonSettings">FireTV Beállítások</string>
+    <string name="AppName">FireStarter</string>
+    <string name="MoveAppAndClickToDrop">Most mozdítsa el az alkalmazást, és újra kattintva elengedheti \ n (ENTER a visszalépéshez)</string>
+    <string name="MoveAppAndClickToDropWhenStartedByMenu">Most mozdítsa el az alkalmazást, és újra kattintva elengedheti \ n (ENTER a visszalépéshez)</string>
+    <string name="about_firestarter">A Firestarter egy root nélküli indító / App-fiók az Amazon FireTV-hez::\n\nLátogasson meg az XDA-Developers-en::\nhttp://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135\n\nA FireStarter nyílt forráskódú, lásd a projekt GitHub-on:\nhttps://github.com/sphinx02/FireStarter</string>
+    <string name="adb_fail_auto_observation_change">Használjon ADB nélküli megfigyelést\n\nAz ADB-s figyelés több mint 3-szor sikertelen volt. A home gomb figyelése automatikusan az ADB nélküli módszerre váltott. Ezt meg lehet változtatni a FireStarter beállításoknál.</string>
+</resources>
