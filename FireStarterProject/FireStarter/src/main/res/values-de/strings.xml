@@ -99,4 +99,8 @@
     <string name="fallback_to_nonadb_title">Fallback zur Home-Erkennung ohne ADB</string>
     <string name="fallback_to_nonadb_desc">Wenn diese Option aktiviert ist, wird die ADB-Home-Erkennung nach 3 Fehlversuchen automatisch auf Nicht-ADB-Home-Erkennung umgestellt.</string>
     <string name="adb_fail_auto_observation_change">Wechsel auf Nicht-ADB Home-Erkennung.\n\nDie Home-Erkennung mit ADB war mehr als 3 mal fehlerhaft, es wurde automatisch auf Nicht-ADB Home-Erkennung gewechselt. Dieses Verhalten lässt sich in den FireStarter Einstellungen deaktivieren.</string>
+    <string name="hideleftbarinappoverview_title">Linke Auswahlliste in der App-Übersicht verstecken</string>
+    <string name="hideleftbarinappoverview_desc">Mit dieser Option wird die Linke Auswahlliste versteckt wenn man sich in der App-Übersicht befindet.</string>
+    <string name="showbackgroundforappnames_title">Hintergrund für App-Namen (App-Übersicht)</string>
+    <string name="showbackgroundforappnames_desc">Blendet einen Hintergrund für die App-Namen ein. Dies erhöht die Lesbarkeit wenn Wallpaper benutzt werden.</string>
 </resources>

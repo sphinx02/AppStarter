@@ -96,7 +96,7 @@ public class LeftBarItemsListAdapter extends BaseAdapter
         if (convertView == null)
         {
             // get layout from mobile.xml
-            itemView = inflater.inflate(R.layout.fragmentlistitemlayout, parent, false);
+            itemView = inflater.inflate(R.layout.leftbarlistitemlayout, parent, false);
 
         } else
         {

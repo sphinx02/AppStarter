@@ -19,6 +19,7 @@
     <dimen name="appsettingboxsize_small">120dp</dimen>
     <dimen name="settingsiconsize">80dp</dimen>
     <dimen name="applisting_itemsize">125dp</dimen>
+    <dimen name="leftbarwidth">170dp</dimen>
     <item type="dimen" name="bg_grad_center_x">0.1</item>
     <item type="dimen" name="bg_grad_center_y">0.1</item>
     <item type="dimen" name="bg_grad_size">1900.0</item>

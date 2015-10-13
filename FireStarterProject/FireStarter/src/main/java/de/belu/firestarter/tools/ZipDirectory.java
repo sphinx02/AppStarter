@@ -104,25 +104,14 @@ public class ZipDirectory
 
     private static void getAllFiles(File dir, List<File> fileList)
     {
-        try
+        File[] files = dir.listFiles();
+        for (File file : files)
         {
-            File[] files = dir.listFiles();
-            for (File file : files)
+            fileList.add(file);
+            if (file.isDirectory())
             {
-                fileList.add(file);
-                if (file.isDirectory())
-                {
-                    System.out.println("directory:" + file.getCanonicalPath());
-                    getAllFiles(file, fileList);
-                } else
-                {
-                    System.out.println("     file:" + file.getCanonicalPath());
-                }
+                getAllFiles(file, fileList);
             }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -136,7 +125,7 @@ public class ZipDirectory
 
             for (File file : fileList)
             {
-                if (!file.isDirectory())
+                if (file.exists() && !file.isDirectory())
                 { // we only zip files, not directories
                     addToZip(directoryToZip, file, zos);
                 }
