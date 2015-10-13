@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.SequenceInputStream;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 
 import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
@@ -78,6 +77,9 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
      /** Used reader */
     private BufferedReader mReader = null;
 
+    /** Current active sub-thread */
+    private Thread mCurrentSubThread = null;
+
     /**
      * Create new BackgroundObserverThread
      */
@@ -94,44 +96,67 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
     public void stopThread()
     {
         mRun = false;
-        if(!mIsObservationRunning)
+
+        // Stop sub-thread if one is running
+        stopCurrentSubThread();
+
+        // Stop main-thread if one is running
+        try
         {
-            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): wait till current process finished.");
-            try
+            if(mProcess != null)
             {
-                this.join(3000);
+                mProcess.destroy();
             }
-            catch (InterruptedException e)
-            {
-                StringWriter errors = new StringWriter();
-                e.printStackTrace(new PrintWriter(errors));
-                String errorReason = errors.toString();
-                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): Exception: \n" + errorReason);
-            }
+            this.join(1000);
+            this.interrupt();
+            this.join();
         }
-        else
+        catch (InterruptedException e)
         {
-            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): killing process.");
-            killCurrentProcess("stopThread()");
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): Exception: \n" + errorReason);
         }
 
-        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): stop other threads.");
-        if(mWaitForSecondClickThread != null && mWaitForSecondClickThread.isAlive())
-        {
-            mWaitForSecondClickThread.interrupt();
-            try
-            {
-                mWaitForSecondClickThread.join();
-            }
-            catch (InterruptedException e)
-            {
-                StringWriter errors = new StringWriter();
-                e.printStackTrace(new PrintWriter(errors));
-                String errorReason = errors.toString();
-                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): Exception: \n" + errorReason);
-            }
-            mWaitForSecondClickThread = null;
-        }
+//        if(!mIsObservationRunning)
+//        {
+//            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): wait till current process finished.");
+//            try
+//            {
+//                this.join(3000);
+//            }
+//            catch (InterruptedException e)
+//            {
+//                StringWriter errors = new StringWriter();
+//                e.printStackTrace(new PrintWriter(errors));
+//                String errorReason = errors.toString();
+//                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): Exception: \n" + errorReason);
+//            }
+//        }
+//        else
+//        {
+//            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): killing process.");
+//            killCurrentProcess("stopThread()");
+//        }
+//
+//        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): stop other threads.");
+//        if(mWaitForSecondClickThread != null && mWaitForSecondClickThread.isAlive())
+//        {
+//            mWaitForSecondClickThread.interrupt();
+//            try
+//            {
+//                mWaitForSecondClickThread.join();
+//            }
+//            catch (InterruptedException e)
+//            {
+//                StringWriter errors = new StringWriter();
+//                e.printStackTrace(new PrintWriter(errors));
+//                String errorReason = errors.toString();
+//                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): Exception: \n" + errorReason);
+//            }
+//            mWaitForSecondClickThread = null;
+//        }
         Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "stopThread(): finished.");
     }
     
@@ -164,45 +189,6 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                 mIsObservationRunning = false;
                 Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "Starting HomeButtonObserver.");
 
-//                // Kill running adb server
-//                Thread killAdbServerThread = new Thread(new Runnable()
-//                {
-//                    @Override
-//                    public void run()
-//                    {
-//                        try
-//                        {
-//                            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "KILLADBSERVERTHREAD: try to kill running adb-server");
-//
-//                            // Run process
-//                            mProcess = Runtime.getRuntime().exec(new String[]{"adb", "kill-server"});
-//                            mProcess.waitFor();
-//                        }
-//                        catch(Exception e)
-//                        {
-//                            StringWriter errors = new StringWriter();
-//                            e.printStackTrace(new PrintWriter(errors));
-//                            String errorReason = errors.toString();
-//                            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "KILLADBSERVERTHREAD: Exception: \n" + errorReason);
-//                        }
-//                    }
-//                });
-//                killAdbServerThread.start();
-//                killAdbServerThread.join(3000);
-//
-//                if(!mRun)
-//                {
-//                    break;
-//                }
-//
-//                // Check if still alive after timeout
-//                if(killAdbServerThread.isAlive())
-//                {
-//                    // Try to kill process
-//                    killCurrentProcess("KILLADBSERVERTHREAD");
-//                }
-//                killAdbServerThread = null;
-
                 // Init some variables
                 mIsConnected = false;
 
@@ -210,7 +196,7 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                 mAdbDevice = null;
 
                 // Check if emulator is running
-                Thread getAdbEmuDeviceThread = new Thread(new Runnable()
+                mCurrentSubThread = new Thread(new Runnable()
                 {
                     @Override
                     public void run()
@@ -267,8 +253,8 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                         }
                     }
                 });
-                getAdbEmuDeviceThread.start();
-                getAdbEmuDeviceThread.join(5000);
+                mCurrentSubThread.start();
+                mCurrentSubThread.join(5000);
 
                 if(!mRun)
                 {
@@ -276,12 +262,11 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                 }
 
                 // Check if still alive after timeout
-                if(getAdbEmuDeviceThread.isAlive())
+                if(mCurrentSubThread.isAlive())
                 {
                     // Try to kill process
-                    killCurrentProcess("GETADBEMUDEVICETHREAD");
+                    stopCurrentSubThread();
                 }
-                getAdbEmuDeviceThread = null;
 
                 if(!mRun)
                 {
@@ -295,7 +280,7 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                     mAdbDevice = null;
 
                     // Connect an instance on localhost
-                    Thread connectAdbThread = new Thread(new Runnable()
+                    mCurrentSubThread = new Thread(new Runnable()
                     {
                         @Override
                         public void run()
@@ -337,8 +322,8 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                             }
                         }
                     });
-                    connectAdbThread.start();
-                    connectAdbThread.join(5000);
+                    mCurrentSubThread.start();
+                    mCurrentSubThread.join(5000);
 
                     if(!mRun)
                     {
@@ -346,12 +331,11 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                     }
 
                     // Check if still alive after timeout
-                    if (connectAdbThread.isAlive())
+                    if (mCurrentSubThread.isAlive())
                     {
                         // Try to kill process
-                        killCurrentProcess("CONNECTHREAD");
+                        stopCurrentSubThread();
                     }
-                    connectAdbThread = null;
 
                     if (!mIsConnected)
                     {
@@ -360,7 +344,7 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                     Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "Adb is connected, check devices..");
 
                     // Check device name
-                    Thread getAdbDeviceThread = new Thread(new Runnable()
+                    mCurrentSubThread = new Thread(new Runnable()
                     {
                         @Override
                         public void run()
@@ -416,8 +400,8 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                             }
                         }
                     });
-                    getAdbDeviceThread.start();
-                    getAdbDeviceThread.join(3000);
+                    mCurrentSubThread.start();
+                    mCurrentSubThread.join(3000);
 
                     if(!mRun)
                     {
@@ -425,12 +409,11 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                     }
 
                     // Check if still alive after timeout
-                    if (getAdbDeviceThread.isAlive())
+                    if (mCurrentSubThread.isAlive())
                     {
                         // Try to kill process
-                        killCurrentProcess("GETADBDEVICETHREAD");
+                        stopCurrentSubThread();
                     }
-                    getAdbDeviceThread = null;
                 }
 
                 if(mAdbDevice == null)
@@ -444,7 +427,7 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                 mIsLogcatErrorMessageFound = false;
 
                 // Empty logcat
-                Thread emptyLogCatThread = new Thread(new Runnable()
+                mCurrentSubThread = new Thread(new Runnable()
                 {
                     @Override
                     public void run()
@@ -487,8 +470,8 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                         }
                     }
                 });
-                emptyLogCatThread.start();
-                emptyLogCatThread.join(5000);
+                mCurrentSubThread.start();
+                mCurrentSubThread.join(5000);
 
                 if(!mRun)
                 {
@@ -496,10 +479,10 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                 }
 
                 // Check if still alive after timeout
-                if(emptyLogCatThread.isAlive())
+                if(mCurrentSubThread.isAlive())
                 {
                     // Try to kill process
-                    killCurrentProcess("EMPTYLOGCATTHREAD");
+                    stopCurrentSubThread();
                 }
                 else
                 {
@@ -509,7 +492,6 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
                         mIsLogcatCleared = true;
                     }
                 }
-                emptyLogCatThread = null;
 
                 if(!mIsLogcatCleared)
                 {
@@ -638,100 +620,129 @@ public class BackgroundHomeButtonObserverThreadADB extends Thread
     }
 
     /**
-     * Trys to kill current running process
-     * @param component Name of the initiating component
+     * Stops the current running sub-thread incl. process
      */
-    private void killCurrentProcess(String component)
+    private void stopCurrentSubThread()
     {
-        // Try to kill process
-        try
+        if(mCurrentSubThread != null && mCurrentSubThread.isAlive())
         {
-            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), component + ": Try to kill running process");
-            Integer exitCode = killUnixProcess(mProcess);
-            if(exitCode != 0)
+            if(mProcess != null)
             {
-                throw new Exception("Received exit-code was not zero but " + exitCode.toString());
+                mProcess.destroy();
             }
-
+            mCurrentSubThread.interrupt();
             try
             {
-                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: call adb --help");
-
-                // Run process
-                mProcess = Runtime.getRuntime().exec(new String[]{"adb", "--help"});
-
-                // Get output reader
-                mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
-                try
-                {
-                    // Reads stdout of process
-                    while ((mReadBytes = mReader.read(mReadBuffer)) > 0)
-                    {
-                        String message = String.valueOf(mReadBuffer, 0, mReadBytes);
-                        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: adb received: " + message);
-                    }
-                }
-                finally
-                {
-                    mReader.close();
-                }
-                mProcess.waitFor();
-
-                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: call adb --help finished..");
+                mCurrentSubThread.join();
             }
-            catch(Exception e)
+            catch (InterruptedException e)
             {
                 StringWriter errors = new StringWriter();
                 e.printStackTrace(new PrintWriter(errors));
                 String errorReason = errors.toString();
-                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: Exception: \n" + errorReason);
+                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "StopCurrentSubThread: Exception: \n" + errorReason);
             }
-
-            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), component + ": Killed running process successful");
         }
-        catch(Exception e)
-        {
-            StringWriter errors = new StringWriter();
-            e.printStackTrace(new PrintWriter(errors));
-            String errorReason = errors.toString();
-            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), component + ": Exception while killing process: \n" + errorReason);
-        }
+        mCurrentSubThread = null;
     }
 
-    /**
-     * @param process Process of interest
-     * @return Process PID
-     * @throws Exception if process is no unix-process
-     */
-    private static int getUnixPID(Process process) throws Exception
-    {
-        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "GetUnixPID: process name: " + process.getClass().getName());
-        if (process.getClass().getName().startsWith("java.lang."))
-        {
-            Class cl = process.getClass();
-            Field field = cl.getDeclaredField("pid");
-            field.setAccessible(true);
-            Object pidObject = field.get(process);
-            return (Integer) pidObject;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Needs to be a UNIXProcess");
-        }
-    }
-
-    /**
-     * Trys to kill given process
-     * @param process Process to be killed
-     * @return  ExitValue of the kill-process
-     * @throws Exception if process is no unix-process
-     */
-    private static int killUnixProcess(Process process) throws Exception
-    {
-        Integer pid = getUnixPID(process);
-        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "KillUnixProcess: pid: " + pid.toString());
-        return Runtime.getRuntime().exec("kill " + pid).waitFor();
-    }
+//    /**
+//     * Trys to kill current running process
+//     * @param component Name of the initiating component
+//     */
+//    private void killCurrentProcess(String component)
+//    {
+//        // Try to kill process
+//        try
+//        {
+//            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), component + ": Try to kill running process");
+//            Integer exitCode = killUnixProcess(mProcess);
+//            if(exitCode != 0)
+//            {
+//                throw new Exception("Received exit-code was not zero but " + exitCode.toString());
+//            }
+//
+//            try
+//            {
+//                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: call adb --help");
+//
+//                // Run process
+//                mProcess = Runtime.getRuntime().exec(new String[]{"adb", "--help"});
+//
+//                // Get output reader
+//                mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
+//                try
+//                {
+//                    // Reads stdout of process
+//                    while ((mReadBytes = mReader.read(mReadBuffer)) > 0)
+//                    {
+//                        String message = String.valueOf(mReadBuffer, 0, mReadBytes);
+//                        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: adb received: " + message);
+//                    }
+//                }
+//                finally
+//                {
+//                    mReader.close();
+//                }
+//                mProcess.waitFor();
+//
+//                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: call adb --help finished..");
+//            }
+//            catch(Exception e)
+//            {
+//                StringWriter errors = new StringWriter();
+//                e.printStackTrace(new PrintWriter(errors));
+//                String errorReason = errors.toString();
+//                Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "killProcess: Exception: \n" + errorReason);
+//            }
+//
+//            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), component + ": Killed running process successful");
+//        }
+//        catch(Exception e)
+//        {
+//            StringWriter errors = new StringWriter();
+//            e.printStackTrace(new PrintWriter(errors));
+//            String errorReason = errors.toString();
+//            Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), component + ": Exception while killing process: \n" + errorReason);
+//        }
+//    }
+//
+//    /**
+//     * @param process Process of interest
+//     * @return Process PID
+//     * @throws Exception if process is no unix-process
+//     */
+//    private static int getUnixPID(Process process) throws Exception
+//    {
+//        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "GetUnixPID: process name: " + process.getClass().getName());
+//        if (process.getClass().getName().startsWith("java.lang."))
+//        {
+//            Class cl = process.getClass();
+//            Field field = cl.getDeclaredField("pid");
+//            field.setAccessible(true);
+//            Object pidObject = field.get(process);
+//            return (Integer) pidObject;
+//        }
+//        else
+//        {
+//            throw new IllegalArgumentException("Needs to be a UNIXProcess");
+//        }
+//    }
+//
+//    /**
+//     * Trys to kill given process
+//     * @param process Process to be killed
+//     * @return  ExitValue of the kill-process
+//     * @throws Exception if process is no unix-process
+//     */
+//    private static int killUnixProcess(Process process) throws Exception
+//    {
+//        Integer pid = getUnixPID(process);
+//        Log.d(BackgroundHomeButtonObserverThreadADB.class.getName(), "KillUnixProcess: pid: " + pid.toString());
+//        Integer retVal = Runtime.getRuntime().exec("kill " + pid).waitFor();
+//        process.destroy();
+//        return retVal;
+//    }
     
     /**
      * Fire home button clicked event to all registered listeners
