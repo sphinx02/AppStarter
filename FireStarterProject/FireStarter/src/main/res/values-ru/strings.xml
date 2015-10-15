@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- String resources (non translatable) -->
   <!--Original value: FireStarter-->
   <string name="AppName">FireStarter</string>
@@ -33,19 +33,19 @@
   <!--Original value: Startup Application-->
   <string name="startup_app_title">Стартовое приложение</string>
   <!--Original value: App that is started on home button single click.-->
-  <string name="singleclick_app_desc">Приложение, запускаемое одинарным кликом кнопки Домой</string>
+  <string name="singleclick_app_desc">Приложение, запускаемое одинарным кликом кнопки Домой.</string>
   <!--Original value: Home Button Single Click Application-->
   <string name="singleclick_app_title">Кнопка Домой - приложение по одинарному клику</string>
   <!--Original value: App that is started on home button double click.-->
-  <string name="doubleclick_app_desc">Приложение, запускаемое двойным кликом кнопки Домой</string>
+  <string name="doubleclick_app_desc">Приложение, запускаемое двойным кликом кнопки Домой.</string>
   <!--Original value: Home Button Double Click Application-->
   <string name="doubleclick_app_title">Кнопка Домой - приложение по двойному клику</string>
   <!--Original value: Show also system apps in app list.-->
-  <string name="showsysapps_desc">Показывать также системные приложения в меню Приложения</string>
+  <string name="showsysapps_desc">Показывать также системные приложения в меню Приложения.</string>
   <!--Original value: Show system apps-->
   <string name="showsysapps_title">Показывать системные приложения</string>
   <!--Original value: Apps that shall not be shown in apps list.-->
-  <string name="hiddenapps_desc">Приложения, которые не будут показаны в меню Приложения</string>
+  <string name="hiddenapps_desc">Приложения, которые не будут показаны в меню Приложения.</string>
   <!--Original value: Hidden Apps-->
   <string name="hiddenapps_title">Скрытые Приложения</string>
   <!--Original value: App Listing Settings-->
@@ -67,11 +67,11 @@
   <!--Original value: Update to latest Version-->
   <string name="update">Обновить до последней версии</string>
   <!--Original value: Hit check for update to check for latest version.-->
-  <string name="update_hitcheckfor">Нажмите Проверить обновление для проверки наличия обновления</string>
+  <string name="update_hitcheckfor">Нажмите Проверить обновление для проверки наличия обновления.</string>
   <!--Original value: Auto select the first icon when switching to the app drawer (All Apps).-->
-  <string name="autoselectfirsticon_desc">Авто выбор первой иконки при переходе в меню Приложения (Все Приложения)</string>
+  <string name="autoselectfirsticon_desc">Авто выбор первой иконки при переходе на Рабочий стол (Все Приложения).</string>
   <!--Original value: Auto select first icon (App Drawer)-->
-  <string name="autoselectfirsricon_title">Авто выбор первой иконки (App Drawer)</string>
+  <string name="autoselectfirsricon_title">Авто выбор первой иконки (Рабочий стол)</string>
   <!--Original value: FireStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:
 
 Visit discussion on XDA-Developers:
@@ -101,7 +101,7 @@ https://github.com/sphinx02/FireStarter-->
   <!--Original value: Language Settings-->
   <string name="language_settings">Языковые настройки</string>
   <!--Original value: Set language manually.-->
-  <string name="language_summary">Указать язык вручную</string>
+  <string name="language_summary">Указать язык вручную.</string>
   <!--Original value: Language-->
   <string name="language_title">Язык</string>
   <!--Original value: Checking for updates-->
@@ -109,7 +109,7 @@ https://github.com/sphinx02/FireStarter-->
   <!--Original value: Wait till checked GitHub for latest release.-->
   <string name="update_checkfordesc">Дождитесь окончания проверки нового релиза на GitHub.</string>
   <!--Original value: Check for update.-->
-  <string name="update_checkformessage">Проверяем наличие обновления</string>
+  <string name="update_checkformessage">Проверяем наличие обновления.</string>
   <!--Original value: Found newer Version - Update Now!-->
   <string name="update_foundnew">Найдена новая версия - Обновите сейчас!</string>
   <!--Original value: You have already the newest version!-->
@@ -180,16 +180,48 @@ https://github.com/sphinx02/FireStarter-->
   <string name="clearpreviousinstance_singleclick_title">Приложение по одинарному клику: Запускать \"с нуля\"</string>
   <!--Original value: Double Click App: Clear previous instances-->
   <string name="clearpreviousinstance_doubleclick_title">Приложение по двойному клику: Запускать \"с нуля\"</string>
-  <string name="background_observation_viaadb_desc">Использует ADB для обнаружения нажатия кнопки Домой. Более точный метод, но работает только если ADB запущен и правильно активирован (отключить / включить в настройках).</string>
+  <!--Original value: Home-Detection via ADB-->
   <string name="background_observation_viaadb_title">Отслеживание с помощью ADB</string>
-  <string name="fallback_to_nonadb_desc">Если опция установлена и Отслеживание с помощью ADB не сработает 3 раза, отслеживание нажатия кнопки Домой автоматически переключится на Отслеживание без ADB.</string>
-  <string name="fallback_to_nonadb_title">Авто-Переключение на Отслеживание без ADB</string>
-  <string name="observation_via_adb_summary">Вы выбрали отслеживание нажатия кнопки Домой с помощью ADB.\n\nДля этой опции важно, чтобы ADB был включен. Если у Вас уже FireOS5 (Android v5.1), Вы должны убедиться, что никакое другое устройство не подключено с помощью ADB параллельно. Если Вы хотите использовать такие инструменты, как adbFire, Amazon FireTV Utility App, Apps2Fire или аналоги, необходимо отключить Отслеживание с помощью ADB в FireStarter и отключить / включить ADB прежде чем пытаться подключиться.\n\nЕсли вы снова захотите использовать Отслеживание с помощью ADB в FireStarter, убедитесь, что Вы отключили / включили ADB прежде чем использовать его (Ярлык для открытия настроек ADB находится ниже данного пункта).</string>
-  <string name="observation_via_adb_title">Отслеживание с помощью ADB</string>
-  <string name="observation_without_adb_summary">Вы выбрали отслеживание нажатия кнопки Домой без ADB (новый метод).\n\nЭтот метод работает только если Вы находитесь на оригинальном домашнем экране Amazon FireTV. Это означает, что если Вы находитесь в любом другом приложении, например Kodi, Вы должны нажать на кнопку Домой один раз, чтобы переключиться на домашний экран Amazon FireTV и затем Вы сможете одинарным или двойным кликом кнопки Домой выполнить необходимое действие.\n\nНа практике это означает, что нужно добавить одно дополнительное нажатие кнопки Домой если находитесь в другом приложении. Например, если Вы находитесь в Kodi, двойной клик Домой запустит действие для одинарного клика, а тройной клик - действие для двойного.\n\nИзвините за это странное поведение, но из-за технических ограничений Android на данный момент нет другой возможности обойтись без ADB.</string>
-  <string name="observation_without_adb_title">Отслеживание без ADB</string>
-  <string name="open_adb_settings_summary">Ярлык для открытия настроек ADB.</string>
-  <string name="open_adb_settings_title">Открыть настройки ADB</string>
+  <!--Original value: Use ADB to detect home button clicks. This is more accurate but does only work with ADB running and correctly enabled (disable / enable in settings).-->
+  <string name="background_observation_viaadb_desc">Использует ADB для обнаружения нажатия кнопки Домой. Более точный метод, но работает только если ADB запущен и правильно активирован (отключить / включить в настройках).</string>
+  <!--Original value: ATTENTION: This feature has been removed from FireStarter hold "Enter/Select"-Button + "Play"-Button to restart FireTV.-->
   <string name="system_restart_summary_removed">ВНИМАНИЕ: Эта функция удалена из FireStarter! Удерживайте кнопки Выбор + Воспроизведение (одновременно) для перезагрузки FireTV.</string>
+  <!--Original value: Open ADB Settings-->
+  <string name="open_adb_settings_title">Открыть настройки ADB</string>
+  <!--Original value: This is a shortcut to open the ADB settings.-->
+  <string name="open_adb_settings_summary">Ярлык для открытия настроек ADB.</string>
+  <!--Original value: Observation via ADB-->
+  <string name="observation_via_adb_title">Отслеживание с помощью ADB</string>
+  <!--Original value: You have choosen the home button observation via ADB.
+
+For this option it is important, that ADB is enabled. If you are already on FireOS5 (Android v5.1), you have to make sure that no other device is connecting via ADB in parallel. If you want to use tools like adbFire, Amazon FireTV Utility App, Apps2Fire or similar, you should disable the ADB observation of FireStarter and disable/enable ADB before you try to connect.
+
+If you want to use ADB observation of FireStarter again, make sure you disable/enable ADB before using it (Shortcut to ADB settings is below this Setting).-->
+  <string name="observation_via_adb_summary">Вы выбрали отслеживание нажатия кнопки Домой с помощью ADB.\n\nДля этой опции важно, чтобы ADB был включен. Если у Вас уже FireOS5 (Android v5.1), Вы должны убедиться, что никакое другое устройство не подключено с помощью ADB параллельно. Если Вы хотите использовать такие инструменты, как adbFire, Amazon FireTV Utility App, Apps2Fire или аналоги, необходимо отключить Отслеживание с помощью ADB в FireStarter и отключить / включить ADB прежде чем пытаться подключиться.\n\nЕсли вы снова захотите использовать Отслеживание с помощью ADB в FireStarter, убедитесь, что Вы отключили / включили ADB прежде чем использовать его (Ярлык для открытия настроек ADB находится ниже данного пункта).</string>
+  <!--Original value: Observation without ADB-->
+  <string name="observation_without_adb_title">Отслеживание без ADB</string>
+  <!--Original value: You have choosen the new home button observation without ADB.
+
+This observation of the home-button works only if you are on the original Amazon FireTV Home screen. This means if you are in any other App like Kodi, you have to click the home button once to get to the Amazon FireTV Home screen and then you can single or double click the home-button to perform the action desired.
+
+In practice that means, you can also add one home button click if you are in another app. If you are for example in Kodi, you can do a double-click to the home-button to perform the single click operation and according to this you can do a triple click to perform the double click action.
+
+Sorry for this strange behaviour but due to technical limitations of Android, there is no other possibility without ADB at the moment.-->
+  <string name="observation_without_adb_summary">Вы выбрали отслеживание нажатия кнопки Домой без ADB (новый метод).\n\nЭтот метод работает только если Вы находитесь на оригинальном домашнем экране Amazon FireTV. Это означает, что если Вы находитесь в любом другом приложении, например Kodi, Вы должны нажать на кнопку Домой один раз, чтобы переключиться на домашний экран Amazon FireTV и затем Вы сможете одинарным или двойным кликом кнопки Домой выполнить необходимое действие.\n\nНа практике это означает, что нужно добавить одно дополнительное нажатие кнопки Домой если находитесь в другом приложении. Например, если Вы находитесь в Kodi, двойной клик Домой запустит действие для одинарного клика, а тройной клик - действие для двойного.\n\nИзвините за это странное поведение, но из-за технических ограничений Android на данный момент нет другой возможности обойтись без ADB.</string>
+  <!--Original value: Fallback to Non-ADB Observation-->
+  <string name="fallback_to_nonadb_title">Авто-Переключение на Отслеживание без ADB</string>
+  <!--Original value: If this option is set and the ADB observation fails for three times, the home button observation is automatically changed to Non-ADB observation.-->
+  <string name="fallback_to_nonadb_desc">Если опция установлена и Отслеживание с помощью ADB не сработает 3 раза, отслеживание нажатия кнопки Домой автоматически переключится на Отслеживание без ADB.</string>
+  <!--Original value: Change to non-ADB Observation
+
+The observation with ADB failed more than 3 times. The home-button observation have been automatically changed to non-ADB observation. You can change this behaviour in the FireStarter settings.-->
   <string name="adb_fail_auto_observation_change">Переключение на Отслеживание без ADB\n\nОтслеживание с помощью ADB не сработало более 3 раз. Автоматически переключено на Отслеживание без ADB. В настройках FireStarter Вы можете изменить поведение в таких случаях.</string>
+  <!--Original value: Hide left bar in app drawer-->
+  <string name="hideleftbarinappoverview_title">Скрыть меню на Рабочем столе</string>
+  <!--Original value: Left selection bar is hided when on the main page (App Drawer)-->
+  <string name="hideleftbarinappoverview_desc">Скрыть левую панель при переходе на главный экран (Рабочий стол)</string>
+  <!--Original value: Background for App Names (App Drawer)-->
+  <string name="showbackgroundforappnames_title">Фон для названий приложений (Рабочий стол)</string>
+  <!--Original value: Shows a background for app names in the app drawer. This helps to read app names, if a wallpaper is used.-->
+  <string name="showbackgroundforappnames_desc">Показывает фон для названий приложений на Рабочем столе. Помогает читать названия приложений, если установлены обои.</string>
 </resources>
