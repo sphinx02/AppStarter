@@ -103,4 +103,5 @@
     <string name="hideleftbarinappoverview_desc">Mit dieser Option wird die Linke Auswahlliste versteckt wenn man sich in der App-Übersicht befindet.</string>
     <string name="showbackgroundforappnames_title">Hintergrund für App-Namen (App-Übersicht)</string>
     <string name="showbackgroundforappnames_desc">Blendet einen Hintergrund für die App-Namen ein. Dies erhöht die Lesbarkeit wenn Wallpaper benutzt werden.</string>
+    <string name="feature_only_availabe_fireos3_and_older">Dieses Feature ist nur in FireOS 3 und älteren Versionen verfügbar.</string>
 </resources>
