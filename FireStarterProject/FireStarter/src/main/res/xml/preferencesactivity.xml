@@ -25,6 +25,24 @@
             android:summary="@string/wallpaper_summary"
             android:title="@string/wallpaper_title" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowBackgroundForAppNames"
+            android:summary="@string/showbackgroundforappnames_desc"
+            android:title="@string/showbackgroundforappnames_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefHideLeftBarInAppOverview"
+            android:summary="@string/hideleftbarinappoverview_desc"
+            android:title="@string/hideleftbarinappoverview_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefAutoSelectFirstIcon"
+            android:summary="@string/autoselectfirsticon_desc"
+            android:title="@string/autoselectfirsricon_title" />
+
     </PreferenceCategory>
 
 
@@ -41,19 +59,6 @@
             android:summary="@string/hiddenapps_desc"
             android:title="@string/hiddenapps_title" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="prefAutoSelectFirstIcon"
-            android:summary="@string/autoselectfirsticon_desc"
-            android:title="@string/autoselectfirsricon_title" />
-
-        <!--
-        <ListPreference
-            android:key="prefSyncFrequency"
-            android:entries="@array/syncFrequency"
-            android:summary="@string/pref_sync_frequency_summary"
-            android:entryValues="@array/syncFrequencyValues"
-            android:title="@string/pref_sync_frequency" /> -->
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/background_observation">

@@ -99,4 +99,9 @@
     <string name="fallback_to_nonadb_title">Fallback to Non-ADB Observation</string>
     <string name="fallback_to_nonadb_desc">If this option is set and the ADB observation fails for three times, the home button observation is automatically changed to Non-ADB observation.</string>
     <string name="adb_fail_auto_observation_change">Change to non-ADB Observation\n\nThe observation with ADB failed more than 3 times. The home-button observation have been automatically changed to non-ADB observation. You can change this behaviour in the FireStarter settings.</string>
+    <string name="hideleftbarinappoverview_title">Hide left bar in app drawer</string>
+    <string name="hideleftbarinappoverview_desc">Left selection bar is hided when on the main page (App Drawer)</string>
+    <string name="showbackgroundforappnames_title">Background for App Names (App Drawer)</string>
+    <string name="showbackgroundforappnames_desc">Shows a background for app names in the app drawer. This helps to read app names, if a wallpaper is used.</string>
+    <string name="feature_only_availabe_fireos3_and_older">This feature is only available in FireOS 3 and older..</string>
 </resources>

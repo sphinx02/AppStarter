@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -41,8 +42,12 @@ public class AppStarter
                     mStartAndWatchThread.interrupt();
                     mStartAndWatchThread.join();
                     mStartAndWatchThread = null;
+                    Log.d(AppStarter.class.getName(), "Watchthread stopped");
                 }
-                Log.d(AppStarter.class.getName(), "Watchthread stopped");
+                else
+                {
+                    Log.d(AppStarter.class.getName(), "Watchthread was not alive, nothing to be done.");
+                }
             }
             catch(Exception e)
             {
@@ -85,7 +90,8 @@ public class AppStarter
 
                     // In case of an click-action start the watchdog which prevents the default home-button
                     // action that is to start the amazon home launcher
-                    if (isClickAction)
+                    // ATTENTION: Disabled on Lollipop
+                    if (isClickAction && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                     {
                         // Check jumpback interval
                         SettingsProvider settings = SettingsProvider.getInstance(context);

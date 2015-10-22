@@ -115,6 +115,12 @@ public class SettingsProvider
     /** Indicates if Fallback to Non-ADB detection is used automatically */
     Boolean mBackgroundObservationFallBackToNonAdb = true;
 
+    /** Indicates if the LeftBar is hided when on the app overview */
+    Boolean mHideLeftBarInAppOverview = false;
+
+    /** Indicates if app names in the app drawer are having a background */
+    Boolean mShowBackgroundForAppNames = false;
+
     /** Create a the instace of SettingsProvider */
     private SettingsProvider(Context context)
     {
@@ -142,6 +148,28 @@ public class SettingsProvider
     {
         readValues();
         return mPackageOrder;
+    }
+
+    public void setHideLeftBarInAppOverview(Boolean value)
+    {
+        mHideLeftBarInAppOverview = value;
+        storeValues();
+    }
+    public Boolean getHideLeftBarInAppOverview()
+    {
+        readValues();
+        return mHideLeftBarInAppOverview;
+    }
+
+    public void setShowBackgroundForAppNames(Boolean value)
+    {
+        mShowBackgroundForAppNames = value;
+        storeValues();
+    }
+    public Boolean getShowBackgroundForAppNames()
+    {
+        readValues();
+        return mShowBackgroundForAppNames;
     }
 
     public void setClearPreviousInstancesForDoubleClick(Boolean value)
@@ -411,6 +439,12 @@ public class SettingsProvider
             // BackgroundObserverEnabled
             mBackgroundObserverEnabled = mPreferences.getBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
 
+            // HideLeftBarInAppOverview
+            mHideLeftBarInAppOverview = mPreferences.getBoolean("prefHideLeftBarInAppOverview", mHideLeftBarInAppOverview);
+
+            // ShowBackgroundForAppNames
+            mShowBackgroundForAppNames = mPreferences.getBoolean("prefShowBackgroundForAppNames", mShowBackgroundForAppNames);
+
             // Have update seen
             mHaveUpdateSeen = mPreferences.getBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
 
@@ -509,6 +543,12 @@ public class SettingsProvider
 
             // BackgroundObserverEnabled
             editor.putBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
+
+            // BackgroundObserverEnabled
+            editor.putBoolean("prefHideLeftBarInAppOverview", mHideLeftBarInAppOverview);
+
+            // ShowBackgroundForAppNames
+            editor.putBoolean("prefShowBackgroundForAppNames", mShowBackgroundForAppNames);
 
             // Update seen
             editor.putBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
