@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.belu.firestarter.R;
+import de.belu.firestarter.tools.FireStarterUpdater;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
-import de.belu.firestarter.tools.Updater;
-import de.belu.firestarter.tools.UpdaterKodi;
+import de.belu.firestarter.tools.KodiUpdater;
 
 /**
  * Launcher main (shows the user apps)
@@ -26,11 +26,11 @@ public class UpdateActivity extends Fragment
     /** TextView of latest Kodi version */
     TextView mLatestVersionKodi;
 
-    /** Updater service */
-    Updater mUpdater;
+    /** FireStarterUpdater service */
+    FireStarterUpdater mFireStarterUpdater;
 
-    /** Kodi Updater service */
-    UpdaterKodi mUpdaterKodi;
+    /** Kodi FireStarterUpdater service */
+    KodiUpdater mKodiUpdater;
 
     /** Check for update progress */
     ProgressDialog mCheckForUpdateProgress = null;
@@ -63,7 +63,7 @@ public class UpdateActivity extends Fragment
         public void onClick(View v)
         {
             mCheckForUpdateProgress = ProgressDialog.show(getActivity(), getActivity().getResources().getString(R.string.update_checkfortitle), getActivity().getResources().getString(R.string.update_checkfordesc), true);
-            mUpdater.checkForUpdate();
+            mFireStarterUpdater.checkForUpdate();
         }
     };
 
@@ -74,7 +74,7 @@ public class UpdateActivity extends Fragment
         public void onClick(View v)
         {
             mCheckForUpdateProgress = ProgressDialog.show(getActivity(), getActivity().getResources().getString(R.string.update_checkfortitle), getActivity().getResources().getString(R.string.update_checkfordesc), true);
-            mUpdaterKodi.checkForUpdate();
+            mKodiUpdater.checkForUpdate();
         }
     };
 
@@ -91,7 +91,7 @@ public class UpdateActivity extends Fragment
             mUpdateProgress.setProgress(0);
             mUpdateProgress.show();
 
-            mUpdater.updateFireStarter(getActivity(), mCurrentAppVersion);
+            mFireStarterUpdater.update(getActivity(), mCurrentAppVersion);
 
             // Set back have seen setting
             mSettings.setHaveUpdateSeen(false);
@@ -111,12 +111,12 @@ public class UpdateActivity extends Fragment
             mUpdateProgress.setProgress(0);
             mUpdateProgress.show();
 
-            mUpdaterKodi.updateKodi(getActivity(), mCurrentAppVersionKodi);
+            mKodiUpdater.update(getActivity(), mCurrentAppVersionKodi);
         }
     };
 
     /** Handle check for update */
-    Updater.OnCheckForUpdateFinishedListener mOnCheckForUpdateFinishedListener = new Updater.OnCheckForUpdateFinishedListener()
+    FireStarterUpdater.OnCheckForUpdateFinishedListener mOnCheckForUpdateFinishedListener = new FireStarterUpdater.OnCheckForUpdateFinishedListener()
     {
         @Override
         public void onCheckForUpdateFinished(final String message)
@@ -124,11 +124,11 @@ public class UpdateActivity extends Fragment
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (mUpdater.LATEST_VERSION != null) {
-                        if (Updater.isVersionNewer(mCurrentAppVersion, Updater.LATEST_VERSION)) {
-                            mLatestVersion.setText(Updater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
+                    if (mFireStarterUpdater.LATEST_VERSION != null) {
+                        if (FireStarterUpdater.isVersionNewer(mCurrentAppVersion, FireStarterUpdater.LATEST_VERSION)) {
+                            mLatestVersion.setText(FireStarterUpdater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
                         } else {
-                            mLatestVersion.setText(Updater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
+                            mLatestVersion.setText(FireStarterUpdater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
                         }
                     } else {
                         mLatestVersion.setText(message);
@@ -143,7 +143,7 @@ public class UpdateActivity extends Fragment
     };
 
     /** Handle check for update */
-    UpdaterKodi.OnCheckForUpdateFinishedListener mOnCheckForKodiUpdateFinishedListener = new UpdaterKodi.OnCheckForUpdateFinishedListener()
+    KodiUpdater.OnCheckForUpdateFinishedListener mOnCheckForKodiUpdateFinishedListener = new KodiUpdater.OnCheckForUpdateFinishedListener()
     {
         @Override
         public void onCheckForUpdateFinished(final String message)
@@ -151,11 +151,11 @@ public class UpdateActivity extends Fragment
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (mUpdaterKodi.LATEST_VERSION != null) {
-                        if (UpdaterKodi.isVersionNewer(mCurrentAppVersionKodi, UpdaterKodi.LATEST_VERSION)) {
-                            mLatestVersionKodi.setText(UpdaterKodi.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
+                    if (mKodiUpdater.LATEST_VERSION != null) {
+                        if (KodiUpdater.isVersionNewer(mCurrentAppVersionKodi, KodiUpdater.LATEST_VERSION)) {
+                            mLatestVersionKodi.setText(KodiUpdater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
                         } else {
-                            mLatestVersionKodi.setText(UpdaterKodi.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
+                            mLatestVersionKodi.setText(KodiUpdater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
                         }
                     } else {
                         mLatestVersionKodi.setText(message);
@@ -170,7 +170,7 @@ public class UpdateActivity extends Fragment
     };
 
     /** Handle update progress */
-    Updater.OnUpdateProgressListener mOnUpdateProgressListener = new Updater.OnUpdateProgressListener()
+    FireStarterUpdater.OnUpdateProgressListener mOnUpdateProgressListener = new FireStarterUpdater.OnUpdateProgressListener()
     {
         @Override
         public void onUpdateProgress(final Boolean isError,final Integer percent, final String message)
@@ -201,7 +201,7 @@ public class UpdateActivity extends Fragment
     };
 
     /** Handle Kodi update progress */
-    UpdaterKodi.OnUpdateProgressListener mOnUpdateKodiProgressListener = new UpdaterKodi.OnUpdateProgressListener()
+    KodiUpdater.OnUpdateProgressListener mOnUpdateKodiProgressListener = new KodiUpdater.OnUpdateProgressListener()
     {
         @Override
         public void onUpdateProgress(final Boolean isError,final Integer percent, final String message)
@@ -255,16 +255,16 @@ public class UpdateActivity extends Fragment
 
         // Set latest version
         mLatestVersion = (TextView) rootView.findViewById(R.id.latestVersion);
-        if(Updater.LATEST_VERSION != null)
+        if(FireStarterUpdater.LATEST_VERSION != null)
         {
-            mLatestVersion.setText(Updater.LATEST_VERSION);
+            mLatestVersion.setText(FireStarterUpdater.LATEST_VERSION);
         }
 
         // Set latest Kodi version
         mLatestVersionKodi = (TextView) rootView.findViewById(R.id.latestVersionKodi);
-        if(UpdaterKodi.LATEST_VERSION != null)
+        if(KodiUpdater.LATEST_VERSION != null)
         {
-            mLatestVersionKodi.setText(UpdaterKodi.LATEST_VERSION);
+            mLatestVersionKodi.setText(KodiUpdater.LATEST_VERSION);
         }
 
         // Set button events
@@ -282,14 +282,14 @@ public class UpdateActivity extends Fragment
         mUpdateKodiButton.setOnClickListener(mUpdateKodiClickListener);
 
         // Set updater
-        mUpdater = new Updater();
-        mUpdater.setOnCheckForUpdateFinishedListener(mOnCheckForUpdateFinishedListener);
-        mUpdater.setOnUpdateProgressListener(mOnUpdateProgressListener);
+        mFireStarterUpdater = new FireStarterUpdater();
+        mFireStarterUpdater.setOnCheckForUpdateFinishedListener(mOnCheckForUpdateFinishedListener);
+        mFireStarterUpdater.setOnUpdateProgressListener(mOnUpdateProgressListener);
 
         // Set Kodi updater
-        mUpdaterKodi = new UpdaterKodi();
-        mUpdaterKodi.setOnCheckForUpdateFinishedListener(mOnCheckForKodiUpdateFinishedListener);
-        mUpdaterKodi.setOnUpdateProgressListener(mOnUpdateKodiProgressListener);
+        mKodiUpdater = new KodiUpdater();
+        mKodiUpdater.setOnCheckForUpdateFinishedListener(mOnCheckForKodiUpdateFinishedListener);
+        mKodiUpdater.setOnUpdateProgressListener(mOnUpdateKodiProgressListener);
 
         return rootView;
     }
