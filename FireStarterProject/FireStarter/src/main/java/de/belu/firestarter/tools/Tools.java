@@ -279,11 +279,20 @@ public class Tools
      */
     public static String getCurrentAppVersion(Context context)
     {
+        return getCurrentAppVersion(context, context.getApplicationInfo().packageName);
+    }
+
+    /**
+     * @param context
+     * @return Current version of an app
+     */
+    public static String getCurrentAppVersion(Context context, String app)
+    {
         String retVal = "unknown";
 
         try
         {
-            retVal = "v" + context.getPackageManager().getPackageInfo(context.getApplicationInfo().packageName, 0).versionName;
+            retVal = "v" + context.getPackageManager().getPackageInfo(app, 0).versionName;
         }
         catch (PackageManager.NameNotFoundException e)
         {

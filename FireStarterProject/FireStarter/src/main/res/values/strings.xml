@@ -30,7 +30,10 @@
     <string name="doubleclick_interval_title">Double click interval</string>
     <string name="is_invalid_number">is invalid for this setting!</string>
     <string name="update_currentversion">Current FireStarter Version</string>
+    <string name="update_currentversion_kodi">Current Kodi Version</string>
+    <string name="install">Install</string>
     <string name="serverVersion">Latest FireStarter Version</string>
+    <string name="serverVersion_kodi">Latest Kodi Version</string>
     <string name="update_checkfor">Check for Update</string>
     <string name="update">Update to latest Version</string>
     <string name="update_hitcheckfor">Hit check for update to check for latest version.</string>
@@ -50,7 +53,7 @@
     <string name="language_summary">Set language manually.</string>
     <string name="language_title">Language</string>
     <string name="update_checkfortitle">Checking for updates</string>
-    <string name="update_checkfordesc">Wait till checked GitHub for latest release.</string>
+    <string name="update_checkfordesc">Wait till checking for latest release.</string>
     <string name="update_checkformessage">Check for update.</string>
     <string name="update_foundnew">Found newer Version - Update Now!</string>
     <string name="update_foundnotnew">You have already the newest version!</string>

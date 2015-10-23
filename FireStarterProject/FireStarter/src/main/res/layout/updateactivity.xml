@@ -66,6 +66,102 @@
 
     </LinearLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/update_currentversion_kodi"
+        android:textSize="@dimen/textsizeinfotitle"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notfound"
+        android:textSize="@dimen/textsizeinfo"
+        android:id="@+id/currentVersionKodi"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/serverVersion_kodi"
+        android:textSize="@dimen/textsizeinfotitle"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/update_hitcheckfor"
+        android:textSize="@dimen/textsizeinfo"
+        android:id="@+id/latestVersionKodi"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/update_checkfor"
+            android:id="@+id/buttonCheckForUpdateKodi"/>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:id="@+id/buttonUpdateKodi"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/infodividerheight"
+        android:layout_marginTop="@dimen/infodivicermargintopbottom"
+        android:layout_marginBottom="@dimen/infodivicermargintopbottom"
+        android:background="@color/whitedivider"
+        android:focusable="false" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
