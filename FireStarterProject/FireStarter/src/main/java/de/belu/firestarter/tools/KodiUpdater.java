@@ -22,6 +22,8 @@ public class KodiUpdater extends Updater
     /** Check if version is higher */
     public static Boolean isVersionNewer(String oldVersion, String newVersion)
     {
+        if (oldVersion == null || oldVersion.equals("unknown")) return true;
+
         // for now, just check if they are different and treat it like it's newer
         return !oldVersion.equals(newVersion);
     }

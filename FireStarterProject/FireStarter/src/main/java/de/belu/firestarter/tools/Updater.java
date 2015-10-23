@@ -18,7 +18,7 @@ import java.util.concurrent.Semaphore;
  */
 public class Updater {
     /** Latest version found */
-    public static String LATEST_VERSION = null;
+    public String LATEST_VERSION = null;
 
     /** Update dir on external storage */
     protected String DOWNLOADFOLDER;
@@ -67,6 +67,7 @@ public class Updater {
 
     public static Boolean isVersionNewer(String oldVersion, String newVersion)
     {
+        if (oldVersion == null || oldVersion.equals("unknown")) return true;
         return false;
     }
 

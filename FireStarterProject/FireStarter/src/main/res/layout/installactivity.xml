@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/update_currentversion"
+        android:text="@string/update_currentversion_kodi"
         android:textSize="@dimen/textsizeinfotitle"/>
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/notfound"
         android:textSize="@dimen/textsizeinfo"
-        android:id="@+id/currentVersion"/>
+        android:id="@+id/currentVersionKodi"/>
 
     <View
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/serverVersion"
+        android:text="@string/serverVersion_kodi"
         android:textSize="@dimen/textsizeinfotitle"/>
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="@string/update_hitcheckfor"
         android:textSize="@dimen/textsizeinfo"
-        android:id="@+id/latestVersion"/>
+        android:id="@+id/latestVersionKodi"/>
 
     <View
         android:layout_width="match_parent"
@@ -56,21 +56,14 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/update_checkfor"
-            android:id="@+id/buttonCheckForUpdate"/>
+            android:id="@+id/buttonCheckForUpdateKodi"/>
 
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/update"
-            android:id="@+id/buttonUpdate"/>
+            android:id="@+id/buttonUpdateKodi"/>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="bottom"
-        android:text="@string/about_firestarter"
-        android:textSize="@dimen/textsizeinfo" />
 
 </LinearLayout>

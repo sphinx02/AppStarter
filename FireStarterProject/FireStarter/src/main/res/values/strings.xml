@@ -46,6 +46,7 @@
     <string name="leftbar_allapps">Apps</string>
     <string name="leftbar_infos">System</string>
     <string name="leftbar_updates">Updates</string>
+    <string name="leftbar_install">Install</string>
     <string name="leftbar_settings">Settings</string>
     <string name="appsettingssort">Move</string>
     <string name="appsettings_settings">App Settings</string>
