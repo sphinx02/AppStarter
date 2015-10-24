@@ -5,16 +5,12 @@ import android.os.SystemClock;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.DateFormat;
 import java.util.Date;
 
 import de.belu.firestarter.R;
-import de.belu.firestarter.observer.BackgroundHomeButtonObserverThread;
 import de.belu.firestarter.tools.Tools;
 
 /**
@@ -23,7 +19,7 @@ import de.belu.firestarter.tools.Tools;
 public class InfosPrefActivity extends PreferenceFragment
 {
     static final long SLEEPTIME_MINIMUM = 1;
-    static final long SLEEPTIME_MAXIMUM = 30;
+    static final long SLEEPTIME_MAXIMUM = 120;
 
     public InfosPrefActivity()
     {
@@ -54,7 +50,7 @@ public class InfosPrefActivity extends PreferenceFragment
         String upTime = String.format(getActivity().getResources().getString(R.string.uptimedesc), Tools.formatInterval(SystemClock.elapsedRealtime()), dateFormat.format(new Date(System.currentTimeMillis() - SystemClock.elapsedRealtime())));
         prefDeviceUpTime.setSummary(upTime);
 
-        EditTextPreference prefSetSleepTimeout = (EditTextPreference) findPreference("prefVirtualSleepTime");
+        final EditTextPreference prefSetSleepTimeout = (EditTextPreference) findPreference("prefVirtualSleepTime");
         prefSetSleepTimeout.setText(((Long)(Tools.getSleepModeTimeout(getActivity()) / 1000 / 60)).toString());
         prefSetSleepTimeout.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
         {
@@ -80,6 +76,7 @@ public class InfosPrefActivity extends PreferenceFragment
 
                     long newTimeInMs = newTimeInMinutes * 60 * 1000;
                     Tools.setSleepModeTimeout(getActivity(), newTimeInMs);
+                    prefSetSleepTimeout.setText(((Long)(Tools.getSleepModeTimeout(getActivity()) / 1000 / 60)).toString());
                 }
                 while (false);
 
@@ -104,28 +101,7 @@ public class InfosPrefActivity extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                if(BackgroundHomeButtonObserverThread.CONNECTDEVICE.equals(BackgroundHomeButtonObserverThread.CONNECTEDDEVICE))
-                {
-                    Toast.makeText(InfosPrefActivity.this.getActivity(), "Reboot only works if Background-Observer is up and running..", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    try
-                    {
-                        Log.d(InfosPrefActivity.class.getName(), "Send reboot command..");
-                        Process p = Runtime.getRuntime().exec(new String[]{"adb", "-s", BackgroundHomeButtonObserverThread.CONNECTEDDEVICE, "reboot"});
-                        p.waitFor();
-                    }
-                    catch (Exception e)
-                    {
-                        StringWriter errors = new StringWriter();
-                        e.printStackTrace(new PrintWriter(errors));
-                        String errorReason = errors.toString();
-                        Log.d(InfosPrefActivity.class.getName(), "Failed to send reboot command: \n" + errorReason);
-
-                        Toast.makeText(InfosPrefActivity.this.getActivity(), "Failed to send reboot command..", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                Toast.makeText(InfosPrefActivity.this.getActivity(), getActivity().getResources().getString(R.string.system_restart_summary_removed), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

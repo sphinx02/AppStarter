@@ -203,8 +203,15 @@ public class InstalledAppsAdapter extends BaseAdapter
         {
             gridView = new View(mContext);
 
-            // get layout from mobile.xml
-            gridView = inflater.inflate(R.layout.griditemlayout, parent, false);
+            // get layout depending on setting
+            if(mSettings.getShowBackgroundForAppNames())
+            {
+                gridView = inflater.inflate(R.layout.appdrawergriditemlayout_withbackground, parent, false);
+            }
+            else
+            {
+                gridView = inflater.inflate(R.layout.appdrawergriditemlayout, parent, false);
+            }
 
         } else
         {

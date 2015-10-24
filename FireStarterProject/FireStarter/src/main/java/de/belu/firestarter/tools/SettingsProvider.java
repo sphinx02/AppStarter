@@ -102,6 +102,24 @@ public class SettingsProvider
     /** Automatically select first icon when switching to app-drawer */
     Boolean mAutoSelectFirstIcon = true;
 
+    /** FLAG_ACTIVITY_CLEAR_TASK is used for single click actions */
+    Boolean mClearPreviousInstancesForSingleClick = false;
+
+    /** FLAG_ACTIVITY_CLEAR_TASK is used for double click actions */
+    Boolean mClearPreviousInstancesForDoubleClick = false;
+
+    /** Indicates if ADB is used to detect home button clicks */
+    Boolean mBackgroundObservationViaAdb = true;
+
+    /** Indicates if Fallback to Non-ADB detection is used automatically */
+    Boolean mBackgroundObservationFallBackToNonAdb = true;
+
+    /** Indicates if the LeftBar is hided when on the app overview */
+    Boolean mHideLeftBarInAppOverview = false;
+
+    /** Indicates if app names in the app drawer are having a background */
+    Boolean mShowBackgroundForAppNames = false;
+
     /** Create a the instace of SettingsProvider */
     private SettingsProvider(Context context)
     {
@@ -131,6 +149,71 @@ public class SettingsProvider
         return mPackageOrder;
     }
 
+    public void setHideLeftBarInAppOverview(Boolean value)
+    {
+        mHideLeftBarInAppOverview = value;
+        storeValues();
+    }
+    public Boolean getHideLeftBarInAppOverview()
+    {
+        readValues();
+        return mHideLeftBarInAppOverview;
+    }
+
+    public void setShowBackgroundForAppNames(Boolean value)
+    {
+        mShowBackgroundForAppNames = value;
+        storeValues();
+    }
+    public Boolean getShowBackgroundForAppNames()
+    {
+        readValues();
+        return mShowBackgroundForAppNames;
+    }
+
+    public void setClearPreviousInstancesForDoubleClick(Boolean value)
+    {
+        mClearPreviousInstancesForDoubleClick = value;
+        storeValues();
+    }
+    public Boolean getClearPreviousInstancesForDoubleClick()
+    {
+        readValues();
+        return mClearPreviousInstancesForDoubleClick;
+    }
+
+    public void setClearPreviousInstancesForSingleClick(Boolean value)
+    {
+        mClearPreviousInstancesForSingleClick = value;
+        storeValues();
+    }
+    public Boolean getClearPreviousInstancesForSingleClick()
+    {
+        readValues();
+        return mClearPreviousInstancesForSingleClick;
+    }
+
+    public void setBackgroundObservationFallBackToNonAdb(Boolean value)
+    {
+        mBackgroundObservationFallBackToNonAdb = value;
+        storeValues();
+    }
+    public Boolean getBackgroundObservationFallBackToNonAdb()
+    {
+        readValues();
+        return mBackgroundObservationFallBackToNonAdb;
+    }
+
+    public void setBackgroundObservationViaAdb(Boolean value)
+    {
+        mBackgroundObservationViaAdb = value;
+        storeValues();
+    }
+    public Boolean getBackgroundObservationViaAdb()
+    {
+        readValues();
+        return mBackgroundObservationViaAdb;
+    }
 
     public void setBackgroundObserverEnabled(Boolean value)
     {
@@ -355,11 +438,29 @@ public class SettingsProvider
             // BackgroundObserverEnabled
             mBackgroundObserverEnabled = mPreferences.getBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
 
+            // HideLeftBarInAppOverview
+            mHideLeftBarInAppOverview = mPreferences.getBoolean("prefHideLeftBarInAppOverview", mHideLeftBarInAppOverview);
+
+            // ShowBackgroundForAppNames
+            mShowBackgroundForAppNames = mPreferences.getBoolean("prefShowBackgroundForAppNames", mShowBackgroundForAppNames);
+
             // Have update seen
             mHaveUpdateSeen = mPreferences.getBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
 
             // Auto select first icon
             mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
+            // ADB observation
+            mBackgroundObservationViaAdb = mPreferences.getBoolean("prefBackgroundObservationViaAdb", mBackgroundObservationViaAdb);
+
+            // ADB fallback to Non-ADB
+            mBackgroundObservationFallBackToNonAdb = mPreferences.getBoolean("prefBackgroundObservationFallBackToNonAdb", mBackgroundObservationFallBackToNonAdb);
+
+            // ClearPreviousInstancesForDoubleClick
+            mClearPreviousInstancesForDoubleClick = mPreferences.getBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
+
+            // ClearPreviousInstancesForSingleClick
+            mClearPreviousInstancesForSingleClick = mPreferences.getBoolean("prefClearPreviousInstancesForSingleClick", mClearPreviousInstancesForSingleClick);
 
             // Startup-package
             mStartupPackage = mPreferences.getString("prefStartupPackage", mStartupPackage);
@@ -442,11 +543,29 @@ public class SettingsProvider
             // BackgroundObserverEnabled
             editor.putBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
 
+            // BackgroundObserverEnabled
+            editor.putBoolean("prefHideLeftBarInAppOverview", mHideLeftBarInAppOverview);
+
+            // ShowBackgroundForAppNames
+            editor.putBoolean("prefShowBackgroundForAppNames", mShowBackgroundForAppNames);
+
             // Update seen
             editor.putBoolean("prefHaveUpdateSeen", mHaveUpdateSeen);
 
             // Auto select first icon
             editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
+
+            // ADB observation
+            editor.putBoolean("prefBackgroundObservationViaAdb", mBackgroundObservationViaAdb);
+
+            // ADB observation
+            editor.putBoolean("prefBackgroundObservationFallBackToNonAdb", mBackgroundObservationFallBackToNonAdb);
+
+            // ClearPreviousInstancesForDoubleClick
+            editor.putBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
+
+            // ClearPreviousInstancesForSingleClick
+            editor.putBoolean("prefClearPreviousInstancesForSingleClick", mClearPreviousInstancesForSingleClick);
 
             // Startup package
             editor.putString("prefStartupPackage", mStartupPackage);

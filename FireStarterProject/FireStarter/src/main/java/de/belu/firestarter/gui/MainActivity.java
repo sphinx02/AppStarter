@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity
     private ListView mListView;
     private Fragment mLastSetFragment;
     private SettingsProvider mSettings;
+    private LinearLayout mLeftBar;
 
     private TextView mTextViewClock;
     private TextView mTextViewDate;
@@ -142,6 +144,9 @@ public class MainActivity extends Activity
                 }
             }
         });
+
+        // Check if left bar shall be hided
+        mLeftBar = (LinearLayout) findViewById(R.id.leftbar);
     }
 
     @Override
@@ -206,7 +211,46 @@ public class MainActivity extends Activity
         try
         {
             Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: selected position " + position);
+
+            // Create fragment
             Fragment fragment = (Fragment)Class.forName(((LeftBarItemsListAdapter)parent.getAdapter()).getItem(position).className).getConstructor().newInstance();
+
+            // Check if animation have to be changed
+            if(fragment instanceof AppActivity)
+            {
+                if(mSettings.getHideLeftBarInAppOverview())
+                {
+                    mListView.setOnFocusChangeListener(new View.OnFocusChangeListener()
+                            //mLeftBar.setOnFocusChangeListener(new View.OnFocusChangeListener()
+                    {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus)
+                        {
+                            Log.d(MainActivity.class.getName(), "LeftBar focus changed to: hasFocus = " + hasFocus);
+
+                            if (mLastSetFragment instanceof AppActivity)
+                            {
+                                Integer newWidth = 0;
+                                if (hasFocus)
+                                {
+                                    newWidth = Math.round(getResources().getDimension(R.dimen.leftbarwidth));
+                                }
+                                Log.d(MainActivity.class.getName(), "LeftBar new width = " + newWidth);
+
+                                ResizeWidthAnimation anim = new ResizeWidthAnimation(mLeftBar, newWidth);
+                                anim.setDuration(300);
+                                mLeftBar.startAnimation(anim);
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    mListView.setOnFocusChangeListener(null);
+                }
+            }
+
+            // Set fragment
             setActiveFragment(fragment);
         }
         catch (Exception e)
@@ -315,8 +359,12 @@ public class MainActivity extends Activity
                 Log.d(MainActivity.class.getName(), "Update Time to " + sdf.format(actDateTime));
 
                 // Set clock
-                DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, getResources().getConfiguration().locale);
-                mTextViewClock.setText(timeFormat.format(actDateTime));
+//                DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, getResources().getConfiguration().locale.getDefault());
+//                if(android.text.format.DateFormat.is24HourFormat(MainActivity.this))
+//                {
+//                }
+//                mTextViewClock.setText(timeFormat.format(actDateTime));
+                mTextViewClock.setText(DateUtils.formatDateTime(MainActivity.this, actDateTime.getTime(), DateUtils.FORMAT_SHOW_TIME));
 
                 // Set date
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, getResources().getConfiguration().locale);

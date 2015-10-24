@@ -25,6 +25,24 @@
             android:summary="@string/wallpaper_summary"
             android:title="@string/wallpaper_title" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowBackgroundForAppNames"
+            android:summary="@string/showbackgroundforappnames_desc"
+            android:title="@string/showbackgroundforappnames_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefHideLeftBarInAppOverview"
+            android:summary="@string/hideleftbarinappoverview_desc"
+            android:title="@string/hideleftbarinappoverview_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefAutoSelectFirstIcon"
+            android:summary="@string/autoselectfirsticon_desc"
+            android:title="@string/autoselectfirsricon_title" />
+
     </PreferenceCategory>
 
 
@@ -41,19 +59,6 @@
             android:summary="@string/hiddenapps_desc"
             android:title="@string/hiddenapps_title" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="prefAutoSelectFirstIcon"
-            android:summary="@string/autoselectfirsticon_desc"
-            android:title="@string/autoselectfirsricon_title" />
-
-        <!--
-        <ListPreference
-            android:key="prefSyncFrequency"
-            android:entries="@array/syncFrequency"
-            android:summary="@string/pref_sync_frequency_summary"
-            android:entryValues="@array/syncFrequencyValues"
-            android:title="@string/pref_sync_frequency" /> -->
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/background_observation">
@@ -65,6 +70,25 @@
             android:title="@string/enable_background_observation_title" >
         </CheckBoxPreference>
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefBackgroundObservationFallBackToNonAdb"
+            android:summary="@string/fallback_to_nonadb_desc"
+            android:title="@string/fallback_to_nonadb_title" >
+        </CheckBoxPreference>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefBackgroundObservationViaAdb"
+            android:summary="@string/background_observation_viaadb_desc"
+            android:title="@string/background_observation_viaadb_title" >
+        </CheckBoxPreference>
+
+        <Preference
+            android:key="prefVirtualOpenAdbSettings"
+            android:summary="@string/open_adb_settings_summary"
+            android:title="@string/open_adb_settings_title" />
+
         <ListPreference
             android:key="prefStartupPackage"
             android:summary="@string/startup_app_desc"
@@ -75,10 +99,22 @@
             android:summary="@string/singleclick_app_desc"
             android:title="@string/singleclick_app_title" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefClearPreviousInstancesForSingleClick"
+            android:summary="@string/clearpreviousinstance_desc"
+            android:title="@string/clearpreviousinstance_singleclick_title" />
+
         <ListPreference
             android:key="prefHomeDoubleClickPackage"
             android:summary="@string/doubleclick_app_desc"
             android:title="@string/doubleclick_app_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefClearPreviousInstancesForDoubleClick"
+            android:summary="@string/clearpreviousinstance_desc"
+            android:title="@string/clearpreviousinstance_doubleclick_title" />
      </PreferenceCategory>
 
 

@@ -18,8 +18,10 @@ import android.provider.Settings;
 import android.util.Log;
 import android.util.TypedValue;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -205,8 +207,39 @@ public class Tools
      */
     public static String getDeviceDetails()
     {
-        String retVal = String.format("%s - Android %s\n\t-> %s", Build.MODEL, Build.VERSION.RELEASE, Build.DISPLAY);
+        String versionName = getProp("ro.build.version.name");
+        if(!versionName.equals(""))
+        {
+            versionName = "- " + versionName;
+        }
+
+        String retVal = String.format("%s - Android %s %s\n\t-> %s", Build.MODEL, Build.VERSION.RELEASE, versionName, Build.DISPLAY);
         return retVal;
+    }
+
+    /**
+     * Makes a system call to "getprop" and returns the property
+     * @param propertyName name of the property like ro.build.version.name
+     * @return property content or empty string if not found
+     */
+    public static String getProp(String propertyName)
+    {
+        String result = "";
+        if(propertyName != null && !propertyName.equals(""))
+        {
+            Process getProcess = null;
+            try
+            {
+                getProcess = Runtime.getRuntime().exec("getprop " + propertyName);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(getProcess.getInputStream()));
+                result = reader.readLine().trim();
+                getProcess.destroy();
+            }
+            catch (java.io.IOException e)
+            {
+            }
+        }
+        return result;
     }
 
     /**
