@@ -27,4 +27,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'org.jsoup:jsoup:1.8.3'
 }

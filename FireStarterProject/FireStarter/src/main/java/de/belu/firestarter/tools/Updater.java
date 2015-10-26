@@ -10,40 +10,27 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 /**
- * Update class to download updates..
+ * Base Updater functionality
  */
-public class Updater
-{
-    /** Latest version found on github */
-    public static String LATEST_VERSION = null;
-
-    /** Update url on github */
-    private final static String UPDATEURL = "https://api.github.com/repos/sphinx02/FireStarter/releases";
+public class Updater {
+    /** Latest version found */
+    public String LATEST_VERSION = null;
 
     /** Update dir on external storage */
-    private final static String DOWNLOADFOLDER = "FireStarterUpdates";
+    protected String DOWNLOADFOLDER;
+
+    /** Update url */
+    protected String UPDATEURL;
 
     /** Indicates if process is busy */
-    private static Boolean mIsBusy = false;
+    protected static Boolean mIsBusy = false;
 
     /** Url of APK **/
-    private String mApkURL = null;
-
-    /** Update semaphore */
-    private Semaphore mUpdateSemaphore = null;
+    protected String mApkURL = null;
 
     /** Indicates if the download was succesful */
     private Boolean mDownloadSuccessful = false;
@@ -56,6 +43,9 @@ public class Updater
 
     /** Download manager */
     private DownloadManager mDownloadManager;
+
+    /** Update semaphore */
+    private Semaphore mUpdateSemaphore = null;
 
     /** Check for update listener */
     private OnCheckForUpdateFinishedListener mOnCheckForUpdateFinishedListener;
@@ -75,83 +65,13 @@ public class Updater
         mOnUpdateProgressListener = listener;
     }
 
-    /** Check if version is higher */
     public static Boolean isVersionNewer(String oldVersion, String newVersion)
     {
-        Boolean retVal = false;
-        try
-        {
-            List<Integer> oldVerList = getVersionList(oldVersion);
-            List<Integer> newVerList = getVersionList(newVersion);
-            if(oldVerList.size() > 0 && newVerList.size() > 0)
-            {
-                for(Integer i = 0; i < newVerList.size(); i++)
-                {
-                    // If oldversion has no additional step and all
-                    // steps before have been equal, newVersion is newer
-                    if(i >= oldVerList.size())
-                    {
-                        retVal = true;
-                        break;
-                    }
-
-                    // If newVersions current step is higher than oldversions stage,
-                    // newVersion is newer
-                    if(newVerList.get(i) > oldVerList.get(i))
-                    {
-                        retVal = true;
-                        break;
-                    }
-
-                    // If oldVersions current step is higher than newVersions stage,
-                    // oldVersion is newer
-                    if(oldVerList.get(i) > newVerList.get(i))
-                    {
-                        break;
-                    }
-
-                    // Else versions habe been equal --> no newer
-                    // --> check next stage or finish
-                }
-            }
-        }
-        catch(Exception ignore){}
-
-        return retVal;
+        if (oldVersion == null || oldVersion.equals("unknown")) return true;
+        return false;
     }
 
-    /**
-     * Separate version string in major, minor, ..
-     * Most significant value first
-     * @param versionString Version string to be parsed
-     * @return List of Integers
-     */
-    private static List<Integer> getVersionList(String versionString)
-    {
-        List<Integer> retVal = new ArrayList<Integer>();
-
-        try
-        {
-            if(versionString != null && !versionString.equals(""))
-            {
-                versionString = versionString.replaceAll("[^\\d.]", "");
-                String[] parts = versionString.split("\\.");
-                if(parts != null && parts.length > 0)
-                {
-                    for(String part : parts)
-                    {
-                        retVal.add(Integer.valueOf(part));
-                    }
-                }
-            }
-        }
-        catch(Exception ignore) { }
-
-        return retVal;
-    }
-
-    /** Check for update and the update FireStarter */
-    public void updateFireStarter(final Context context, final String oldVersion)
+    public void update(final Context context, final String oldVersion)
     {
         Thread updateThread = new Thread(new Runnable()
         {
@@ -162,7 +82,7 @@ public class Updater
                 {
                     if (mIsBusy)
                     {
-                        throw new Exception("Updater is already working..");
+                        throw new Exception("FireStarterUpdater is already working..");
                     }
 
                     // Check for update synchron
@@ -212,7 +132,7 @@ public class Updater
                     localRequest.setTitle("FireStarter Update");
                     localRequest.allowScanningByMediaScanner();
                     localRequest.setNotificationVisibility(1);
-                    Log.d(Updater.class.getName(), "Download to file://" + downloadFile.getAbsolutePath());
+                    Log.d(FireStarterUpdater.class.getName(), "Download to file://" + downloadFile.getAbsolutePath());
                     localRequest.setDestinationUri(Uri.parse("file://" + downloadFile.getAbsolutePath()));
 
                     context.registerReceiver(new BroadcastReceiver()
@@ -220,7 +140,7 @@ public class Updater
                         public void onReceive(Context context, Intent intent)
                         {
                             String action = intent.getAction();
-                            Log.d(Updater.class.getName(), "Received intent: " + action);
+                            Log.d(FireStarterUpdater.class.getName(), "Received intent: " + action);
                             if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action))
                             {
                                 DownloadManager.Query query = new DownloadManager.Query();
@@ -275,21 +195,21 @@ public class Updater
                             context.unregisterReceiver(this);
 
                             // Release semaphore in any case..
-                            Log.d(Updater.class.getName(), "Release semaphore..");
+                            Log.d(FireStarterUpdater.class.getName(), "Release semaphore..");
                             mUpdateSemaphore.release();
                         }
                     }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-                    Log.d(Updater.class.getName(), "Aquire semaphore");
+                    Log.d(FireStarterUpdater.class.getName(), "Aquire semaphore");
                     mUpdateSemaphore = new Semaphore(1);
                     mUpdateSemaphore.acquire();
 
                     // Here the download is performed
-                    Log.d(Updater.class.getName(), "Start download");
+                    Log.d(FireStarterUpdater.class.getName(), "Start download");
                     mDownloadManager = (DownloadManager)context.getSystemService(context.DOWNLOAD_SERVICE);
                     mQueueValue = mDownloadManager.enqueue(localRequest);
 
-                    Log.d(Updater.class.getName(), "Aquire semaphore again");
+                    Log.d(FireStarterUpdater.class.getName(), "Aquire semaphore again");
                     int lastPercentage = 0;
                     while(!mUpdateSemaphore.tryAcquire())
                     {
@@ -318,7 +238,7 @@ public class Updater
                     mUpdateSemaphore.release();
                     mUpdateSemaphore = null;
 
-                    Log.d(Updater.class.getName(), "Download finished");
+                    Log.d(FireStarterUpdater.class.getName(), "Download finished");
                     if(!mDownloadSuccessful)
                     {
                         String reason = "";
@@ -341,7 +261,7 @@ public class Updater
                 }
                 catch(Exception e)
                 {
-                    Log.d(Updater.class.getName(), "UpdateError: " + e.getMessage());
+                    Log.d(FireStarterUpdater.class.getName(), "UpdateError: " + e.getMessage());
                     fireOnUpdateProgressListener(true, 100, e.getMessage());
                 }
                 finally
@@ -359,101 +279,9 @@ public class Updater
         checkForUpdate(false);
     }
 
-    /** Check github for update */
     public void checkForUpdate(Boolean synchron)
     {
-        Thread checkForUpdateThread = new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    if(mIsBusy)
-                    {
-                        throw new JSONException("Updater is already working..");
-                    }
-                    mIsBusy = true;
-
-                    // Build the url
-                    URL url = new URL(UPDATEURL);
-
-                    // Read from the URL
-                    Scanner scan = new Scanner(url.openStream());
-                    StringBuilder str = new StringBuilder();
-                    while (scan.hasNext())
-                    {
-                        str.append(scan.nextLine());
-                    }
-                    scan.close();
-
-                    // build a JSON object
-                    JSONArray obj = new JSONArray(str.toString());
-                    if(obj.length() <= 0)
-                    {
-                        throw new JSONException("No content found");
-                    }
-
-                    JSONObject latestRelease = obj.getJSONObject(0);
-                    LATEST_VERSION = null;
-                    String tagName = latestRelease.getString("tag_name");
-                    if(tagName == null || tagName.equals(""))
-                    {
-                        throw new JSONException("Latest release tag name is empty");
-                    }
-                    LATEST_VERSION = tagName;
-
-                    // Search for apk-download url
-                    mApkURL = null;
-                    JSONArray assets = latestRelease.getJSONArray("assets");
-                    for(Integer i = 0; i < assets.length(); i++)
-                    {
-                        JSONObject currentAsset = assets.getJSONObject(i);
-                        String downloadUrl = currentAsset.getString("browser_download_url");
-                        if(downloadUrl.startsWith("https://github.com/sphinx02/FireStarter/releases") && downloadUrl.endsWith(".apk"))
-                        {
-                            mApkURL = downloadUrl;
-                            break;
-                        }
-                    }
-                    if(mApkURL == null)
-                    {
-                        throw new JSONException("No .apk download URL found");
-                    }
-
-                    fireOnCheckForUpdateFinished("Update finished.");
-                    Log.d(Updater.class.getName(), "Update finished successful, found version: " + LATEST_VERSION);
-                }
-                catch (IOException e)
-                {
-                    Log.d(Updater.class.getName(), "IOError: " + e.getMessage());
-                    fireOnCheckForUpdateFinished("Update-Check-Error with connection: " + e.getMessage());
-                }
-                catch (JSONException e)
-                {
-                    Log.d(Updater.class.getName(), "ParseError: " + e.getMessage());
-                    fireOnCheckForUpdateFinished("Update-Check-Error with parsing: " + e.getMessage());
-                }
-                catch (Exception e)
-                {
-                    Log.d(Updater.class.getName(), "GeneralError: " + e.getMessage());
-                    fireOnCheckForUpdateFinished("Update-Check-Error with parsing: " + e.getMessage());
-                }
-                finally
-                {
-                    mIsBusy = false;
-                }
-            }
-        });
-        checkForUpdateThread.start();
-        if(synchron)
-        {
-            try
-            {
-                checkForUpdateThread.join();
-            }
-            catch (InterruptedException ignore) {}
-        }
+        //override
     }
 
     /**
@@ -461,7 +289,7 @@ public class Updater
      * @param percent Percentage
      * @param message Message
      */
-    private void fireOnUpdateProgressListener(final Boolean isError, final Integer percent, final String message)
+    protected void fireOnUpdateProgressListener(final Boolean isError, final Integer percent, final String message)
     {
         Thread fireThread = new Thread(new Runnable()
         {
@@ -481,7 +309,7 @@ public class Updater
      * Fire check for update finished message
      * @param message Message to fire
      */
-    private void fireOnCheckForUpdateFinished(final String message)
+    protected void fireOnCheckForUpdateFinished(final String message)
     {
         Thread fireThread = new Thread(new Runnable()
         {
@@ -512,4 +340,5 @@ public class Updater
     {
         public void onUpdateProgress(Boolean isError, Integer percent, String message);
     }
+
 }

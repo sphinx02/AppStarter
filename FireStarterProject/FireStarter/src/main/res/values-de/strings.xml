@@ -104,4 +104,8 @@
     <string name="showbackgroundforappnames_title">Hintergrund für App-Namen (App-Übersicht)</string>
     <string name="showbackgroundforappnames_desc">Blendet einen Hintergrund für die App-Namen ein. Dies erhöht die Lesbarkeit wenn Wallpaper benutzt werden.</string>
     <string name="feature_only_availabe_fireos3_and_older">Dieses Feature ist nur in FireOS 3 und älteren Versionen verfügbar.</string>
+    <string name="install">Installieren</string>
+    <string name="leftbar_install">Installieren</string>
+    <string name="serverVersion_kodi">Neueste Kodi Version</string>
+    <string name="update_currentversion_kodi">Aktuelle Kodi Version</string>
 </resources>

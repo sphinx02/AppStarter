@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.belu.firestarter.R;
+import de.belu.firestarter.tools.FireStarterUpdater;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
-import de.belu.firestarter.tools.Updater;
 
 /**
  * Launcher main (shows the user apps)
@@ -22,8 +22,8 @@ public class UpdateActivity extends Fragment
     /** TextView of latest version */
     TextView mLatestVersion;
 
-    /** Updater service */
-    Updater mUpdater;
+    /** FireStarterUpdater service */
+    FireStarterUpdater mFireStarterUpdater;
 
     /** Check for update progress */
     ProgressDialog mCheckForUpdateProgress = null;
@@ -50,7 +50,7 @@ public class UpdateActivity extends Fragment
         public void onClick(View v)
         {
             mCheckForUpdateProgress = ProgressDialog.show(getActivity(), getActivity().getResources().getString(R.string.update_checkfortitle), getActivity().getResources().getString(R.string.update_checkfordesc), true);
-            mUpdater.checkForUpdate();
+            mFireStarterUpdater.checkForUpdate();
         }
     };
 
@@ -67,7 +67,7 @@ public class UpdateActivity extends Fragment
             mUpdateProgress.setProgress(0);
             mUpdateProgress.show();
 
-            mUpdater.updateFireStarter(getActivity(), mCurrentAppVersion);
+            mFireStarterUpdater.update(getActivity(), mCurrentAppVersion);
 
             // Set back have seen setting
             mSettings.setHaveUpdateSeen(false);
@@ -75,33 +75,25 @@ public class UpdateActivity extends Fragment
     };
 
     /** Handle check for update */
-    Updater.OnCheckForUpdateFinishedListener mOnCheckForUpdateFinishedListener = new Updater.OnCheckForUpdateFinishedListener()
+    FireStarterUpdater.OnCheckForUpdateFinishedListener mOnCheckForUpdateFinishedListener = new FireStarterUpdater.OnCheckForUpdateFinishedListener()
     {
         @Override
         public void onCheckForUpdateFinished(final String message)
         {
-            getActivity().runOnUiThread(new Runnable()
-            {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
-                    if(mUpdater.LATEST_VERSION != null)
-                    {
-                        if(Updater.isVersionNewer(mCurrentAppVersion, Updater.LATEST_VERSION))
-                        {
-                            mLatestVersion.setText(Updater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
+                public void run() {
+                    if (mFireStarterUpdater.LATEST_VERSION != null) {
+                        if (FireStarterUpdater.isVersionNewer(mCurrentAppVersion, mFireStarterUpdater.LATEST_VERSION)) {
+                            mLatestVersion.setText(mFireStarterUpdater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnew));
+                            AppActivity.LATEST_APP_VERSION = mFireStarterUpdater.LATEST_VERSION;
+                        } else {
+                            mLatestVersion.setText(mFireStarterUpdater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
                         }
-                        else
-                        {
-                            mLatestVersion.setText(Updater.LATEST_VERSION + " - " + getActivity().getResources().getString(R.string.update_foundnotnew));
-                        }
-                    }
-                    else
-                    {
+                    } else {
                         mLatestVersion.setText(message);
                     }
-                    if(mCheckForUpdateProgress != null)
-                    {
+                    if (mCheckForUpdateProgress != null) {
                         mCheckForUpdateProgress.dismiss();
                         mCheckForUpdateProgress = null;
                     }
@@ -111,7 +103,7 @@ public class UpdateActivity extends Fragment
     };
 
     /** Handle update progress */
-    Updater.OnUpdateProgressListener mOnUpdateProgressListener = new Updater.OnUpdateProgressListener()
+    FireStarterUpdater.OnUpdateProgressListener mOnUpdateProgressListener = new FireStarterUpdater.OnUpdateProgressListener()
     {
         @Override
         public void onUpdateProgress(final Boolean isError,final Integer percent, final String message)
@@ -154,13 +146,6 @@ public class UpdateActivity extends Fragment
         mCurrentAppVersion = Tools.getCurrentAppVersion(getActivity());
         firestarterversion.setText(mCurrentAppVersion);
 
-        // Set latest version
-        mLatestVersion = (TextView) rootView.findViewById(R.id.latestVersion);
-        if(Updater.LATEST_VERSION != null)
-        {
-            mLatestVersion.setText(Updater.LATEST_VERSION);
-        }
-
         // Set button events
         Button checkUpdateButton = (Button) rootView.findViewById(R.id.buttonCheckForUpdate);
         checkUpdateButton.setOnClickListener(mCheckUpdateClickListener);
@@ -169,9 +154,16 @@ public class UpdateActivity extends Fragment
         mUpdateButton.setOnClickListener(mUpdateClickListener);
 
         // Set updater
-        mUpdater = new Updater();
-        mUpdater.setOnCheckForUpdateFinishedListener(mOnCheckForUpdateFinishedListener);
-        mUpdater.setOnUpdateProgressListener(mOnUpdateProgressListener);
+        mFireStarterUpdater = new FireStarterUpdater();
+        mFireStarterUpdater.setOnCheckForUpdateFinishedListener(mOnCheckForUpdateFinishedListener);
+        mFireStarterUpdater.setOnUpdateProgressListener(mOnUpdateProgressListener);
+
+        // Set latest version
+        mLatestVersion = (TextView) rootView.findViewById(R.id.latestVersion);
+        if(mFireStarterUpdater.LATEST_VERSION != null)
+        {
+            mLatestVersion.setText(mFireStarterUpdater.LATEST_VERSION);
+        }
 
         return rootView;
     }

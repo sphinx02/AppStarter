@@ -31,6 +31,7 @@ public class SettingsProvider
         put("", "Auto");
         put("ENGLISH", "English");
         put("GERMAN", "Deutsch");
+        put("hu", "Magyar");
         put("ru", "Русский");
         put("uk", "Українська");
     }};

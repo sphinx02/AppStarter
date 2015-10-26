@@ -20,9 +20,9 @@ import java.io.StringWriter;
 import de.belu.firestarter.R;
 import de.belu.firestarter.tools.AppInfo;
 import de.belu.firestarter.tools.AppStarter;
+import de.belu.firestarter.tools.FireStarterUpdater;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
-import de.belu.firestarter.tools.Updater;
 
 import static de.belu.firestarter.gui.AppSettingsOverlayDialog.*;
 
@@ -43,6 +43,9 @@ public class AppActivity extends CustomFragment
      * Instance of settingsprovider
      */
     SettingsProvider mSettings = SettingsProvider.getInstance(this.getActivity());
+
+    /** Latest FireStarter version found */
+    public static String LATEST_APP_VERSION = null;
 
     /**
      * Holds the gridview resource
@@ -97,11 +100,11 @@ public class AppActivity extends CustomFragment
                     }
 
                     // Check for new update
-                    if(!mSettings.getHaveUpdateSeen() && Updater.isVersionNewer(Tools.getCurrentAppVersion(getActivity()), Updater.LATEST_VERSION))
+                    if(!mSettings.getHaveUpdateSeen() && FireStarterUpdater.isVersionNewer(Tools.getCurrentAppVersion(getActivity()), LATEST_APP_VERSION))
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                        builder.setTitle("FireStarter " + Updater.LATEST_VERSION);
+                        builder.setTitle("FireStarter " + LATEST_APP_VERSION);
                         builder.setMessage("There is a new version of FireStarter, do you want to update?");
 
                         builder.setPositiveButton("YES", new DialogInterface.OnClickListener()
