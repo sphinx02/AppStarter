@@ -414,7 +414,7 @@ public class MainActivity extends Activity
     {
         try
         {
-            UpdateActivity fragment = (UpdateActivity)Class.forName(UpdateActivity.class.getName()).getConstructor().newInstance();
+            UpdaterActivity fragment = (UpdaterActivity)Class.forName(UpdaterActivity.class.getName()).getConstructor().newInstance();
             fragment.triggerUpdateOnStartup();
             setActiveFragment(fragment);
         }

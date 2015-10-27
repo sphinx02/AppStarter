@@ -29,8 +29,9 @@ public class SettingsProvider
         // Key is the static field name of Locale (e.g. Locale.GERMAN or Locale.ENGLISH)
         // Value is the displayed value for the settings
         put("", "Auto");
-        put("ENGLISH", "English");
         put("GERMAN", "Deutsch");
+        put("ENGLISH", "English");
+        //put("hu", "Magyar");
         put("ru", "Русский");
         put("uk", "Українська");
     }};
