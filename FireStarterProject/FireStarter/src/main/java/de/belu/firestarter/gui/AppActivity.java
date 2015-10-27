@@ -100,7 +100,8 @@ public class AppActivity extends CustomFragment
                     }
 
                     // Check for new update
-                    if(!mSettings.getHaveUpdateSeen() && FireStarterUpdater.isVersionNewer(Tools.getCurrentAppVersion(getActivity()), LATEST_APP_VERSION))
+                    FireStarterUpdater fireStarterUpdater = new FireStarterUpdater();
+                    if(!mSettings.getHaveUpdateSeen() && fireStarterUpdater.isVersionNewer(Tools.getCurrentAppVersion(getActivity()), LATEST_APP_VERSION))
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 

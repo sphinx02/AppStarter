@@ -11,6 +11,6 @@ public class KodiTests extends InstrumentationTestCase {
     public void testCheckForUpdate() throws Exception {
         KodiUpdater mKodiUpdater = new KodiUpdater();
         mKodiUpdater.checkForUpdate(true);
-        assertNotNull("Latest version should not be null", mKodiUpdater.LATEST_VERSION);
+        assertNotNull("Latest version should not be null", mKodiUpdater.getLatestVersion());
     }
 }

@@ -11,26 +11,31 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
+
+import de.belu.firestarter.gui.UpdaterDialogHandler;
 
 /**
  * Base Updater functionality
  */
-public class Updater {
-    /** Latest version found */
-    public String LATEST_VERSION = null;
+public abstract class Updater
+{
+    /** Holds the current updater dialog handler */
+    public UpdaterDialogHandler DialogHandler = null;
 
-    /** Update dir on external storage */
-    protected String DOWNLOADFOLDER;
+    /** Latest version of FireStarter */
+    protected String mLatestVersion = null;
 
-    /** Update url */
-    protected String UPDATEURL;
+    /** Download URL of the latest APK */
+    protected String mApkDownloadUrl = null;
 
     /** Indicates if process is busy */
-    protected static Boolean mIsBusy = false;
+    private Boolean mIsBusy = false;
 
-    /** Url of APK **/
-    protected String mApkURL = null;
+    /** Update dir on external storage */
+    private String mDownloadFolder = "FireStarterUpdates";;
 
     /** Indicates if the download was succesful */
     private Boolean mDownloadSuccessful = false;
@@ -53,6 +58,29 @@ public class Updater {
     /** Update progress listener */
     private OnUpdateProgressListener mOnUpdateProgressListener;
 
+    /** Returns the name of the App */
+    public abstract String getAppName();
+
+    /** Returns the name of the App */
+    public abstract String getPackageName(Context context);
+
+    public abstract Boolean isVersionNewer(String oldVersion, String newVersion);
+
+    /** Update the values of the latest version and of the APK download URL for the latest version */
+    protected abstract void updateLatestVersionAndApkDownloadUrl() throws Exception;
+
+    /** Return the current version */
+    public String getCurrentVersion(Context context)
+    {
+        return Tools.getCurrentAppVersion(context, getPackageName(context));
+    }
+
+    /** Return the latest version */
+    public String getLatestVersion()
+    {
+        return mLatestVersion;
+    }
+
     /** Set the check for update listener */
     public void setOnCheckForUpdateFinishedListener(OnCheckForUpdateFinishedListener listener)
     {
@@ -65,13 +93,159 @@ public class Updater {
         mOnUpdateProgressListener = listener;
     }
 
-    public static Boolean isVersionNewer(String oldVersion, String newVersion)
+    /**
+     * Compares standard version strings like "2.1", "v2.3.1.0" or "version 1.3.2"
+     * @param oldVersion Old version String
+     * @param newVersion New version String
+     * @return true if newVersion String is newer than oldVersion String
+     */
+    public Boolean isVersionNewerStandardCheck(String oldVersion, String newVersion)
     {
-        if (oldVersion == null || oldVersion.equals("unknown")) return true;
-        return false;
+        Boolean retVal = false;
+        try
+        {
+            List<Integer> oldVerList = getVersionList(oldVersion);
+            List<Integer> newVerList = getVersionList(newVersion);
+            if(oldVerList.size() > 0 && newVerList.size() > 0)
+            {
+                for(Integer i = 0; i < newVerList.size(); i++)
+                {
+                    // If oldversion has no additional step and all
+                    // steps before have been equal, newVersion is newer
+                    if(i >= oldVerList.size())
+                    {
+                        retVal = true;
+                        break;
+                    }
+
+                    // If newVersions current step is higher than oldversions stage,
+                    // newVersion is newer
+                    if(newVerList.get(i) > oldVerList.get(i))
+                    {
+                        retVal = true;
+                        break;
+                    }
+
+                    // If oldVersions current step is higher than newVersions stage,
+                    // oldVersion is newer
+                    if(oldVerList.get(i) > newVerList.get(i))
+                    {
+                        break;
+                    }
+
+                    // Else versions have been equal --> no newer
+                    // --> check next stage or finish
+                }
+            }
+            else if(oldVerList.size() == 0 && newVerList.size() > 0)
+            {
+                // This happens if old version is not installed / not found
+                // which should mean that the latest version is anyway newer
+                retVal = true;
+            }
+        }
+        catch(Exception ignore){}
+
+        return retVal;
     }
 
-    public void update(final Context context, final String oldVersion)
+    /**
+     * Separate version string in major, minor, ..
+     * Most significant value first
+     * @param versionString Version string to be parsed
+     * @return List of Integers
+     */
+    private List<Integer> getVersionList(String versionString)
+    {
+        List<Integer> retVal = new ArrayList<Integer>();
+
+        try
+        {
+            if(versionString != null && !versionString.equals(""))
+            {
+                // Delete everything that is no digit and no dot (like e.g. "v" or "version")
+                versionString = versionString.replaceAll("[^\\d.]", "");
+
+                // Split the remaining part by the dots
+                String[] parts = versionString.split("\\.");
+
+                // Now create the version list
+                if(parts != null && parts.length > 0)
+                {
+                    for(String part : parts)
+                    {
+                        retVal.add(Integer.valueOf(part));
+                    }
+                }
+            }
+        }
+        catch(Exception ignore) { }
+
+        return retVal;
+    }
+
+    /** Check github for update */
+    public void checkForUpdate(Boolean synchron)
+    {
+        Thread checkForUpdateThread = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    if (mIsBusy)
+                    {
+                        throw new Exception("Updater is already working..");
+                    }
+                    mIsBusy = true;
+
+                    // Reset variables
+                    mApkDownloadUrl = null;
+                    mLatestVersion = null;
+
+                    // Call the update mechanism of the actual updater
+                    updateLatestVersionAndApkDownloadUrl();
+
+                    // Check if latest version is not null
+                    if(mLatestVersion == null)
+                    {
+                        throw new Exception("Latest version not found.");
+                    }
+
+                    // Check if download url is not null
+                    if(mApkDownloadUrl == null)
+                    {
+                        throw new Exception("No .apk download URL found.");
+                    }
+
+                    // If everything was fine show success-message:
+                    fireOnCheckForUpdateFinished("Check for update finished successful, found version: " + getLatestVersion());
+                    Log.d(FireStarterUpdater.class.getName(), "Check for update finished successful, found version: " + getLatestVersion());
+                }
+                catch (Exception e)
+                {
+                    Log.d(FireStarterUpdater.class.getName(), "Update-Check-Error: " + e.getMessage());
+                    fireOnCheckForUpdateFinished("Update-Check-Error: " + e.getMessage());
+                }
+                finally
+                {
+                    mIsBusy = false;
+                }
+            }
+        });
+        checkForUpdateThread.start();
+        if(synchron)
+        {
+            try
+            {
+                checkForUpdateThread.join();
+            }
+            catch (InterruptedException ignore) {}
+        }
+    }
+
+    public void update(final Context context)
     {
         Thread updateThread = new Thread(new Runnable()
         {
@@ -90,18 +264,21 @@ public class Updater {
                     mIsBusy = true;
 
                     // Check if update-check was successful and version is newer
-                    if (LATEST_VERSION == null || !isVersionNewer(oldVersion, LATEST_VERSION))
+                    String oldVersion = getCurrentVersion(context);
+                    String latestVersion = getLatestVersion();
+                    if (latestVersion == null || !isVersionNewer(oldVersion, latestVersion))
                     {
                         throw new Exception("No newer version found..");
                     }
-                    if(mApkURL == null)
+                    String apkUrl = mApkDownloadUrl;
+                    if(apkUrl == null)
                     {
                         throw new Exception("Download URL of new version not found..");
                     }
                     fireOnUpdateProgressListener(false, 10, "Newer version found, start download..");
 
                     // Create download-dir and start download
-                    File downloadDir = new File(Environment.getExternalStorageDirectory(), DOWNLOADFOLDER);
+                    File downloadDir = new File(Environment.getExternalStorageDirectory(), mDownloadFolder);
 
                     context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + downloadDir.getAbsolutePath())));
 
@@ -123,13 +300,13 @@ public class Updater {
 
                     context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + downloadDir.getAbsolutePath())));
 
-                    File downloadFile = new File(downloadDir, "FireStarter-" + LATEST_VERSION + ".apk");
+                    File downloadFile = new File(downloadDir, getAppName() + "-" + latestVersion + ".apk");
 
                     mDownloadSuccessful = false;
                     mDownloadErrorReason = null;
-                    DownloadManager.Request localRequest = new DownloadManager.Request(Uri.parse(mApkURL));
-                    localRequest.setDescription("Downloading FireStarter " + LATEST_VERSION);
-                    localRequest.setTitle("FireStarter Update");
+                    DownloadManager.Request localRequest = new DownloadManager.Request(Uri.parse(apkUrl));
+                    localRequest.setDescription("Downloading " + getAppName() + " " + latestVersion);
+                    localRequest.setTitle(getAppName() + " Update");
                     localRequest.allowScanningByMediaScanner();
                     localRequest.setNotificationVisibility(1);
                     Log.d(FireStarterUpdater.class.getName(), "Download to file://" + downloadFile.getAbsolutePath());
@@ -277,11 +454,6 @@ public class Updater {
     public void checkForUpdate()
     {
         checkForUpdate(false);
-    }
-
-    public void checkForUpdate(Boolean synchron)
-    {
-        //override
     }
 
     /**

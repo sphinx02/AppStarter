@@ -54,7 +54,7 @@
     <string name="language_summary">Set language manually.</string>
     <string name="language_title">Language</string>
     <string name="update_checkfortitle">Checking for updates</string>
-    <string name="update_checkfordesc">Wait till checking for latest release.</string>
+    <string name="update_checkfordesc">Check for latest release version.</string>
     <string name="update_checkformessage">Check for update.</string>
     <string name="update_foundnew">Found newer Version - Update Now!</string>
     <string name="update_foundnotnew">You have already the newest version!</string>

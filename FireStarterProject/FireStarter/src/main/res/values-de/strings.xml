@@ -50,7 +50,7 @@
     <string name="language_summary">Sprache manuell einstellen</string>
     <string name="language_title">Sprache</string>
     <string name="update_checkfortitle">Prüfe auf Update</string>
-    <string name="update_checkfordesc">Warten bis GitHub auf Update geprüft wurde.</string>
+    <string name="update_checkfordesc">Warten bis auf Update geprüft wurde.</string>
     <string name="update_checkformessage">Prüfe auf Update.</string>
     <string name="update_foundnew">Neue Version gefunden - jetzt updaten!</string>
     <string name="update_foundnotnew">Die neueste Version ist bereits installiert!</string>
