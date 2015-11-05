@@ -36,6 +36,7 @@ import de.belu.firestarter.tools.SettingsProvider;
 public class MainActivity extends Activity
 {
     private LinearLayout mMainLayout;
+    private LinearLayout mSemiTransparentLayout;
     private ListView mListView;
     private Fragment mLastSetFragment;
     private SettingsProvider mSettings;
@@ -80,6 +81,9 @@ public class MainActivity extends Activity
         // Check if background image have to be set
         WallpaperSelectDialog selectDialog = new WallpaperSelectDialog(this);
         selectDialog.setWallpaper(false);
+
+        // Get linear layout for semi-transparent background
+        mSemiTransparentLayout = (LinearLayout) findViewById(R.id.linearLayoutSemiTransparentBackground);
 
         // Get clock and date
         mTextViewClock = (TextView)findViewById(R.id.textViewClock);
@@ -182,42 +186,13 @@ public class MainActivity extends Activity
     {
         try
         {
-            mLastSetFragment = fragment;
-
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.item_detail_container, fragment);
-            fragmentTransaction.commit();
-        }
-        catch (Exception e)
-        {
-            StringWriter errors = new StringWriter();
-            e.printStackTrace(new PrintWriter(errors));
-            String errorReason = errors.toString();
-            Log.d(MainActivity.class.getName(), "Set Active Fragment: Exception: \n" + errorReason);
-        }
-    }
-
-    /**
-     * Handles selection or click of the left-bar items..
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    private void handleLeftBarItemSelection(AdapterView<?> parent, View view, int position, long id)
-    {
-        // Get instance of selected item and set as current fragment
-        try
-        {
-            Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: selected position " + position);
-
-            // Create fragment
-            Fragment fragment = (Fragment)Class.forName(((LeftBarItemsListAdapter)parent.getAdapter()).getItem(position).className).getConstructor().newInstance();
-
-            // Check if animation have to be changed
+            // Check fragment type
             if(fragment instanceof AppActivity)
             {
+                // In app overview disable semi-transparent background
+                mSemiTransparentLayout.setBackgroundResource(android.R.color.transparent);
+
+                // Check if animation have to be changed
                 if(mSettings.getHideLeftBarInAppOverview())
                 {
                     mListView.setOnFocusChangeListener(new View.OnFocusChangeListener()
@@ -249,6 +224,49 @@ public class MainActivity extends Activity
                     mListView.setOnFocusChangeListener(null);
                 }
             }
+            else
+            {
+                // In all other fragments enable semi-transparent background if setting is set
+                if(mSettings.getShowBackgroundForAppNames())
+                {
+                    mSemiTransparentLayout.setBackgroundResource(R.color.semitransparentbackground_medium);
+                }
+            }
+
+            // Set fragment as lastSetFragment
+            mLastSetFragment = fragment;
+
+            // Initiate fragment change
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.item_detail_container, fragment);
+            fragmentTransaction.commit();
+        }
+        catch (Exception e)
+        {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            String errorReason = errors.toString();
+            Log.d(MainActivity.class.getName(), "Set Active Fragment: Exception: \n" + errorReason);
+        }
+    }
+
+    /**
+     * Handles selection or click of the left-bar items..
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    private void handleLeftBarItemSelection(AdapterView<?> parent, View view, int position, long id)
+    {
+        // Get instance of selected item and set as current fragment
+        try
+        {
+            Log.d(MainActivity.class.getName(), "HandleLeftBarItemSelection: selected position " + position);
+
+            // Create fragment
+            Fragment fragment = (Fragment)Class.forName(((LeftBarItemsListAdapter)parent.getAdapter()).getItem(position).className).getConstructor().newInstance();
 
             // Set fragment
             setActiveFragment(fragment);
@@ -396,7 +414,7 @@ public class MainActivity extends Activity
     {
         try
         {
-            UpdateActivity fragment = (UpdateActivity)Class.forName(UpdateActivity.class.getName()).getConstructor().newInstance();
+            UpdaterActivity fragment = (UpdaterActivity)Class.forName(UpdaterActivity.class.getName()).getConstructor().newInstance();
             fragment.triggerUpdateOnStartup();
             setActiveFragment(fragment);
         }

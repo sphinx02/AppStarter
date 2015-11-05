@@ -224,4 +224,8 @@ The observation with ADB failed more than 3 times. The home-button observation h
   <string name="showbackgroundforappnames_title">Фон для назв програм (Робочий стіл)</string>
   <!--Original value: Shows a background for app names in the app drawer. This helps to read app names, if a wallpaper is used.-->
   <string name="showbackgroundforappnames_desc">Показує фон для назв програм на Робочому столі. Допомагає читати назви програм, якщо встановлені шпалери.</string>
+  <string name="leftbar_install">встановлювати</string>
+  <string name="install">встановлювати</string>
+  <string name="serverVersion_kodi">Остання версія Kodi</string>
+  <string name="update_currentversion_kodi">Поточна версія Kodi</string>
 </resources>

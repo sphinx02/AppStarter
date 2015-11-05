@@ -19,7 +19,7 @@
     -->
     <item>
         <shape>
-            <solid android:color="#80000000"/>
+            <solid android:color="@color/semitransparentbackground_medium"/>
             <corners android:radius="3dp"/>
             <padding android:left="3dp" android:top="0dp" android:right="3dp" android:bottom="0dp" />
         </shape>

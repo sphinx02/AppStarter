@@ -3,6 +3,7 @@ package de.belu.firestarter.gui;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -191,6 +192,12 @@ public class PreferenceActivity extends PreferenceFragment
                 return mSettings.setJumpbackWatchdogTime(newValue, true);
             }
         });
+        // Disable this setting on FireOS 5 and higher
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            jumpbackWatchdogTime.setSummary(getActivity().getResources().getString(R.string.feature_only_availabe_fireos3_and_older));
+            jumpbackWatchdogTime.setEnabled(false);
+        }
 
         Preference prefWallpaper = (Preference) findPreference("prefWallpaper");
         prefWallpaper.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
