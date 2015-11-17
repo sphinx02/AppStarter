@@ -37,7 +37,7 @@ public class UpdaterAppsAdapter extends BaseAdapter
         // Set list of updaters
         mUpdaterList = new ArrayList<>();
         mUpdaterList.add(new FireStarterUpdater());
-        mUpdaterList.add(new KodiUpdater());
+        mUpdaterList.add(new KodiUpdater(activity));
     }
 
     /**

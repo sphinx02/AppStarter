@@ -73,6 +73,9 @@ public class SettingsProvider
     /** Language string */
     String mLanguage = "";
 
+    /** Update policy of Kodi */
+    String mKodiUpdatePolicy = KodiUpdater.UPDATE_POLICY.get(0);
+
     /** Startup package name */
     String mStartupPackage;
 
@@ -247,6 +250,17 @@ public class SettingsProvider
     {
         readValues();
         return mAutoSelectFirstIcon;
+    }
+
+    public void setKodiUpdatePolicy(String policy)
+    {
+        mKodiUpdatePolicy = policy;
+        storeValues();
+    }
+    public String getKodiUpdatePolicy()
+    {
+        readValues();
+        return mKodiUpdatePolicy;
     }
 
     public void setLanguage(String language)
@@ -481,6 +495,9 @@ public class SettingsProvider
             // lang
             mLanguage = mPreferences.getString("prefLanguage", mLanguage);
 
+            // Kodi update policy
+            mKodiUpdatePolicy = mPreferences.getString("prefKodiUpdatePolicy", mKodiUpdatePolicy);
+
             // App icon size
             String pref = mPreferences.getString("prefAppIconSize", mAppIconSize.toString());
             if(setAppIconSize(pref, true))
@@ -582,6 +599,9 @@ public class SettingsProvider
 
             // Show sys apps
             editor.putBoolean("prefShowSysApps", mShowSystemApps);
+
+            // Kodi update policy
+            editor.putString("prefKodiUpdatePolicy", mKodiUpdatePolicy);
 
             // Lang
             editor.putString("prefLanguage", mLanguage);

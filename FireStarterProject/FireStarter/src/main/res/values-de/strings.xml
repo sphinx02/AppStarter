@@ -108,4 +108,7 @@
     <string name="leftbar_install">Installieren</string>
     <string name="serverVersion_kodi">Neueste Kodi Version</string>
     <string name="update_currentversion_kodi">Aktuelle Kodi Version</string>
+    <string name="update_settings">Update Einstellungen</string>
+    <string name="kodi_update_policy_desc">Entscheide welche Kodi-Versionen installiert werden sollen. Wenn du \"Nightly\" wählst, wird der Update-Check nutzlos (es ist dann immer möglich die aktuelle Version zu installieren).\nACHTUNG: Für einen downgrade der Version muss Kodi immer zuerst manuell deinstalliert werden!</string>
+    <string name="kodi_update_policy_title">Kodi Update Richtlinie</string>
 </resources>
