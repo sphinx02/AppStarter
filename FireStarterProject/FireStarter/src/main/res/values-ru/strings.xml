@@ -234,7 +234,11 @@ The observation with ADB failed more than 3 times. The home-button observation h
   <string name="showbackgroundforappnames_desc">Показывает фон для названий приложений на Рабочем столе. Помогает читать названия приложений, если установлены обои.</string>
   <!--Original value: This feature is only available in FireOS 3 and older..-->
   <string name="feature_only_availabe_fireos3_and_older">Эта функция доступна только в FireOS 3 и старше..</string>
-  <string name="update_settings">Update Settings</string>
-  <string name="kodi_update_policy_desc">Decide which Kodi updates you want to install. If you choose \"Nightly\", the check for newer version gets useless (install of current version is then always possible).\nATTENTION: To downgrade you always have to uninstall Kodi manually first!</string>
-  <string name="kodi_update_policy_title">Kodi Update Policy</string>
+  <!--Original value: Update Settings-->
+  <string name="update_settings">Настройки обновления</string>
+  <!--Original value: Decide which Kodi updates you want to install. If you choose "Nightly", the check for newer version gets useless (install of current version is then always possible).
+ATTENTION: To downgrade you always have to uninstall Kodi manually first!-->
+  <string name="kodi_update_policy_desc">Выберите для какой версии Kodi устанавливать обновления. Если Вы выбрали "Nightly Builds", проверка обновлений для другой версии становиться бесполезной (будет устанавливаться самая последняя доступная версия).\nВНИМАНИЕ: Для понижения версии Kodi Вы сначала должны удалить Kodi вручную!</string>
+  <!--Original value: Kodi Update Policy-->
+  <string name="kodi_update_policy_title">Политика обновления Kodi</string>
 </resources>
