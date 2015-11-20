@@ -275,6 +275,7 @@ public abstract class Updater
                     {
                         throw new Exception("Download URL of new version not found..");
                     }
+                    Log.d(FireStarterUpdater.class.getName(), "Download from URL: " + apkUrl);
                     fireOnUpdateProgressListener(false, 10, "Newer version found, start download..");
 
                     // Create download-dir and start download

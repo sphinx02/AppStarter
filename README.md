@@ -33,7 +33,7 @@ Visit discussion on XDA-Developers:
 
  * If you don't know how to sideload/install apps via ADB, read a tutorial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
- * _adb install -r FireStarter-v3.2.apk_
+ * _adb install -r FireStarter-v3.2.1.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
  * ADB-Debugging needs to stay enabled (do not disable ADB-Debugging after installation).
