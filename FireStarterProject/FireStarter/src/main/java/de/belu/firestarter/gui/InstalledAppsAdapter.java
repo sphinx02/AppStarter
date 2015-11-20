@@ -1,5 +1,6 @@
 package de.belu.firestarter.gui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -93,10 +94,11 @@ public class InstalledAppsAdapter extends BaseAdapter
      * @param packageName Package name of app
      * @return Launchable intent
      */
+    @SuppressLint("NewApi")
     public static Intent getLaunchableIntentByPackageName(Context context, String packageName)
     {
         // Create intent
-        Intent launchIntent;
+        Intent launchIntent = null;
 
         // Check if package is one of the virtual packages
         if(packageName.equals(VIRTUAL_SETTINGS_PACKAGE))
@@ -109,7 +111,16 @@ public class InstalledAppsAdapter extends BaseAdapter
         }
         else
         {
-            launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+            try
+            {
+                launchIntent = context.getPackageManager().getLeanbackLaunchIntentForPackage(packageName);
+            }
+            catch(Exception ignore) { }
+
+            if(launchIntent == null)
+            {
+                launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+            }
         }
 
         // Return the launchable intent
