@@ -115,7 +115,7 @@ public class InstalledAppsAdapter extends BaseAdapter
             {
                 launchIntent = context.getPackageManager().getLeanbackLaunchIntentForPackage(packageName);
             }
-            catch(Exception ignore) { }
+            catch(Throwable ignore) { }
 
             if(launchIntent == null)
             {
