@@ -238,7 +238,7 @@ The observation with ADB failed more than 3 times. The home-button observation h
   <string name="update_settings">Настройки обновления</string>
   <!--Original value: Decide which Kodi updates you want to install. If you choose "Nightly", the check for newer version gets useless (install of current version is then always possible).
 ATTENTION: To downgrade you always have to uninstall Kodi manually first!-->
-  <string name="kodi_update_policy_desc">Выберите для какой версии Kodi устанавливать обновления. Если Вы выбрали "Nightly Builds", проверка обновлений для другой версии становиться бесполезной (будет устанавливаться самая последняя доступная версия).\nВНИМАНИЕ: Для понижения версии Kodi Вы сначала должны удалить Kodi вручную!</string>
+  <string name="kodi_update_policy_desc">Выберите для какой версии Kodi устанавливать обновления. Если Вы выбрали "Nightly Builds", проверка обновлений для другой версии становится бесполезной (будет устанавливаться самая последняя доступная версия).\nВНИМАНИЕ: Для понижения версии Kodi Вы сначала должны удалить Kodi вручную!</string>
   <!--Original value: Kodi Update Policy-->
   <string name="kodi_update_policy_title">Политика обновления Kodi</string>
 </resources>
