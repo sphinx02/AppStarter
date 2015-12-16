@@ -31,10 +31,10 @@ Visit discussion on XDA-Developers:
 
 ### Install FireStarter:
 
-** Easy installation in less than 5 minutes with only the FireTV **
+__Easy installation in less than 5 minutes with only the FireTV__
  * https://github.com/sphinx02/FireStarter/wiki/Install-FireStarter-and-Kodi-(only-FireTV-needed)
 
-** Standard installation via ADB **
+__Standard installation via ADB__
  * If you don't know how to sideload/install apps via ADB, read a tutorial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
  * _adb install -r FireStarter-v3.2.2.apk_
