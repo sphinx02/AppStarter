@@ -61,6 +61,16 @@
 
     </PreferenceCategory>
 
+
+    <PreferenceCategory android:title="@string/update_settings">
+
+        <ListPreference
+            android:key="prefKodiUpdatePolicy"
+            android:summary="@string/kodi_update_policy_desc"
+            android:title="@string/kodi_update_policy_title" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/background_observation">
 
         <CheckBoxPreference

@@ -22,10 +22,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.belu.firestarter.R;
+import de.belu.firestarter.gui.AppActivity;
 import de.belu.firestarter.gui.MainActivity;
 import de.belu.firestarter.tools.AppStarter;
 import de.belu.firestarter.tools.SettingsProvider;
-import de.belu.firestarter.tools.Updater;
+import de.belu.firestarter.tools.FireStarterUpdater;
 
 
 /**
@@ -247,8 +248,9 @@ public class ForeGroundService extends Service
                 try
                 {
                     Log("Start scheduled update-check:");
-                    Updater updater = new Updater();
-                    updater.checkForUpdate(true);
+                    FireStarterUpdater fireStarterUpdater = new FireStarterUpdater();
+                    fireStarterUpdater.checkForUpdate(true);
+                    AppActivity.LATEST_APP_VERSION = fireStarterUpdater.getLatestVersion();
                 }
                 catch(Exception e)
                 {

@@ -19,6 +19,7 @@ import java.util.Map;
 import de.belu.firestarter.R;
 import de.belu.firestarter.observer.ForeGroundService;
 import de.belu.firestarter.tools.AppInfo;
+import de.belu.firestarter.tools.KodiUpdater;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Tools;
 
@@ -140,6 +141,11 @@ public class PreferenceActivity extends PreferenceFragment
             }
         });
 
+        ListPreference prefKodiUpdatePolicy = (ListPreference) findPreference("prefKodiUpdatePolicy");
+        prefKodiUpdatePolicy.setEntries(KodiUpdater.UPDATE_POLICY.toArray(new CharSequence[KodiUpdater.UPDATE_POLICY.size()]));
+        prefKodiUpdatePolicy.setEntryValues(KodiUpdater.UPDATE_POLICY.toArray(new CharSequence[KodiUpdater.UPDATE_POLICY.size()]));
+        prefKodiUpdatePolicy.setDefaultValue(mSettings.getKodiUpdatePolicy());
+        prefKodiUpdatePolicy.setValue(mSettings.getKodiUpdatePolicy());
 
         InstalledAppsAdapter actHiddenAppsAdapter = new InstalledAppsAdapter(getActivity(), true, true);
         List<AppInfo> actHiddenApps = actHiddenAppsAdapter.getAppList();

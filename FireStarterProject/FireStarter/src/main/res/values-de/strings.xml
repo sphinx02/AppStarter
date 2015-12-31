@@ -50,7 +50,7 @@
     <string name="language_summary">Sprache manuell einstellen</string>
     <string name="language_title">Sprache</string>
     <string name="update_checkfortitle">Prüfe auf Update</string>
-    <string name="update_checkfordesc">Warten bis GitHub auf Update geprüft wurde.</string>
+    <string name="update_checkfordesc">Warten bis auf Update geprüft wurde.</string>
     <string name="update_checkformessage">Prüfe auf Update.</string>
     <string name="update_foundnew">Neue Version gefunden - jetzt updaten!</string>
     <string name="update_foundnotnew">Die neueste Version ist bereits installiert!</string>
@@ -104,4 +104,11 @@
     <string name="showbackgroundforappnames_title">Hintergrund für App-Namen (App-Übersicht)</string>
     <string name="showbackgroundforappnames_desc">Blendet einen Hintergrund für die App-Namen ein. Dies erhöht die Lesbarkeit wenn Wallpaper benutzt werden.</string>
     <string name="feature_only_availabe_fireos3_and_older">Dieses Feature ist nur in FireOS 3 und älteren Versionen verfügbar.</string>
+    <string name="install">Installieren</string>
+    <string name="leftbar_install">Installieren</string>
+    <string name="serverVersion_kodi">Neueste Kodi Version</string>
+    <string name="update_currentversion_kodi">Aktuelle Kodi Version</string>
+    <string name="update_settings">Update Einstellungen</string>
+    <string name="kodi_update_policy_desc">Entscheide welche Kodi-Versionen installiert werden sollen. Wenn du \"Nightly\" wählst, wird der Update-Check nutzlos (es ist dann immer möglich die aktuelle Version zu installieren).\nACHTUNG: Für einen downgrade der Version muss Kodi immer zuerst manuell deinstalliert werden!</string>
+    <string name="kodi_update_policy_title">Kodi Update Richtlinie</string>
 </resources>

@@ -60,8 +60,14 @@
   <string name="is_invalid_number">некоректно для данного налаштування!</string>
   <!--Original value: Current FireStarter Version-->
   <string name="update_currentversion">Поточна версія FireStarter</string>
+  <!--Original value: Current Kodi Version-->
+  <string name="update_currentversion_kodi">Поточна версія Kodi</string>
+  <!--Original value: Install-->
+  <string name="install">Встановлення</string>
   <!--Original value: Latest FireStarter Version-->
   <string name="serverVersion">Остання версія FireStarter</string>
+  <!--Original value: Latest Kodi Version-->
+  <string name="serverVersion_kodi">Остання версія Kodi</string>
   <!--Original value: Check for Update-->
   <string name="update_checkfor">Перевірити оновлення</string>
   <!--Original value: Update to latest Version-->
@@ -92,6 +98,8 @@ https://github.com/sphinx02/FireStarter-->
   <string name="leftbar_infos">Система</string>
   <!--Original value: Updates-->
   <string name="leftbar_updates">Оновлення</string>
+  <!--Original value: Install-->
+  <string name="leftbar_install">Встановлення</string>
   <!--Original value: Settings-->
   <string name="leftbar_settings">Налаштування</string>
   <!--Original value: Move-->
@@ -106,8 +114,8 @@ https://github.com/sphinx02/FireStarter-->
   <string name="language_title">Мова</string>
   <!--Original value: Checking for updates-->
   <string name="update_checkfortitle">Перевірка оновлення</string>
-  <!--Original value: Wait till checked GitHub for latest release.-->
-  <string name="update_checkfordesc">Дочекайтесь закінчення перевірки нового релізу на GitHub.</string>
+  <!--Original value: Check for latest release version.-->
+  <string name="update_checkfordesc">Пошук останньої версії.</string>
   <!--Original value: Check for update.-->
   <string name="update_checkformessage">Перевіряємо наявність оновлення.</string>
   <!--Original value: Found newer Version - Update Now!-->
@@ -218,10 +226,19 @@ The observation with ADB failed more than 3 times. The home-button observation h
   <string name="adb_fail_auto_observation_change">Перемикання на Відслідковування без ADB\n\nВідслідковування за допомогою ADB не спрацювало більше 3 раз. Автоматично переключено на Відслідковування без ADB. У налаштуваннях FireStarter Ви можете змінити поведінку в таких випадках.</string>
   <!--Original value: Hide left bar in app drawer-->
   <string name="hideleftbarinappoverview_title">Приховати меню на Робочому столі</string>
-  <!--Original value: Left selection bar is hided when on the main page (App Drawer)-->
+  <!--Original value: Left selection bar is hidden when on the main page (App Drawer)-->
   <string name="hideleftbarinappoverview_desc">Приховати ліву панель при переході на головний екран (Робочий стіл)</string>
   <!--Original value: Background for App Names (App Drawer)-->
   <string name="showbackgroundforappnames_title">Фон для назв програм (Робочий стіл)</string>
   <!--Original value: Shows a background for app names in the app drawer. This helps to read app names, if a wallpaper is used.-->
   <string name="showbackgroundforappnames_desc">Показує фон для назв програм на Робочому столі. Допомагає читати назви програм, якщо встановлені шпалери.</string>
+  <!--Original value: This feature is only available in FireOS 3 and older..-->
+  <string name="feature_only_availabe_fireos3_and_older">Ця функція доступна тільки в FireOS 3 та вище..</string>
+  <!--Original value: Update Settings-->  
+  <string name="update_settings">Налаштування оновлення</string>
+  <!--Original value: Decide which Kodi updates you want to install. If you choose "Nightly", the check for newer version gets useless (install of current version is then always possible).
+ATTENTION: To downgrade you always have to uninstall Kodi manually first!-->
+  <string name="kodi_update_policy_desc">Виберіть для якої версії Kodi встановлювати оновлення. Якщо Ви вибрали "Nightly Builds", перевірка оновлень для іншої версії стає марною (буде встановлюватися найостанніша доступна версія).\nУВАГА: Для пониження версії Kodi Ви спочатку повинні видалити Kodi вручну!</string>
+  <!--Original value: Kodi Update Policy-->
+  <string name="kodi_update_policy_title">Політика оновлення Kodi</string>
 </resources>
