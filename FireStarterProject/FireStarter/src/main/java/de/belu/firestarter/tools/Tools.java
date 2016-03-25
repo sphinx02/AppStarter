@@ -28,6 +28,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+import de.belu.firestarter.R;
 import de.belu.firestarter.observer.ForeGroundService;
 
 /**
@@ -288,7 +289,7 @@ public class Tools
      */
     public static String getCurrentAppVersion(Context context, String app)
     {
-        String retVal = "unknown";
+        String retVal = context.getResources().getString(R.string.not_installed);
 
         try
         {

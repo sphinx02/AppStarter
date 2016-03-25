@@ -111,4 +111,5 @@
     <string name="update_settings">Update Einstellungen</string>
     <string name="kodi_update_policy_desc">Entscheide welche Kodi-Versionen installiert werden sollen. Wenn du \"Nightly\" wählst, wird der Update-Check nutzlos (es ist dann immer möglich die aktuelle Version zu installieren).\nACHTUNG: Für einen downgrade der Version muss Kodi immer zuerst manuell deinstalliert werden!</string>
     <string name="kodi_update_policy_title">Kodi Update Richtlinie</string>
+    <string name="not_installed">nicht installiert</string>
 </resources>
