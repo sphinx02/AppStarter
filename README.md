@@ -22,7 +22,7 @@ Visit discussion on XDA-Developers:
  * Lists all user-installed apps including sideloaded / adb installed apps.
  * Apps can be easily sorted / ordered by settings-button or click-drag-and-drop (long-click to start drag-and-drop).
  * Apps can be hidden from app drawer (see settings).
- * Kodi can be installed and updated directly out of FireStarter (see Updates section).
+ * Kodi and SPMC can be installed and updated directly out of FireStarter (see Updates section).
  * Possibility to change the time of no action the FireTV waits to go to sleep.
  * Possibility to import / export settings.
  * Show system and device informations like Android-Version, Build-Version, Hostname, WiFi- / WLAN Name (SSID), IP Adress and Uptime.
@@ -31,9 +31,13 @@ Visit discussion on XDA-Developers:
 
 ### Install FireStarter:
 
+__Easy installation in less than 5 minutes with only the FireTV__
+ * https://github.com/sphinx02/FireStarter/wiki/Install-FireStarter-and-Kodi-(only-FireTV-needed)
+
+__Standard installation via ADB__
  * If you don't know how to sideload/install apps via ADB, read a tutorial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/sphinx02/FireStarter/releases" target="_blank">Download latest FireStarter APK</a> and sideload/install with adb: 
- * _adb install -r FireStarter-v3.2.2.apk_
+ * _adb install -r FireStarter-v3.2.3.apk_
  * Start FireStarter once with adb (or manual from settings menu): 
  * _adb shell am start -n "de.belu.firestarter/de.belu.firestarter.gui.MainActivity"_
  * ADB-Debugging needs to stay enabled (do not disable ADB-Debugging after installation).

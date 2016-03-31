@@ -15,6 +15,7 @@ import java.util.List;
 import de.belu.firestarter.R;
 import de.belu.firestarter.tools.FireStarterUpdater;
 import de.belu.firestarter.tools.KodiUpdater;
+import de.belu.firestarter.tools.SPMCUpdater;
 import de.belu.firestarter.tools.SettingsProvider;
 import de.belu.firestarter.tools.Updater;
 
@@ -38,6 +39,7 @@ public class UpdaterAppsAdapter extends BaseAdapter
         mUpdaterList = new ArrayList<>();
         mUpdaterList.add(new FireStarterUpdater());
         mUpdaterList.add(new KodiUpdater(activity));
+        mUpdaterList.add(new SPMCUpdater());
     }
 
     /**
@@ -119,17 +121,15 @@ public class UpdaterAppsAdapter extends BaseAdapter
                     {
                         textViewLatestVersion.setText(actUpdater.getLatestVersion() + " - " + mActivity.getResources().getString(R.string.update_foundnew));
 
-                        if(actUpdater instanceof FireStarterUpdater)
+                        if (actUpdater instanceof FireStarterUpdater)
                         {
                             AppActivity.LATEST_APP_VERSION = actUpdater.getLatestVersion();
                         }
-                    }
-                    else
+                    } else
                     {
                         textViewLatestVersion.setText(actUpdater.getLatestVersion() + " - " + mActivity.getResources().getString(R.string.update_foundnotnew));
                     }
-                }
-                else
+                } else
                 {
                     textViewLatestVersion.setText(message);
                 }
@@ -162,6 +162,12 @@ public class UpdaterAppsAdapter extends BaseAdapter
                 }
             }
         });
+
+        if(rootView.getResources().getString(R.string.not_installed).equals(textViewCurrentVersion.getText()))
+        {
+            // App is not installed, change update to install text
+            updateButton.setText(rootView.getResources().getString(R.string.install));
+        }
 
         return rootView;
     }

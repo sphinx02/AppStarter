@@ -8,8 +8,8 @@ android {
         applicationId "de.belu.firestarter"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 22
-        versionName "3.2.2"
+        versionCode 23
+        versionName "3.2.3"
     }
 
     compileOptions {
