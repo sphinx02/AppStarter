@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.belu.firestarter" >
+    package="de.belu.firestopper" >
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -20,7 +20,7 @@
 
         <!-- Main Activity (Launcher Activity) -->
         <activity
-            android:name=".gui.MainActivity"
+            android:name="de.belu.firestopper.gui.MainActivity"
             android:label="@string/AppName"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true">
@@ -56,10 +56,10 @@
         </activity>
 
         <!-- Our Foreground Service -->
-        <service android:name=".observer.ForeGroundService" />
+        <service android:name="de.belu.firestopper.observer.ForeGroundService" />
 
         <!-- Startup receiver -->
-        <receiver android:name=".observer.StartUpBootReceiver">
+        <receiver android:name="de.belu.firestopper.observer.StartUpBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

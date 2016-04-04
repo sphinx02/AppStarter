@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "de.belu.firestarter"
+        applicationId "de.belu.firestopper"
         minSdkVersion 17
         targetSdkVersion 22
         versionCode 23
