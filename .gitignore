@@ -16,3 +16,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Android Studio
+.idea
