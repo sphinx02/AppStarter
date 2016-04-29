@@ -28,6 +28,10 @@ Visit discussion on XDA-Developers:
  * Show system and device informations like Android-Version, Build-Version, Hostname, WiFi- / WLAN Name (SSID), IP Adress and Uptime.
  * Automatic update mechanism.
  * __No root required!__
+ 
+### FireStarter broken in newest FireTV-Firmware Versions >= 5.0.5.1
+Thanks to <a href="http://forum.xda-developers.com/showpost.php?p=66215906&postcount=591" target="_blank">jkchr1s</a> there exists a temporary workaround which fixes the problems in parts. I recommend to download the APK only from the GitHub-Repo https://github.com/jkchr1s/FireStarter/releases !
+If you are not familiar with installing APK's, you can try the links posted in http://forum.xda-developers.com/showpost.php?p=66229916&postcount=633 (be careful, download only .APK files and think about what you are doing!).
 
 ### Install FireStarter:
 
