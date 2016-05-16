@@ -81,13 +81,13 @@ __Standard installation via ADB__
  * FireStarter uses the fact, that every time the home-button is clicked, there is a special output in the adb logcat log. FireStarter starts a local adb logcat session and waites for this output (which is only working as long adb is enabled in FireTV settings). This approach has the advantage, that the top activity dont has to change to detect a home-button click. FireStarter is therefore even able to detect a double-click and starting any actions on home-button single- or double-clicks.
  * Still not solved is the problem, that the default launcher flashes shortly before the right app is started. The default-behaviour of the home-button can still not be disabled.
 
-### Credentials:
+### Credits:
 
- * [markdown-editor](https://jbt.github.io/markdown-editor/) for markdown creation
- * [FiredTVLauncher](https://github.com/Redth/FiredTVLauncher) for a lot of brilliant ideas
- * [XDA-User g4rb4g3](http://forum.xda-developers.com/showpost.php?p=56319876&postcount=87) for the home-button detection idea
+ * [markdown-editor](https://jbt.github.io/markdown-editor/) for markdown creation.
+ * [FiredTVLauncher](https://github.com/Redth/FiredTVLauncher) for a lot of brilliant ideas.
+ * [XDA-User g4rb4g3](http://forum.xda-developers.com/showpost.php?p=56319876) for the home-button detection idea.
  
 ### Donation:
-If you want to support my developments you are welcome to buy me a cup of coffee :)
+If you want to support my developments you are welcome to buy me a cup of coffee :smile:
  * [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=sphinx02&url=https://github.com/sphinx02/FireStarter&title=FireStarter&language=java&tags=github&category=software)
  * <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KKQ6VU34YGKYS" target="_blank">PayPal donation link</a>
