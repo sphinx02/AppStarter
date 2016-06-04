@@ -23,7 +23,9 @@
             android:name="de.belu.appstarter.gui.MainActivity"
             android:label="@string/AppName"
             android:launchMode="singleInstance"
-            android:stateNotNeeded="true">
+            android:stateNotNeeded="true"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden" >
 
 
             <intent-filter>
@@ -54,16 +56,6 @@
                 </intent-filter>
                 -->
         </activity>
-
-        <!-- Our Foreground Service -->
-        <service android:name="de.belu.appstarter.observer.ForeGroundService" />
-
-        <!-- Startup receiver -->
-        <receiver android:name="de.belu.appstarter.observer.StartUpBootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
     </application>
 

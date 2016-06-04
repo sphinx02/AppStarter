@@ -67,23 +67,11 @@ public class SettingsProvider
     /** Package-Order List */
     List<String> mPackageOrder = new ArrayList<String>();
 
-    /** Background observer enabled */
-    Boolean mBackgroundObserverEnabled = true;
-
     /** Language string */
     String mLanguage = "";
 
     /** Update policy of Kodi */
     String mKodiUpdatePolicy = KodiUpdater.UPDATE_POLICY.get(0);
-
-    /** Startup package name */
-    String mStartupPackage;
-
-    /** Single click app */
-    String mSingleClickApp;
-
-    /** Double click app */
-    String mDoubleClickApp;
 
     /** List of hidden apps */
     Set<String> mHiddenAppsList = new HashSet<String>();
@@ -94,29 +82,11 @@ public class SettingsProvider
     /** Size of the app icons */
     Integer mAppIconSize = 0;
 
-    /** Time to wait for second click in milliseconds */
-    Integer mDoubleClickInterval = 500;
-
-    /** Time to watch for jumpbacks */
-    Integer mJumpbackWatchdogTime = 5000;
-
     /** Indicates if user have seen update but do not want to update */
     Boolean mHaveUpdateSeen = false;
 
     /** Automatically select first icon when switching to app-drawer */
     Boolean mAutoSelectFirstIcon = true;
-
-    /** FLAG_ACTIVITY_CLEAR_TASK is used for single click actions */
-    Boolean mClearPreviousInstancesForSingleClick = false;
-
-    /** FLAG_ACTIVITY_CLEAR_TASK is used for double click actions */
-    Boolean mClearPreviousInstancesForDoubleClick = false;
-
-    /** Indicates if ADB is used to detect home button clicks */
-    Boolean mBackgroundObservationViaAdb = true;
-
-    /** Indicates if Fallback to Non-ADB detection is used automatically */
-    Boolean mBackgroundObservationFallBackToNonAdb = true;
 
     /** Indicates if the LeftBar is hided when on the app overview */
     Boolean mHideLeftBarInAppOverview = false;
@@ -128,9 +98,6 @@ public class SettingsProvider
     private SettingsProvider(Context context)
     {
         mContext = context;
-        mStartupPackage = context.getApplicationInfo().packageName;
-        mSingleClickApp = context.getApplicationInfo().packageName;
-        mDoubleClickApp = ""; // No action
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -173,61 +140,6 @@ public class SettingsProvider
     {
         readValues();
         return mShowBackgroundForAppNames;
-    }
-
-    public void setClearPreviousInstancesForDoubleClick(Boolean value)
-    {
-        mClearPreviousInstancesForDoubleClick = value;
-        storeValues();
-    }
-    public Boolean getClearPreviousInstancesForDoubleClick()
-    {
-        readValues();
-        return mClearPreviousInstancesForDoubleClick;
-    }
-
-    public void setClearPreviousInstancesForSingleClick(Boolean value)
-    {
-        mClearPreviousInstancesForSingleClick = value;
-        storeValues();
-    }
-    public Boolean getClearPreviousInstancesForSingleClick()
-    {
-        readValues();
-        return mClearPreviousInstancesForSingleClick;
-    }
-
-    public void setBackgroundObservationFallBackToNonAdb(Boolean value)
-    {
-        mBackgroundObservationFallBackToNonAdb = value;
-        storeValues();
-    }
-    public Boolean getBackgroundObservationFallBackToNonAdb()
-    {
-        readValues();
-        return mBackgroundObservationFallBackToNonAdb;
-    }
-
-    public void setBackgroundObservationViaAdb(Boolean value)
-    {
-        mBackgroundObservationViaAdb = value;
-        storeValues();
-    }
-    public Boolean getBackgroundObservationViaAdb()
-    {
-        readValues();
-        return mBackgroundObservationViaAdb;
-    }
-
-    public void setBackgroundObserverEnabled(Boolean value)
-    {
-        mBackgroundObserverEnabled = value;
-        storeValues();
-    }
-    public Boolean getBackgroundObserverEnabled()
-    {
-        readValues();
-        return mBackgroundObserverEnabled;
     }
 
     public void setHaveUpdateSeen(Boolean value)
@@ -274,39 +186,6 @@ public class SettingsProvider
         return mLanguage;
     }
 
-    public void setStartupPackage(String startupPackage)
-    {
-        mStartupPackage = startupPackage;
-        storeValues();
-    }
-    public String getStartupPackage()
-    {
-        readValues();
-        return mStartupPackage;
-    }
-
-    public void setSingleClickApp(String singleClickApp)
-    {
-        mSingleClickApp = singleClickApp;
-        storeValues();
-    }
-    public String getSingleClickApp()
-    {
-        readValues();
-        return mSingleClickApp;
-    }
-
-    public void setDoubleClickApp(String doubleClickApp)
-    {
-        mDoubleClickApp = doubleClickApp;
-        storeValues();
-    }
-    public String getDoubleClickApp()
-    {
-        readValues();
-        return mDoubleClickApp;
-    }
-
     public void setHiddenApps(Set<String> hiddenApps)
     {
         mHiddenAppsList = hiddenApps;
@@ -347,46 +226,6 @@ public class SettingsProvider
     {
         readValues();
         return mAppIconSize;
-    }
-
-    public Boolean setDoubleClickInterval(Object doubleClickInterval, Boolean simulate)
-    {
-        Boolean retVal = numberCheck(doubleClickInterval, 100, 1000);
-        if(!simulate && retVal)
-        {
-            setDoubleClickInterval(Integer.valueOf(doubleClickInterval.toString()));
-        }
-        return retVal;
-    }
-    public void setDoubleClickInterval(Integer doubleClickInterval)
-    {
-        mDoubleClickInterval = doubleClickInterval;
-        storeValues();
-    }
-    public Integer getDoubleClickInterval()
-    {
-        readValues();
-        return mDoubleClickInterval;
-    }
-
-    public Boolean setJumpbackWatchdogTime(Object jumpbackWatchdogTime, Boolean simulate)
-    {
-        Boolean retVal = numberCheck(jumpbackWatchdogTime, 0, 10000);
-        if(!simulate && retVal)
-        {
-            setJumpbackWatchdogTime(Integer.valueOf(jumpbackWatchdogTime.toString()));
-        }
-        return retVal;
-    }
-    public void setJumpbackWatchdogTime(Integer jumpbackWatchdogTime)
-    {
-        mJumpbackWatchdogTime = jumpbackWatchdogTime;
-        storeValues();
-    }
-    public Integer getJumpbackWatchdogTime()
-    {
-        readValues();
-        return mJumpbackWatchdogTime;
     }
 
     private boolean numberCheck(Object newValue, Integer min, Integer max)
@@ -450,9 +289,6 @@ public class SettingsProvider
             }
             mPackageOrder = packageList;
 
-            // BackgroundObserverEnabled
-            mBackgroundObserverEnabled = mPreferences.getBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
-
             // HideLeftBarInAppOverview
             mHideLeftBarInAppOverview = mPreferences.getBoolean("prefHideLeftBarInAppOverview", mHideLeftBarInAppOverview);
 
@@ -464,27 +300,6 @@ public class SettingsProvider
 
             // Auto select first icon
             mAutoSelectFirstIcon = mPreferences.getBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
-
-            // ADB observation
-            mBackgroundObservationViaAdb = mPreferences.getBoolean("prefBackgroundObservationViaAdb", mBackgroundObservationViaAdb);
-
-            // ADB fallback to Non-ADB
-            mBackgroundObservationFallBackToNonAdb = mPreferences.getBoolean("prefBackgroundObservationFallBackToNonAdb", mBackgroundObservationFallBackToNonAdb);
-
-            // ClearPreviousInstancesForDoubleClick
-            mClearPreviousInstancesForDoubleClick = mPreferences.getBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
-
-            // ClearPreviousInstancesForSingleClick
-            mClearPreviousInstancesForSingleClick = mPreferences.getBoolean("prefClearPreviousInstancesForSingleClick", mClearPreviousInstancesForSingleClick);
-
-            // Startup-package
-            mStartupPackage = mPreferences.getString("prefStartupPackage", mStartupPackage);
-
-            // Single click package
-            mSingleClickApp = mPreferences.getString("prefHomeSingleClickPackage", mSingleClickApp);
-
-            // Double click package
-            mDoubleClickApp = mPreferences.getString("prefHomeDoubleClickPackage", mDoubleClickApp);
 
             // HiddenApps-List
             mHiddenAppsList = mPreferences.getStringSet("prefHiddenApps", mHiddenAppsList);
@@ -503,20 +318,6 @@ public class SettingsProvider
             if(setAppIconSize(pref, true))
             {
                 mAppIconSize = Integer.valueOf(pref);
-            }
-
-            // Double click interval
-            pref = mPreferences.getString("prefClickInterval", mDoubleClickInterval.toString());
-            if(setDoubleClickInterval(pref, true))
-            {
-                mDoubleClickInterval = Integer.valueOf(pref);
-            }
-
-            // Jumpback watchdog time
-            pref = mPreferences.getString("prefJumpbackWatchdogTime", mJumpbackWatchdogTime.toString());
-            if(setJumpbackWatchdogTime(pref, true))
-            {
-                mJumpbackWatchdogTime = Integer.valueOf(pref);
             }
 
             // Set is loaded flag
@@ -559,9 +360,6 @@ public class SettingsProvider
             }
 
             // BackgroundObserverEnabled
-            editor.putBoolean("prefBackgroundObservationEnabled", mBackgroundObserverEnabled);
-
-            // BackgroundObserverEnabled
             editor.putBoolean("prefHideLeftBarInAppOverview", mHideLeftBarInAppOverview);
 
             // ShowBackgroundForAppNames
@@ -572,27 +370,6 @@ public class SettingsProvider
 
             // Auto select first icon
             editor.putBoolean("prefAutoSelectFirstIcon", mAutoSelectFirstIcon);
-
-            // ADB observation
-            editor.putBoolean("prefBackgroundObservationViaAdb", mBackgroundObservationViaAdb);
-
-            // ADB observation
-            editor.putBoolean("prefBackgroundObservationFallBackToNonAdb", mBackgroundObservationFallBackToNonAdb);
-
-            // ClearPreviousInstancesForDoubleClick
-            editor.putBoolean("prefClearPreviousInstancesForDoubleClick", mClearPreviousInstancesForDoubleClick);
-
-            // ClearPreviousInstancesForSingleClick
-            editor.putBoolean("prefClearPreviousInstancesForSingleClick", mClearPreviousInstancesForSingleClick);
-
-            // Startup package
-            editor.putString("prefStartupPackage", mStartupPackage);
-
-            // Single click
-            editor.putString("prefHomeSingleClickPackage", mSingleClickApp);
-
-            // Double click
-            editor.putString("prefHomeDoubleClickPackage", mDoubleClickApp);
 
             // Hidden apps list
             editor.putStringSet("prefHiddenApps", mHiddenAppsList);
@@ -608,12 +385,6 @@ public class SettingsProvider
 
             // App icon size
             editor.putString("prefAppIconSize", mAppIconSize.toString());
-
-            // Double click interval
-            editor.putString("prefClickInterval", mDoubleClickInterval.toString());
-
-            // JumpbackWatchdogTime
-            editor.putString("prefJumpbackWatchdogTime", mJumpbackWatchdogTime.toString());
 
 
             editor.commit();

@@ -29,7 +29,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.belu.appstarter.R;
-import de.belu.appstarter.observer.ForeGroundService;
 import de.belu.appstarter.tools.SettingsProvider;
 
 
@@ -65,15 +64,6 @@ public class MainActivity extends Activity
         // Now go on
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
-
-        // Check if observer have to be started
-        if(mSettings.getBackgroundObserverEnabled())
-        {
-            // Start foreground service
-            Intent startIntent = new Intent(this, ForeGroundService.class);
-            startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
-            startService(startIntent);
-        }
 
         // Get base linear layout
         mMainLayout = (LinearLayout)findViewById(R.id.linearLayoutMain);

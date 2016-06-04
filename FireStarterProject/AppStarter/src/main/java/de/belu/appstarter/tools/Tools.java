@@ -29,7 +29,6 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 import de.belu.appstarter.R;
-import de.belu.appstarter.observer.ForeGroundService;
 
 /**
  * Tools class to provide some additional infos
@@ -65,11 +64,6 @@ public class Tools
                     if (mStartActivity != null)
                     {
                         mStartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                        // Stop foreground service
-                        Intent startIntent = new Intent(c, ForeGroundService.class);
-                        startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
-                        c.startService(startIntent);
 
                         //create a pending intent so the application is restarted after System.exit(0) was called.
                         // We use an AlarmManager to call this intent in 100ms

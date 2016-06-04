@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AppStarter/AppStarter.iml" filepath="$PROJECT_DIR$/AppStarter/AppStarter.iml" />
       <module fileurl="file://$PROJECT_DIR$/AppStarter/FireStarter.iml" filepath="$PROJECT_DIR$/AppStarter/FireStarter.iml" />
       <module fileurl="file://$PROJECT_DIR$/FireStarterProject.iml" filepath="$PROJECT_DIR$/FireStarterProject.iml" />
     </modules>
