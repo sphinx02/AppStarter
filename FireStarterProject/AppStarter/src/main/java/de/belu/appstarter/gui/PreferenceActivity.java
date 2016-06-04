@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import de.belu.appstarter.R;
-import de.belu.appstarter.observer.ForeGroundService;
 import de.belu.appstarter.tools.AppInfo;
 import de.belu.appstarter.tools.KodiUpdater;
 import de.belu.appstarter.tools.SettingsProvider;
@@ -91,24 +90,6 @@ public class PreferenceActivity extends PreferenceFragment
             entryValues[i] = actApp.packageName;
         }
 
-        ListPreference startUpPackage = (ListPreference) findPreference("prefStartupPackage");
-        startUpPackage.setEntries(entries);
-        startUpPackage.setEntryValues(entryValues);
-        startUpPackage.setDefaultValue(mSettings.getStartupPackage());
-        startUpPackage.setValue(mSettings.getStartupPackage());
-
-        ListPreference singleClick = (ListPreference) findPreference("prefHomeSingleClickPackage");
-        singleClick.setEntries(entries);
-        singleClick.setEntryValues(entryValues);
-        singleClick.setDefaultValue(mSettings.getSingleClickApp());
-        singleClick.setValue(mSettings.getSingleClickApp());
-
-        ListPreference doubleClick = (ListPreference) findPreference("prefHomeDoubleClickPackage");
-        doubleClick.setEntries(entries);
-        doubleClick.setEntryValues(entryValues);
-        doubleClick.setDefaultValue(mSettings.getDoubleClickApp());
-        doubleClick.setValue(mSettings.getDoubleClickApp());
-
         CharSequence[] langEntries = new CharSequence[SettingsProvider.LANG.size()];
         CharSequence[] langValues = new CharSequence[SettingsProvider.LANG.size()];
         Integer counter = 0;
@@ -175,36 +156,6 @@ public class PreferenceActivity extends PreferenceFragment
             }
         });
 
-        EditTextPreference doubleClickInterval = (EditTextPreference) findPreference("prefClickInterval");
-        doubleClickInterval.setDefaultValue(mSettings.getDoubleClickInterval().toString());
-        doubleClickInterval.setText(mSettings.getDoubleClickInterval().toString());
-        doubleClickInterval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-        {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue)
-            {
-                return mSettings.setDoubleClickInterval(newValue, true);
-            }
-        });
-
-        EditTextPreference jumpbackWatchdogTime = (EditTextPreference) findPreference("prefJumpbackWatchdogTime");
-        jumpbackWatchdogTime.setDefaultValue(mSettings.getJumpbackWatchdogTime().toString());
-        jumpbackWatchdogTime.setText(mSettings.getJumpbackWatchdogTime().toString());
-        jumpbackWatchdogTime.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-        {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue)
-            {
-                return mSettings.setJumpbackWatchdogTime(newValue, true);
-            }
-        });
-        // Disable this setting on FireOS 5 and higher
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            jumpbackWatchdogTime.setSummary(getActivity().getResources().getString(R.string.feature_only_availabe_fireos3_and_older));
-            jumpbackWatchdogTime.setEnabled(false);
-        }
-
         Preference prefWallpaper = (Preference) findPreference("prefWallpaper");
         prefWallpaper.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
         {
@@ -262,85 +213,6 @@ public class PreferenceActivity extends PreferenceFragment
                 return false;
             }
         });
-
-        Preference prefBackgroundObservationEnabled = (Preference) findPreference("prefBackgroundObservationEnabled");
-        prefBackgroundObservationEnabled.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-        {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue)
-            {
-                mSettings.setBackgroundObserverEnabled((Boolean) newValue);
-
-                if(mSettings.getBackgroundObserverEnabled())
-                {
-                    // Start foreground service
-                    Intent startIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
-                    startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
-                    PreferenceActivity.this.getActivity().startService(startIntent);
-                }
-                else
-                {
-                    // Stop foreground service
-                    Intent stopIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
-                    stopIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
-                    PreferenceActivity.this.getActivity().startService(stopIntent);
-                }
-
-                return true;
-            }
-        });
-
-        Preference prefBackgroundObservationViaAdb = (Preference) findPreference("prefBackgroundObservationViaAdb");
-        prefBackgroundObservationViaAdb.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-        {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue)
-            {
-                mSettings.setBackgroundObservationViaAdb((Boolean) newValue);
-
-                // Stop foreground service
-                Intent stopIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
-                stopIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_STOP);
-                PreferenceActivity.this.getActivity().startService(stopIntent);
-
-                if (mSettings.getBackgroundObserverEnabled())
-                {
-                    // Start foreground service
-                    Intent startIntent = new Intent(PreferenceActivity.this.getActivity(), ForeGroundService.class);
-                    startIntent.setAction(ForeGroundService.FOREGROUNDSERVICE_START);
-                    PreferenceActivity.this.getActivity().startService(startIntent);
-                }
-
-                if (mSettings.getBackgroundObservationViaAdb())
-                {
-                    InfoOverlayDialog infoDialog = InfoOverlayDialog.newInstance(getActivity().getResources().getString(R.string.observation_via_adb_title), getActivity().getResources().getString(R.string.observation_via_adb_summary));
-                    FragmentManager fm = getActivity().getFragmentManager();
-                    infoDialog.show(fm, "");
-                } else
-                {
-                    InfoOverlayDialog infoDialog = InfoOverlayDialog.newInstance(getActivity().getResources().getString(R.string.observation_without_adb_title), getActivity().getResources().getString(R.string.observation_without_adb_summary));
-                    FragmentManager fm = getActivity().getFragmentManager();
-                    infoDialog.show(fm, "");
-                }
-
-                return true;
-            }
-        });
-
-        Preference prefVirtualOpenAdbSettings = (Preference) findPreference("prefVirtualOpenAdbSettings");
-        prefVirtualOpenAdbSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference preference)
-            {
-                // Open ADB settings
-                Intent adbSettingsOpenIntent = new Intent("android.settings.APPLICATON_DEVELOPMENT_SETTINGS");
-                PreferenceActivity.this.getActivity().startActivity(adbSettingsOpenIntent);
-
-                return false;
-            }
-        });
-
 
     }
 
