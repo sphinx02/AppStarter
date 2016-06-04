@@ -10,13 +10,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/FireStarter" />
+            <option value="$PROJECT_DIR$/AppStarter" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/FireStarter" />
+            <option value="$PROJECT_DIR$/AppStarter" />
           </set>
         </option>
       </GradleProjectSettings>
