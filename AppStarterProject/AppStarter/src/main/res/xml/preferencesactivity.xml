@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+
+
+    <PreferenceCategory android:title="@string/layout_settings">
+
+        <ListPreference
+            android:key="prefLanguage"
+            android:summary="@string/language_summary"
+            android:title="@string/language_title" />
+
+        <EditTextPreference
+            android:inputType="number"
+            android:numeric="integer"
+            android:digits="0123456789"
+            android:key="prefAppIconSize"
+            android:summary="@string/appicon_size_summary"
+            android:title="@string/appicon_size_title" />
+
+        <Preference
+            android:key="prefWallpaper"
+            android:summary="@string/wallpaper_summary"
+            android:title="@string/wallpaper_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowBackgroundForAppNames"
+            android:summary="@string/showbackgroundforappnames_desc"
+            android:title="@string/showbackgroundforappnames_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefHideLeftBarInAppOverview"
+            android:summary="@string/hideleftbarinappoverview_desc"
+            android:title="@string/hideleftbarinappoverview_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefAutoSelectFirstIcon"
+            android:summary="@string/autoselectfirsticon_desc"
+            android:title="@string/autoselectfirsricon_title" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/applist_settings">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowSysApps"
+            android:summary="@string/showsysapps_desc"
+            android:title="@string/showsysapps_title" />
+
+        <MultiSelectListPreference
+            android:dialogTitle="@string/hiddenapps_title"
+            android:key="prefHiddenApps"
+            android:summary="@string/hiddenapps_desc"
+            android:title="@string/hiddenapps_title" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/update_settings">
+
+        <ListPreference
+            android:key="prefKodiUpdatePolicy"
+            android:summary="@string/kodi_update_policy_desc"
+            android:title="@string/kodi_update_policy_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/importExport">
+
+        <Preference
+            android:key="prefExportCurrentSettings"
+            android:summary="@string/importexport_export_summary"
+            android:title="@string/importexport_export_title" />
+
+        <Preference
+            android:key="prefImportCurrentSettings"
+            android:summary="@string/importexport_import_summary"
+            android:title="@string/importexport_import_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+
+    <PreferenceCategory android:title="@string/system_informative">
+
+        <Preference
+            android:key="prefVirtualDeviceDetails"
+            android:summary="@string/notfound"
+            android:title="@string/devicedetailstitle" />
+
+        <Preference
+            android:key="prefVirtualHostname"
+            android:summary="@string/notfound"
+            android:title="@string/hostnametitle" />
+
+        <Preference
+            android:key="prefVirtualWifiName"
+            android:summary="@string/notfound"
+            android:title="@string/wifissidtitle" />
+
+        <Preference
+            android:key="prefVirtualIpAddress"
+            android:summary="@string/notfound"
+            android:title="@string/iptitle" />
+
+        <Preference
+            android:key="prefVirtualDeviceUpTime"
+            android:summary="@string/notfound"
+            android:title="@string/deviceuptime" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/system_settings">
+
+        <EditTextPreference
+            android:inputType="number"
+            android:numeric="integer"
+            android:digits="0123456789"
+            android:key="prefVirtualSleepTime"
+            android:summary="@string/system_sleeptime_edit_summary"
+            android:title="@string/system_sleeptime_edit_title" />
+
+        <Preference
+            android:key="prefVirtualGoToSleep"
+            android:summary="@string/gotosleep_summary"
+            android:title="@string/gotosleep_title" />
+
+        <Preference
+            android:key="prefVirtualRestart"
+            android:summary="@string/system_restart_summary_removed"
+            android:title="@string/system_restart_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

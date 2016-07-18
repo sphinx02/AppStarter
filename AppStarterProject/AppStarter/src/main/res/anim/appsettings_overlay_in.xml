@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- This one is from center-middle grow to full -->
+    <scale
+        android:interpolator="@android:anim/linear_interpolator"
+        android:fromXScale="0.0"
+        android:toXScale="1.0"
+        android:fromYScale="0.0"
+        android:toYScale="1.0"
+        android:fillAfter="false"
+        android:startOffset="0"
+        android:duration="200"
+        android:pivotX = "50%"
+        android:pivotY = "50%"
+        />
+
+    <!-- This one is from top middle to center
+    <scale
+        android:interpolator="@android:anim/linear_interpolator"
+        android:fromXScale="0.0"
+        android:toXScale="1.0"
+        android:fromYScale="0.0"
+        android:toYScale="1.0"
+        android:fillAfter="false"
+        android:startOffset="200"
+        android:duration="200"
+        android:pivotX = "50%"
+        android:pivotY = "-90%"
+        />
+    <translate
+        android:fromYDelta="50%"
+        android:toYDelta="0"
+        android:startOffset="200"
+        android:duration="200"
+        />
+    -->
+
+    <!-- This one is from bottom to top slide-up
+    <translate
+        android:duration="@android:integer/config_mediumAnimTime"
+        android:fromYDelta="100%"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toXDelta="0" />
+    -->
+</set>

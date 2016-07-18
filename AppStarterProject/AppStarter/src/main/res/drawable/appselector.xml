@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_window_focused="true">
+        <shape android:shape="rectangle">
+            <stroke android:width="2dp" android:color="@color/appselectorhighlight" />
+            <solid android:color="#64ffce55" />
+            <!--
+            <gradient android:startColor="#DD000000" android:endColor="#DDffce55" android:angle="225"/>
+            <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp" android:topLeftRadius="7dp" android:topRightRadius="7dp"/> -->
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape >
+            <solid android:color="@color/appselectorhighlight" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="false">
+        <shape>
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</selector>

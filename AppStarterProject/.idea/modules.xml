@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AppStarter/AppStarter.iml" filepath="$PROJECT_DIR$/AppStarter/AppStarter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AppStarterProject.iml" filepath="$PROJECT_DIR$/AppStarterProject.iml" />
+    </modules>
+  </component>
+</project>

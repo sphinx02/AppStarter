@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- String resources (non translatable) -->
+  <!--Original value: AppStarter-->
+  <string name="AppName">AppStarter</string>
+  <!-- To be translated -->
+  <!--Original value: FireTV Home-->
+  <string name="AmazonHome">FireTV Home</string>
+  <!--Original value: Now move app and click again to drop 
+(Press RETURN to CANCEL)-->
+  <string name="MoveAppAndClickToDrop">Перемістіть програму та клікніть знову на новому місці\n(Натисніть Назад для Відміни)</string>
+  <!--Original value: Now move app and click to drop 
+(Press RETURN to CANCEL)-->
+  <string name="MoveAppAndClickToDropWhenStartedByMenu">Перемістіть програму та клікніть на новому місці\n(Натисніть Назад для Відміни)\n</string>
+  <!--Original value: loading-->
+  <string name="loading">завантаження</string>
+  <!--Original value: Background Observation-->
+  <string name="background_observation">Фонове відслідковування</string>
+  <!--Original value: Enable background observation of home-button and startup-event.-->
+  <string name="enable_background_observation_desc">Відслідковувати в фоновому режимі натискання кнопки Додому та старт Fire TV.</string>
+  <!--Original value: Enable background observation.-->
+  <string name="enable_background_observation_title">Ввімкнути фонове відслідковування.</string>
+  <!--Original value: IP Address-->
+  <string name="iptitle">IP адреса</string>
+  <!--Original value: Hostname-->
+  <string name="hostnametitle">Ім\'я хоста</string>
+  <!--Original value: not found..-->
+  <string name="notfound">не знайдено...</string>
+  <!--Original value: AppStarter Version-->
+  <string name="appstarterversiontitle">Версія AppStarter</string>
+  <!--Original value: App that is started on FireTV startup-->
+  <string name="startup_app_desc">Програма, яка запуститься при старті Fire TV</string>
+  <!--Original value: Startup Application-->
+  <string name="startup_app_title">Стартова програма</string>
+  <!--Original value: App that is started on home button single click.-->
+  <string name="singleclick_app_desc">Програма, яка запуститься одинарним кліком кнопки Додому.</string>
+  <!--Original value: Home Button Single Click Application-->
+  <string name="singleclick_app_title">Кнопка Додому - програма по одинарному кліку</string>
+  <!--Original value: App that is started on home button double click.-->
+  <string name="doubleclick_app_desc">Програма, яка запуститься подвійним кліком кнопки Додому.</string>
+  <!--Original value: Home Button Double Click Application-->
+  <string name="doubleclick_app_title">Кнопка Додому - програма по подвійному кліку</string>
+  <!--Original value: Show also system apps in app list.-->
+  <string name="showsysapps_desc">Показувати також системні програми в меню Програми.</string>
+  <!--Original value: Show system apps-->
+  <string name="showsysapps_title">Показувати системні програми</string>
+  <!--Original value: Apps that shall not be shown in apps list.-->
+  <string name="hiddenapps_desc">Програми, які не будуть показані в меню Програми.</string>
+  <!--Original value: Hidden Apps-->
+  <string name="hiddenapps_title">Приховані Програми</string>
+  <!--Original value: App Listing Settings-->
+  <string name="applist_settings">Налаштування переліку програм / меню Програми</string>
+  <!--Original value: Observer Timings-->
+  <string name="settings_timings">Часові затримки</string>
+  <!--Original value: Define the time in milliseconds (between 100 - 1000) to wait for the second click-->
+  <string name="doubleclick_interval_desc">Вкажіть час в мілісекундах (в межах 100 - 1000) для очікування другого кліка</string>
+  <!--Original value: Double click interval-->
+  <string name="doubleclick_interval_title">Інтервал подвійного кліка</string>
+  <!--Original value: is invalid for this setting!-->
+  <string name="is_invalid_number">некоректно для данного налаштування!</string>
+  <!--Original value: Current AppStarter Version-->
+  <string name="update_currentversion">Поточна версія AppStarter</string>
+  <!--Original value: Current Kodi Version-->
+  <string name="update_currentversion_kodi">Поточна версія Kodi</string>
+  <!--Original value: Install-->
+  <string name="install">Встановлення</string>
+  <!--Original value: Latest AppStarter Version-->
+  <string name="serverVersion">Остання версія AppStarter</string>
+  <!--Original value: Latest Kodi Version-->
+  <string name="serverVersion_kodi">Остання версія Kodi</string>
+  <!--Original value: Check for Update-->
+  <string name="update_checkfor">Перевірити оновлення</string>
+  <!--Original value: Update to latest Version-->
+  <string name="update">Оновити до останньої версії</string>
+  <!--Original value: Hit check for update to check for latest version.-->
+  <string name="update_hitcheckfor">Натисніть Перевірити оновлення для перевірки наявності оновлення.</string>
+  <!--Original value: Auto select the first icon when switching to the app drawer (All Apps).-->
+  <string name="autoselectfirsticon_desc">Авто вибір першої іконки при переході на Робочий стіл (Всі Програми).</string>
+  <!--Original value: Auto select first icon (App Drawer)-->
+  <string name="autoselectfirsricon_title">Авто вибір першої іконки (Робочий стіл)</string>
+  <!--Original value: AppStarter is a Non-Root Launcher Replacement / App-Drawer for Amazon FireTV:
+
+Visit discussion on XDA-Developers:
+http://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135
+
+AppStarter is Open-Source, visit project on GitHub:
+https://github.com/sphinx02/AppStarter-->
+  <string name="about_appstarter">AppStarter - заміна лаунчера / робочий стіл для Amazon Fire TV (не потребує root):\n\nВідвідайте тему на XDA-Developers:\nhttp://forum.xda-developers.com/fire-tv/themes-apps/app-root-home-launcher-replacement-app-t3118135\n\nAppStarter являється Open-Source, відвідайте проект на GitHub:\nhttps://github.com/sphinx02/AppStarter</string>
+  <!--Original value: The time window in milliseconds (between 0 - 10000) in which AppStarter prevents the amazon home launcher from coming to foreground when click-actions have been performed. Set to 0 to disable.-->
+  <string name="jumpbackwatchdogtime_desc">Час в мілісекундах (в межах 0 - 10000), на протязі якого AppStarter запобігає показу стартового екрану Amazon при виконанні клік-дій. Встановіть 0 для відключення.</string>
+  <!--Original value: Jump Back Watchdog Time-->
+  <string name="jumpbackwatchdogtime_title">Час запобігання показу стартового екрана Amazon</string>
+  <!--Original value: FireTV Settings-->
+  <string name="AmazonSettings">Налаштування Fire TV</string>
+  <!--Original value: Apps-->
+  <string name="leftbar_allapps">Програми</string>
+  <!--Original value: System-->
+  <string name="leftbar_infos">Система</string>
+  <!--Original value: Updates-->
+  <string name="leftbar_updates">Оновлення</string>
+  <!--Original value: Install-->
+  <string name="leftbar_install">Встановлення</string>
+  <!--Original value: Settings-->
+  <string name="leftbar_settings">Налаштування</string>
+  <!--Original value: Move-->
+  <string name="appsettingssort">Переміщення</string>
+  <!--Original value: App Settings-->
+  <string name="appsettings_settings">Налаштування</string>
+  <!--Original value: Language Settings-->
+  <string name="language_settings">Мовні налаштування</string>
+  <!--Original value: Set language manually.-->
+  <string name="language_summary">Вказати мову вручну.</string>
+  <!--Original value: Language-->
+  <string name="language_title">Мова</string>
+  <!--Original value: Checking for updates-->
+  <string name="update_checkfortitle">Перевірка оновлення</string>
+  <!--Original value: Check for latest release version.-->
+  <string name="update_checkfordesc">Пошук останньої версії.</string>
+  <!--Original value: Check for update.-->
+  <string name="update_checkformessage">Перевіряємо наявність оновлення.</string>
+  <!--Original value: Found newer Version - Update Now!-->
+  <string name="update_foundnew">Знайдено нову версію - Оновіть зараз!</string>
+  <!--Original value: You have already the newest version!-->
+  <string name="update_foundnotnew">Ви вже використовуєте останню версію!</string>
+  <!--Original value: Reboot-->
+  <string name="power_reboot">Перезавантаження</string>
+  <!--Original value: WiFi / WLAN Name (SSID)-->
+  <string name="wifissidtitle">Ім\'я WiFi / WLAN (SSID)</string>
+  <!--Original value: Layout Settings-->
+  <string name="layout_settings">Налаштування відображення</string>
+  <!--Original value: Set a custom background image / wallpaper for AppStarter-->
+  <string name="wallpaper_summary">Встановіть власне фонове зображення / шпалери для AppStarter</string>
+  <!--Original value: Wallpaper / Background Image-->
+  <string name="wallpaper_title">Шпалери / Фонове зображення</string>
+  <!--Original value: Remove Wallpaper-->
+  <string name="remove_wallpaper">Видалити шпалери</string>
+  <!--Original value: Select Wallpaper-->
+  <string name="select_wallpaper">Вибрати шпалери</string>
+  <!--Original value: Sleep-->
+  <string name="power_sleep">Сон</string>
+  <!--Original value: System Information-->
+  <string name="system_informative">Інформація про систему</string>
+  <!--Original value: System Settings-->
+  <string name="system_settings">Налаштування системи</string>
+  <!--Original value: Time of inactivity in minutes after which the device goes to sleep.-->
+  <string name="system_sleeptime_edit_summary">Час неактивності в хвилинах, після якого пристрій перейде в режим сна.</string>
+  <!--Original value: Sleep Timeout-->
+  <string name="system_sleeptime_edit_title">Таймаут сна</string>
+  <!--Original value: ATTENTION: This feature has been removed from AppStarter! Long press home-button to find the option to go to sleep immediately.-->
+  <string name="gotosleep_summary">УВАГА: Ця функція видалена з AppStarter! Тривале натискання кнопки Додому для вибору опції негайного переходу в режим сна.</string>
+  <!--Original value: Go to sleep-->
+  <string name="gotosleep_title">Перейти в режим сна</string>
+  <!--Original value: ATTENTION: If you click here, the device reboots immediately!-->
+  <string name="system_restart_summary">УВАГА: Якщо клікнути тут, пристрій перезавантажиться негайно!</string>
+  <!--Original value: Reboot-->
+  <string name="system_restart_title">Перезавантаження</string>
+  <!--Original value: Please wait, device goes to sleep in a few seconds..-->
+  <string name="gotosleep_waitforsleep">Зачекайте, будь ласка, пристрій перейде в режим сна на протязі декількох секунд..</string>
+  <!--Original value: Going to sleep mode..-->
+  <string name="gotosleep_waitforsleep_title">Перехід в режим сна..</string>
+  <!--Original value: Only values between %1$d and %2$d minutes are allowed!-->
+  <string name="sleeptime_limit" formatted="false">Допустимі значення в діапазоні між %1$d та %2$d хвилин!</string>
+  <!--Original value: Canceled go to sleep..-->
+  <string name="gotosleep_cancel">Відміна переходу в режим сна..</string>
+  <!--Original value: Device Details-->
+  <string name="devicedetailstitle">Детальніше про пристрій</string>
+  <!--Original value: App Icon Size-->
+  <string name="appicon_size_title">Розмір іконок програм</string>
+  <!--Original value: Size between 0 and 200 (in DPI) of the App-Icons on the main App-Drawer in DPI. Set to 0 for default.-->
+  <string name="appicon_size_summary">Розмір іконок програм на робочому столі в діапазоні від 0 до 200 (в DPI). Встановіть 0 для розміру за замовчуванням.</string>
+  <!--Original value: Import / Export-->
+  <string name="importExport">Імпорт / Експорт</string>
+  <!--Original value: Export current AppStarter settings to ZIP-File.-->
+  <string name="importexport_export_summary">Експорт поточних налаштувань AppStarter в ZIP файл.</string>
+  <!--Original value: Export-->
+  <string name="importexport_export_title">Експорт</string>
+  <!--Original value: Import AppStarter Settings from ZIP-File. Be sure to only import trusted ZIP-Files!-->
+  <string name="importexport_import_summary">Імпорт налаштувань AppStarter з ZIP файла. Імпортуйте ZIP файли тільки з довіреного джерела!</string>
+  <!--Original value: Import-->
+  <string name="importexport_import_title">Імпорт</string>
+  <!--Original value: Uptime-->
+  <string name="deviceuptime">Час з моменту ввімкнення</string>
+  <!--Original value: Device is up for %1$s (startup: %2$s)-->
+  <string name="uptimedesc" formatted="false">Пристрій працює %1$s (ввімкнено: %2$s)</string>
+  <!--Original value: If this option is set, all previous instances of the app are cleared and the app is started fresh (nothing from the last activity is restored).-->
+  <string name="clearpreviousinstance_desc">Якщо опція активна, всі попередні екземпляри програми будуть закриті та програма запуститься \"з нуля\" (а не відновить попередній стан).</string>
+  <!--Original value: Single Click App: Clear previous instances-->
+  <string name="clearpreviousinstance_singleclick_title">Програма по одинарному кліку: Запускати \"з нуля\"</string>
+  <!--Original value: Double Click App: Clear previous instances-->
+  <string name="clearpreviousinstance_doubleclick_title">Програма по подвійному кліку: Запускати \"з нуля\"</string>
+  <!--Original value: Home-Detection via ADB-->
+  <string name="background_observation_viaadb_title">Відслідковування за допомогою ADB</string>
+  <!--Original value: Use ADB to detect home button clicks. This is more accurate but does only work with ADB running and correctly enabled (disable / enable in settings).-->
+  <string name="background_observation_viaadb_desc">Використовує ADB для виявлення натискання кнопки Додому. Більш точний метод, але працює тільки якщо ADB запущений та правильно активований (відключити / включити в налаштуваннях).</string>
+  <!--Original value: ATTENTION: This feature has been removed from AppStarter hold "Enter/Select"-Button + "Play"-Button to restart FireTV.-->
+  <string name="system_restart_summary_removed">УВАГА: Ця функція видалена з AppStarter! Утримуйте кнопки Вибір + Програвання (одночасно) для перезавантаження Fire TV.</string>
+  <!--Original value: Open ADB Settings-->
+  <string name="open_adb_settings_title">Відкрити налаштування ADB</string>
+  <!--Original value: This is a shortcut to open the ADB settings.-->
+  <string name="open_adb_settings_summary">Ярлик для відкриття налаштувань ADB.</string>
+  <!--Original value: Observation via ADB-->
+  <string name="observation_via_adb_title">Відслідковування за допомогою ADB</string>
+  <!--Original value: You have choosen the home button observation via ADB.
+
+For this option it is important, that ADB is enabled. If you are already on FireOS5 (Android v5.1), you have to make sure that no other device is connecting via ADB in parallel. If you want to use tools like adbFire, Amazon FireTV Utility App, Apps2Fire or similar, you should disable the ADB observation of AppStarter and disable/enable ADB before you try to connect.
+
+If you want to use ADB observation of AppStarter again, make sure you disable/enable ADB before using it (Shortcut to ADB settings is below this Setting).-->
+  <string name="observation_via_adb_summary">Ви обрали відстеження натискання кнопки Додому за допомогою ADB.\n\nДля цієї опції важливо, щоб ADB був включений. Якщо у Вас вже FireOS5 (Android v5.1), Ви повинні переконатися, що ніякий інший пристрій не підключений за допомогою ADB паралельно. Якщо Ви бажаєте використовувати такі інструменти, як adbFire, Amazon FireTV Utility App, Apps2Fire або аналоги, необхідно відключити Відстеження за допомогою ADB в AppStarter та відключити / включити ADB перш ніж намагатися підключитися.\n\nЯкщо ви знову захочете використовувати Відстеження за допомогою ADB в AppStarter, переконайтеся, що Ви відключили / включили ADB перш ніж використовувати його (Ярлик для відкриття налаштувань ADB знаходиться нижче даного пункту).</string>
+  <!--Original value: Observation without ADB-->
+  <string name="observation_without_adb_title">Відслідковування без ADB</string>
+  <!--Original value: You have choosen the new home button observation without ADB.
+
+This observation of the home-button works only if you are on the original Amazon FireTV Home screen. This means if you are in any other App like Kodi, you have to click the home button once to get to the Amazon FireTV Home screen and then you can single or double click the home-button to perform the action desired.
+
+In practice that means, you can also add one home button click if you are in another app. If you are for example in Kodi, you can do a double-click to the home-button to perform the single click operation and according to this you can do a triple click to perform the double click action.
+
+Sorry for this strange behaviour but due to technical limitations of Android, there is no other possibility without ADB at the moment.-->
+  <string name="observation_without_adb_summary">Ви обрали відстеження натискання кнопки Додому без ADB (новий метод).\n\nЦей метод працює тільки якщо Ви знаходитесь на оригінальному домашньому екрані Amazon FireTV. Це означає, що якщо Ви перебуваєте в будь-якій іншій програмі, наприклад Kodi, Ви повинні натиснути на кнопку Додому один раз, щоб переключитися на домашній екран Amazon FireTV і потім Ви зможете одинарним або подвійним кліком кнопки Додому виконати необхідну дію.\n\nНа практиці це означає, що потрібно додати одне додаткове натискання кнопки Додому якщо перебуваєте в іншій програмі. Наприклад, якщо Ви перебуваєте в Kodi, подвійний клік Додому запустить дію для одинарного кліка, а потрійний клік - дію для подвійного.\n\nВибачте за таку дивну поведінку, але через технічні обмеження Android на даний момент немає іншої можливості обійтися без ADB.</string>
+  <!--Original value: Fallback to Non-ADB Observation-->
+  <string name="fallback_to_nonadb_title">Авто-Перемикання на Відслідковування без ADB</string>
+  <!--Original value: If this option is set and the ADB observation fails for three times, the home button observation is automatically changed to Non-ADB observation.-->
+  <string name="fallback_to_nonadb_desc">Якщо опція активна та Відслідковування за допомогою ADB не спрацює 3 рази, відстеження натискання кнопки Додому автоматично переключиться на Відслідковування без ADB.</string>
+  <!--Original value: Change to non-ADB Observation
+
+The observation with ADB failed more than 3 times. The home-button observation have been automatically changed to non-ADB observation. You can change this behaviour in the AppStarter settings.-->
+  <string name="adb_fail_auto_observation_change">Перемикання на Відслідковування без ADB\n\nВідслідковування за допомогою ADB не спрацювало більше 3 раз. Автоматично переключено на Відслідковування без ADB. У налаштуваннях AppStarter Ви можете змінити поведінку в таких випадках.</string>
+  <!--Original value: Hide left bar in app drawer-->
+  <string name="hideleftbarinappoverview_title">Приховати меню на Робочому столі</string>
+  <!--Original value: Left selection bar is hidden when on the main page (App Drawer)-->
+  <string name="hideleftbarinappoverview_desc">Приховати ліву панель при переході на головний екран (Робочий стіл)</string>
+  <!--Original value: Background for App Names (App Drawer)-->
+  <string name="showbackgroundforappnames_title">Фон для назв програм (Робочий стіл)</string>
+  <!--Original value: Shows a background for app names in the app drawer. This helps to read app names, if a wallpaper is used.-->
+  <string name="showbackgroundforappnames_desc">Показує фон для назв програм на Робочому столі. Допомагає читати назви програм, якщо встановлені шпалери.</string>
+  <!--Original value: This feature is only available in FireOS 3 and older..-->
+  <string name="feature_only_availabe_fireos3_and_older">Ця функція доступна тільки в FireOS 3 та вище..</string>
+  <!--Original value: Update Settings-->
+  <string name="update_settings">Налаштування оновлення</string>
+  <!--Original value: Decide which Kodi updates you want to install. If you choose "Nightly", the check for newer version gets useless (install of current version is then always possible).
+ATTENTION: To downgrade you always have to uninstall Kodi manually first!-->
+  <string name="kodi_update_policy_desc">Виберіть для якої версії Kodi встановлювати оновлення. Якщо Ви вибрали \"Nightly Builds\", перевірка оновлень для іншої версії стає марною (буде встановлюватися найостанніша доступна версія).\nУВАГА: Для пониження версії Kodi Ви спочатку повинні видалити Kodi вручну!</string>
+  <!--Original value: Kodi Update Policy-->
+  <string name="kodi_update_policy_title">Політика оновлення Kodi</string>
+  <!--Original value: not installed-->
+  <string name="not_installed">не встановлено</string>
+</resources>
