@@ -11,6 +11,9 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+plugins {
+  id "org.sonarqube" version "3.0"
+}
 
 allprojects {
     repositories {
